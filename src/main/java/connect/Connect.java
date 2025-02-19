@@ -26,6 +26,24 @@ public class Connect {
     }
 
     public static Connection connection() {
-        return null;
+        String jdbcURL = "jdbc:mysql://localhost:3306/HotelPro";
+        String username = "root";
+        String password = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection(jdbcURL, username, password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean checkTable(String customer) {
+        if (customer.equals("Customer")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

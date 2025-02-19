@@ -8,16 +8,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // kiem tra xem co db chua, neu chua thi run migration
-        if (Connect.connection() == null) {
-            Migration.migrate();
-        }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Connection connection = Connect.connection();
+        if (connection == null) {
+            System.out.println("Không tìm thấy cơ sở dữ liệu!");
+        }
+//        else {
+////            if (Connect.checkTable("Customer")) {
+////                Migration.migrate();
+////            }
+//        }
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml")); // src/main/java/com/example/hotelpro/login/login.fxml
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);

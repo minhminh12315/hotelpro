@@ -7,8 +7,6 @@ import java.sql.Statement;
 
 public class Migration {
     public static void migrate() {
-
-
         String createCustomerTableSQL = "CREATE TABLE IF NOT EXISTS Customer ("
                 + "CustomerID INT AUTO_INCREMENT PRIMARY KEY, "
                 + "FullName VARCHAR(100) NOT NULL, "
