@@ -15,7 +15,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-//import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController {
 
@@ -50,12 +49,6 @@ public class LoginController {
                 } else {
                     errorLabel.setText("Invalid password.");
                 }
-//                if (BCrypt.checkpw(password, storedPassword)) {
-//                    errorLabel.setText("Login successful!");
-//                    // Redirect to dashboard
-//                } else {
-//                    errorLabel.setText("Invalid password.");
-//                }
             } else {
                 errorLabel.setText("User not found.");
             }
@@ -66,8 +59,6 @@ public class LoginController {
     }
 
     public void openRegisterPage() {
-        // Load Register.fxml
-        // redirect register\register.fxml
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/register/register.fxml"));
             Parent root = fxmlLoader.load();

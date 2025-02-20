@@ -17,15 +17,15 @@ public class HelloApplication extends Application {
         Connection connection = Connect.connection();
         if (connection == null) {
             System.out.println("Không tìm thấy cơ sở dữ liệu!");
+        } else {
+            if (!Connect.checkTable("Customer")) {
+                Migration.migrate();
+            } else {
+                System.out.println("Cơ sở dữ liệu đã tồn tại!");
+            }
         }
-//        else {
-////            if (Connect.checkTable("Customer")) {
-////                Migration.migrate();
-////            }
-//        }
 
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml")); // src/main/java/com/example/hotelpro/login/login.fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);

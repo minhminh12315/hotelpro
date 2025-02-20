@@ -6,5 +6,8 @@ module com.example.hotelpro {
     requires java.sql;
 
     opens com.example.hotelpro to javafx.fxml;
+    opens controller to javafx.fxml;
+
     exports com.example.hotelpro;
+    exports controller;
 }
