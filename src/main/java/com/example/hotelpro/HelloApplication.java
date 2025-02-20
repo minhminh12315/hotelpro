@@ -24,11 +24,11 @@ public class HelloApplication extends Application {
                 System.out.println("Cơ sở dữ liệu đã tồn tại!");
             }
         }
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         stage.show();
     }
 

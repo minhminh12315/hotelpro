@@ -3,7 +3,8 @@ module com.example.hotelpro {
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
-    requires java.sql;
+    requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
     opens com.example.hotelpro to javafx.fxml;
     opens controller to javafx.fxml;

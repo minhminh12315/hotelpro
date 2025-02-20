@@ -5,36 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    public static void main(String[] args) {
-        String jdbcURL = "jdbc:mysql://localhost:3306/HotelPro";
-        String username = "root";
-        String password = "";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            Connection connection = DriverManager.getConnection(jdbcURL, username, password);
-            System.out.println("Kết nối thành công!");
-            connection.close();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Không tìm thấy driver JDBC!");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Lỗi kết nối cơ sở dữ liệu!");
-            e.printStackTrace();
-        }
-    }
+    private static final String URL = "jdbc:postgresql://localhost:5432/hotelpro"; // Thay 'hotel_db' bằng tên database của bạn
+    private static final String USER = "postgres"; // Thay bằng username của bạn
+    private static final String PASSWORD = "0804"; // Thay bằng mật khẩu của bạn
 
     public static Connection connection() {
-        String jdbcURL = "jdbc:mysql://localhost:3306/HotelPro";
-        String username = "root";
-        String password = "";
-
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(jdbcURL, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error connecting to PostgreSQL: " + e.getMessage());
             return null;
         }
     }
