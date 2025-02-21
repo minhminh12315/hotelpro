@@ -27,6 +27,19 @@
             <version>17.0.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.3.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.1.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Boostrap -->
         <dependency>
             <groupId>org.kordamp.bootstrapfx</groupId>
@@ -78,10 +91,9 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.hotelpro/com.example.hotelpro.HelloApplication</mainClass>
+                            <mainClass>com.cinema.starplex/com.cinema.starplex.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -91,6 +103,21 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Flyway with postgreSQL-->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.3.2</version>
+                <configuration>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                    </locations>
+                    <url>jdbc:postgresql://localhost:5432/hotelpro</url>
+                    <user>postgres</user>
+                    <password>0804</password>
+                </configuration>
             </plugin>
         </plugins>
     </build>
