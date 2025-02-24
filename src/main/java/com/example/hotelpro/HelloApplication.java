@@ -26,7 +26,7 @@ public class HelloApplication extends Application {
                 System.out.println("Cơ sở dữ liệu đã tồn tại!");
             }
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/manager/dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         // title

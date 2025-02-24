@@ -35,7 +35,7 @@ public class LoginController {
         }
 
         try (Connection connection = Connect.connection()) {
-            String query = "SELECT password FROM User WHERE username = ?";
+            String query = "SELECT password FROM Employee WHERE phonenumber = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
 
@@ -46,6 +46,17 @@ public class LoginController {
                 if (password.equals(storedPassword)) {
                     errorLabel.setText("Login successful!");
                     // Redirect to dashboard
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/dashboard.fxml"));
+                        Parent root = fxmlLoader.load();
+                        Stage stage = (Stage) usernameField.getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        errorLabel.setText("An error occurred while opening the dashboard.");
+                    }
+
                 } else {
                     errorLabel.setText("Invalid password.");
                 }
