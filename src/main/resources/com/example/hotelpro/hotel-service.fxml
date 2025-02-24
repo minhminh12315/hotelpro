@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField layoutX="93.0" layoutY="281.0" prefHeight="27.0" prefWidth="211.0" />
+        <CheckBox layoutX="40.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Cơm">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="40.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Nước">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="40.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="184.0" text="Snack">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <Text layoutX="40.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text layoutX="60.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đồ Ăn/ Nước uống">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <Text layoutX="485.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dịch vụ " wrappingWidth="377.640625">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <CheckBox layoutX="466.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Spa">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="466.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Thay ga, gối, đệm">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="466.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="248.0" text="Sữa chữa đồ đạc">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <TextField layoutX="519.0" layoutY="281.0" prefHeight="27.0" prefWidth="241.0" />
+        <Text layoutX="466.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <CheckBox layoutX="218.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Bia">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="711.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Xông hơi">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="711.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="323.0" text="Trang trí phòng ">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <Text layoutX="31.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in/ check out">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <CheckBox layoutX="711.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="248.0" text="Đưa đón sân bay ">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <ChoiceBox layoutX="135.0" layoutY="114.0" prefHeight="26.0" prefWidth="31.0" />
+        <ChoiceBox layoutX="295.0" layoutY="114.0" prefHeight="26.0" prefWidth="31.0" />
+        <ChoiceBox layoutX="135.0" layoutY="232.0" prefHeight="26.0" prefWidth="31.0" />
+        <ChoiceBox layoutX="135.0" layoutY="173.0" prefHeight="26.0" prefWidth="31.0" />
+        <Text layoutX="466.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giải trí">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <CheckBox layoutX="460.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Hát karaoke">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="699.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Câu cá">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="460.0" layoutY="427.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Chèo thuyền">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="699.0" layoutY="427.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Đạp xe">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <CheckBox layoutX="31.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Check in trễ">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </CheckBox>
+        <Text layoutX="14.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <TextField layoutX="84.0" layoutY="551.0" prefHeight="27.0" prefWidth="211.0" />
+    </children>
+</AnchorPane>
