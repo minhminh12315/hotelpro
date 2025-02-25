@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<VBox spacing="20" style="-fx-padding: 20;" fx:id="root" xmlns:fx="controller.manager.DashboardController">
+    <!-- Header -->
+    <HBox spacing="15">
+        <Label text="Dashboard" style="-fx-font-size: 18px;"/>
+    </HBox>
+    <!-- Revenue Section -->
+    <HBox spacing="10">
+        <Label text="Total Revenue:" style="-fx-font-size: 18px;"/>
+        <Label fx:id="totalRevenueLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Overview Section -->
+    <VBox spacing="10">
+        <Label text="Overview of Tables" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <!-- Customers Table -->
+        <VBox spacing="5">
+            <Label text="Customers" style="-fx-font-size: 16px;"/>
+            <TableView fx:id="customersTable">
+                <columns>
+                    <TableColumn text="ID" fx:id="customerIdColumn"/>
+                    <TableColumn text="Name" fx:id="customerNameColumn"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Rooms Table -->
+        <VBox spacing="5">
+            <Label text="Rooms" style="-fx-font-size: 16px;"/>
+            <TableView fx:id="roomsTable">
+                <columns>
+                    <TableColumn text="ID" fx:id="roomIdColumn"/>
+                    <TableColumn text="Type" fx:id="roomTypeColumn"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Services Table -->
+        <VBox spacing="5">
+            <Label text="Services" style="-fx-font-size: 16px;"/>
+            <TableView fx:id="servicesTable">
+                <columns>
+                    <TableColumn text="ID" fx:id="serviceIdColumn"/>
+                    <TableColumn text="Name" fx:id="serviceNameColumn"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</VBox>

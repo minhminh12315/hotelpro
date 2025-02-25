@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.LoginController">
+<VBox fx:id="root" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.LoginController">
 
     <children>
         <TextField styleClass="red" fx:id="usernameField" promptText="Username"/>
