@@ -1,6 +1,10 @@
 package model;
 
 import jakarta.persistence.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.math.BigDecimal;
 
@@ -19,6 +23,11 @@ public class Service {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    // JavaFX properties
+    private final IntegerProperty idProperty = new SimpleIntegerProperty();
+    private final StringProperty nameProperty = new SimpleStringProperty();
+
 
     // Getters and setters...
 
@@ -52,5 +61,13 @@ public class Service {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public IntegerProperty idProperty() {
+        return idProperty;
+    }
+
+    public StringProperty nameProperty() {
+        return nameProperty;
     }
 }

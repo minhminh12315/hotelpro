@@ -1,44 +1,86 @@
 package controller.manager;
 
+import dao.CustomerDao;
+import dao.RoomDao;
+import dao.ServiceDao;
+import dao.InvoiceDao;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import model.Customer;
+import model.Room;
+import model.Service;
 
-import java.io.IOException;
+import java.util.List;
 
 public class DashboardController {
 
     @FXML
-    private void handleHome() {
-        loadPage("/com/example/hotelpro/home/home.fxml");
-    }
+    private Label totalRevenueLabel;
 
     @FXML
-    private void handleUserProfile() {
-        loadPage("/com/example/hotelpro/profile/profile.fxml");
-    }
+    private TableView<Customer> customersTable;
+    @FXML
+    private TableColumn<Customer, Integer> customerIdColumn;
+    @FXML
+    private TableColumn<Customer, String> customerNameColumn;
 
     @FXML
-    private void handleSettings() {
-        loadPage("/com/example/hotelpro/settings/settings.fxml");
-    }
+    private TableView<Room> roomsTable;
+    @FXML
+    private TableColumn<Room, Integer> roomIdColumn;
+    @FXML
+    private TableColumn<Room, String> roomTypeColumn;
 
     @FXML
-    private void handleLogout() {
-        loadPage("/com/example/hotelpro/login/login.fxml");
+    private TableView<Service> servicesTable;
+    @FXML
+    private TableColumn<Service, Integer> serviceIdColumn;
+    @FXML
+    private TableColumn<Service, String> serviceNameColumn;
+
+    private CustomerDao customerDao = new CustomerDao();
+    private RoomDao roomDao = new RoomDao();
+    private ServiceDao serviceDao = new ServiceDao();
+    private InvoiceDao invoiceDao = new InvoiceDao();
+
+    @FXML
+    public void initialize() {
+        // Initialize columns
+        customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        customerNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        roomIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        roomTypeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+
+        serviceIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        serviceNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        // Load data
+        loadRevenue();
+        loadCustomers();
+        loadRooms();
+        loadServices();
     }
 
-    private void loadPage(String fxmlPath) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = fxmlLoader.load();
-            Stage stage = (Stage) ((Parent) fxmlLoader.getNamespace().get("root")).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loadRevenue() {
+        double totalRevenue = invoiceDao.getTotalRevenue();
+        totalRevenueLabel.setText(String.format("$%.2f", totalRevenue));
+    }
+
+    private void loadCustomers() {
+        List<Customer> customers = customerDao.getAll();
+        customersTable.getItems().setAll(customers);
+    }
+
+    private void loadRooms() {
+        List<Room> rooms = roomDao.getAll();
+        roomsTable.getItems().setAll(rooms);
+    }
+
+    private void loadServices() {
+        List<Service> services = serviceDao.getAll();
+        servicesTable.getItems().setAll(services);
     }
 }

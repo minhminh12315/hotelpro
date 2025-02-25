@@ -1,6 +1,12 @@
 package model;
 
 import jakarta.persistence.*;
+import javafx.beans.binding.BooleanExpression;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -21,6 +27,11 @@ public class Room {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    // JavaFX properties
+    private final IntegerProperty idProperty = new SimpleIntegerProperty();
+    private final StringProperty typeProperty = new SimpleStringProperty();
+
 
     // Getters and setters...
 
@@ -62,5 +73,13 @@ public class Room {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public IntegerProperty idProperty() {
+        return idProperty;
+    }
+
+    public StringProperty typeProperty() {
+        return typeProperty;
     }
 }

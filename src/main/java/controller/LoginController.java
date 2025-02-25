@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -47,7 +46,7 @@ public class LoginController {
                     errorLabel.setText("Login successful!");
                     // Redirect to dashboard
                     try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/dashboard.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/master.fxml"));
                         Parent root = fxmlLoader.load();
                         Stage stage = (Stage) usernameField.getScene().getWindow();
                         stage.setScene(new Scene(root));

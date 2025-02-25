@@ -9,6 +9,16 @@ import java.util.List;
 
 public class InvoiceDao implements BaseDao<Invoice> {
 
+
+    public double getTotalRevenue() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("SELECT SUM(amount) FROM Invoice", Double.class).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     @Override
     public void save(Invoice invoice) {
         Transaction transaction = null;

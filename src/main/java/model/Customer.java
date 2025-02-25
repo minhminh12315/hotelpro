@@ -1,6 +1,11 @@
 package model;
 
 import jakarta.persistence.*;
+import javafx.beans.binding.BooleanExpression;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.Date;
 
@@ -32,6 +37,10 @@ public class Customer {
     @Column(length = 10)
     private String gender;
 
+    // JavaFX properties
+    private final IntegerProperty idProperty = new SimpleIntegerProperty();
+    private final StringProperty nameProperty = new SimpleStringProperty();
+    
     // Getters and setters...
 
     public int getCustomerID() {
@@ -96,5 +105,13 @@ public class Customer {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public IntegerProperty idProperty() {
+        return idProperty;
+    }
+
+    public StringProperty nameProperty() {
+        return nameProperty;
     }
 }
