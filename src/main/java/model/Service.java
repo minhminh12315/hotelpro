@@ -8,20 +8,13 @@ import javafx.beans.property.StringProperty;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "service")
 public class Service {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int serviceID;
 
-    @Column(nullable = false, length = 100)
     private String serviceName;
 
-    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal servicePrice;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
     // JavaFX properties

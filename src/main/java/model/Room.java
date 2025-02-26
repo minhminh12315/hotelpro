@@ -9,23 +9,15 @@ import javafx.beans.property.StringProperty;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "Room")
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roomID;
 
-    @Column(nullable = false, length = 50)
     private String roomType;
 
-    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(length = 15, columnDefinition = "VARCHAR(15) DEFAULT 'Available'")
     private String status;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
     // JavaFX properties

@@ -1,7 +1,6 @@
 package model;
 
 import jakarta.persistence.*;
-import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,38 +8,27 @@ import javafx.beans.property.StringProperty;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "Customer")
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerID;
 
-    @Column(nullable = false, length = 100)
     private String fullName;
 
-    @Column(nullable = false, length = 15)
     private String phoneNumber;
 
-    @Column(length = 100)
     private String email;
 
-    @Column(columnDefinition = "TEXT")
     private String address;
 
-    @Column(nullable = false, length = 20)
     private String idPassport;
 
-    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Column(length = 10)
     private String gender;
 
     // JavaFX properties
     private final IntegerProperty idProperty = new SimpleIntegerProperty();
     private final StringProperty nameProperty = new SimpleStringProperty();
-    
+
     // Getters and setters...
 
     public int getCustomerID() {

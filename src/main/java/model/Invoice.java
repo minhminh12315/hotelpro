@@ -5,28 +5,17 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "Invoice")
 public class Invoice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int invoiceID;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "bookingID")
     private Booking booking;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     private Date issueDate;
 
-    @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(length = 10)
     private String paymentMethod;
 
-    @Column(length = 10, columnDefinition = "VARCHAR(10) DEFAULT 'Unpaid'")
     private String status;
 
     // Getters and setters...

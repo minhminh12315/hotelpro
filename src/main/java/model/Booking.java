@@ -4,35 +4,21 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "Booking")
 public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingID;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "customerID")
     private Customer customer;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "roomID")
     private Room room;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     private Date bookingDate;
 
     private int roomPrice;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     private Date checkInDate;
 
-    @Temporal(TemporalType.DATE)
     private Date checkOutDate;
 
-    @Column(length = 15, columnDefinition = "VARCHAR(15) DEFAULT 'Pending'")
     private String status;
 
     // Getters and setters...

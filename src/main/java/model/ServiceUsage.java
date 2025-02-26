@@ -4,28 +4,17 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "ServiceUsage")
 public class ServiceUsage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int serviceUsageID;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "bookingID")
     private Booking booking;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "serviceID")
     private Service service;
 
     private int serviceUsagePrice;
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 1")
     private int quantity;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     private Date usageDate;
 
     // Getters and setters...

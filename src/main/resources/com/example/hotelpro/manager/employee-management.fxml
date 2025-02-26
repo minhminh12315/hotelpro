@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.EmployeeController">
    <children>
       <Label prefHeight="33.0" prefWidth="52.0" text="Employee" />
@@ -13,11 +12,11 @@
         <columns>
           <TableColumn prefWidth="43.4" text="employeeid" fx:id="employeeIdColumn"/>
           <TableColumn prefWidth="100" text="fullname" fx:id="employeeNameColumn"/>
-            <TableColumn prefWidth="96" text="phonenumber" fx:id="employeePhoneColumn"/>
-            <TableColumn prefWidth="144" text="email" fx:id="employeeEmailColumn"/>
-            <TableColumn prefWidth="33.4" text="role" fx:id="employeeRoleColumn"/>
-            <TableColumn prefWidth="75.0" text="password" fx:id="employeePasswordColumn"/>
-            <TableColumn prefWidth="66.0" text="startdate" fx:id="employeeStartColumn"/>
+          <TableColumn prefWidth="96" text="phonenumber" fx:id="employeePhoneColumn"/>
+          <TableColumn prefWidth="144" text="email" fx:id="employeeEmailColumn"/>
+          <TableColumn prefWidth="33.4" text="role" fx:id="employeeRoleColumn"/>
+          <TableColumn prefWidth="75.0" text="password" fx:id="employeePasswordColumn"/>
+          <TableColumn prefWidth="66.0" text="startdate" fx:id="employeeStartColumn"/>
         </columns>
       </TableView>
    </children>
