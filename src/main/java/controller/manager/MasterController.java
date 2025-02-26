@@ -29,6 +29,11 @@ public class MasterController {
     }
 
     @FXML
+    private void handleEmployeeManagement() {
+        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+    }
+
+    @FXML
     private void handleSettings() {
         loadContent("/com/example/hotelpro/settings/settings.fxml");
     }
