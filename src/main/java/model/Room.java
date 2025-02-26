@@ -1,7 +1,5 @@
 package model;
 
-import jakarta.persistence.*;
-import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,13 +10,15 @@ import java.math.BigDecimal;
 public class Room {
     private int roomID;
 
+    private int roomNumber;
+
     private String roomType;
 
     private BigDecimal price;
 
     private String status;
 
-    private String description;
+    private int capacity;
 
     // JavaFX properties
     private final IntegerProperty idProperty = new SimpleIntegerProperty();
@@ -33,6 +33,14 @@ public class Room {
 
     public void setRoomID(int roomID) {
         this.roomID = roomID;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public String getRoomType() {
@@ -59,12 +67,12 @@ public class Room {
         this.status = status;
     }
 
-    public String getDescription() {
-        return description;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public IntegerProperty idProperty() {

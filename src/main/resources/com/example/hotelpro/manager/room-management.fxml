@@ -5,14 +5,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Button?>
+<VBox fx:id="root" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.RoomManagementController">
 
     <Label prefHeight="35.0" prefWidth="295.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Quản Lý Phòng Khách Sạn" />
 
     <!-- ScrollPane để có thể cuộn khi danh sách quá dài -->
     <ScrollPane fitToHeight="true" fitToWidth="true">
         <VBox alignment="TOP_LEFT" spacing="10" style="-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1px;">
-
+            <Button text="add-room" onAction="#handleAddRoom"/>
             <!-- Tầng 1 -->
             <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 5;" text="Tầng 1" />
             <HBox spacing="10">

@@ -48,6 +48,7 @@
                 <fx:include source="dashboard.fxml"/>
                 <fx:include source="room-management.fxml"/>
                 <fx:include source="employee-management.fxml"/>
+                <fx:include source="add-room.fxml"/>
         </VBox>
     </center>
 </BorderPane>
