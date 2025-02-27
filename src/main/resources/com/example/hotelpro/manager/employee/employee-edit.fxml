@@ -40,7 +40,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
             <Label text="role" />
-            <TextField fx:id="editRole" />
+            <ComboBox fx:id="editRole" />
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0">

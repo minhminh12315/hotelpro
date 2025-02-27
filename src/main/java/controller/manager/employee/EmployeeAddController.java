@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 public class EmployeeAddController {
     @FXML
@@ -27,21 +26,25 @@ public class EmployeeAddController {
     TextField addEmail;
 
     @FXML
-    TextField addRole;
+    ComboBox<String> addRole;
     @FXML
     PasswordField addPassword;
     @FXML
     DatePicker addDate;
 
+    public void initialize() {
+        addRole.getItems().addAll("manager", "user");
+    }
+
     public void addEmployee() throws IOException {
         String name = addName.getText();
         String phone = addPhoneNumber.getText();
         String email = addEmail.getText();
-        String role = addRole.getText();
+        String role = addRole.getValue();
         String password = addPassword.getText();
         LocalDate date = addDate.getValue();
 
-        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role.isEmpty() || password.isEmpty() || date == null) {
+        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() || date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
             alert.showAndWait();
             return;
@@ -88,7 +91,6 @@ public class EmployeeAddController {
         }
     }
 
-
     private void loadContent(String fxmlPath) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -99,18 +101,18 @@ public class EmployeeAddController {
         }
     }
 
-    private String hashPasswordWithSHA1(String password) {
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-            byte[] hashedBytes = messageDigest.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private String hashPasswordWithSHA1(String password) {
+//        try {
+//            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+//            byte[] hashedBytes = messageDigest.digest(password.getBytes());
+//            StringBuilder sb = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                sb.append(String.format("%02x", b));
+//            }
+//            return sb.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

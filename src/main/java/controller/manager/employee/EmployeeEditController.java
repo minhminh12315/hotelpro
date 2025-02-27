@@ -11,10 +11,6 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 public class EmployeeEditController {
 
@@ -33,7 +29,7 @@ public class EmployeeEditController {
     TextField editEmail;
 
     @FXML
-    TextField editRole;
+    ComboBox<String> editRole;
     @FXML
     PasswordField editPassword;
     @FXML
@@ -41,9 +37,7 @@ public class EmployeeEditController {
 
     Employee employee;
 
-    public EmployeeEditController(){
-
-    }
+    public EmployeeEditController() {}
 
     public EmployeeEditController(int id) {
         employee = new Employee().getById(id);
@@ -60,11 +54,11 @@ public class EmployeeEditController {
         String name = editName.getText();
         String phone = editPhoneNumber.getText();
         String email = editEmail.getText();
-        String role = editRole.getText();
+        String role = editRole.getValue();
         String password = editPassword.getText();
         String date = editDate.getValue().toString();
 
-        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role.isEmpty() || password.isEmpty() || date.isEmpty()) {
+        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() || date.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
             alert.showAndWait();
             return;
@@ -99,12 +93,10 @@ public class EmployeeEditController {
             return;
         }
 
-        // All fields are valid, so update the employee
         employee.setFullName(name);
         employee.setPhoneNumber(phone);
         employee.setEmail(email);
         employee.setRole(role);
-//        employee.setPassword(hashedPassword);
         employee.setPassword(password);
         employee.update();
 
@@ -116,11 +108,13 @@ public class EmployeeEditController {
 
     @FXML
     public void initialize() {
+        editRole.getItems().addAll("manager", "user");
+
         if (employee != null) {
             editName.setText(employee.getFullName());
             editPhoneNumber.setText(employee.getPhoneNumber());
             editEmail.setText(employee.getEmail());
-            editRole.setText(employee.getRole());
+            editRole.setValue(employee.getRole());  // Set the role in ComboBox
             editPassword.setText(employee.getPassword());
             editDate.setValue(employee.getStartDate());
             editId.setText(String.valueOf(employee.getEmployeeID()));
@@ -139,19 +133,18 @@ public class EmployeeEditController {
         }
     }
 
-    private String hashPasswordWithSHA1(String password) {
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-            byte[] hashedBytes = messageDigest.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private String hashPasswordWithSHA1(String password) {
+//        try {
+//            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+//            byte[] hashedBytes = messageDigest.digest(password.getBytes());
+//            StringBuilder sb = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                sb.append(String.format("%02x", b));
+//            }
+//            return sb.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }
-
