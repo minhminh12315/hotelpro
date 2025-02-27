@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.BookingController">
+    <VBox>
+        <GridPane layoutX="20" layoutY="20" hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="CENTER"/>
+            </rowConstraints>
+
+            <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="fullNameInput" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Phone Number:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="phoneInput" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="emailInput" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Address:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="addressInput" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="ID/Passport:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="idInput" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Date of Birth:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dobPicker" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Label text="Gender:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="genderBox" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Male"/>
+                        <String fx:value="Female"/>
+                        <String fx:value="Other"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+
+            <Label text="Booking Date:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="bookingDatePicker" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Room Price:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <TextField fx:id="roomPriceInput" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+            <Label text="Expected Check-in:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="expectedCheckinPicker" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+            <Label text="Expected Check-out:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="expectedCheckoutPicker" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+
+            <Label text="Check-in Date:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="checkinPicker" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+            <Label text="Check-out Date:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="checkoutPicker" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+
+            <Label text="Status:" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="statusBox" GridPane.rowIndex="13" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Pending"/>
+                        <String fx:value="CheckIn"/>
+                        <String fx:value="Checkout"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Button text="Submit" fx:id="submitButton" GridPane.rowIndex="14" GridPane.columnIndex="1"/>
+        </GridPane>
+    </VBox>
+</AnchorPane>
