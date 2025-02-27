@@ -17,7 +17,7 @@
             <!-- Tầng 1 -->
             <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 5;" text="Tầng 1" />
             <HBox spacing="10">
-                <VBox prefHeight="150" prefWidth="120" style="-fx-background-color: green; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;">
+                <VBox onMouseClicked="#handleRoomClick" prefHeight="150" prefWidth="120" style="-fx-background-color: green; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;">
                     <Label text="101" />
                     <Label text="Giá: 750.000" />
                     <Label text="Số người: 2" />
