@@ -47,8 +47,8 @@
         <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
                 <fx:include source="dashboard.fxml"/>
                 <fx:include source="room-management.fxml"/>
+                <fx:include source="employee-management.fxml"/>
                 <fx:include source="add-room.fxml"/>
-                <fx:include source="employee/employee-management.fxml"/>
         </VBox>
     </center>
 </BorderPane>
