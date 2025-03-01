@@ -3,6 +3,8 @@ package controller.manager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +32,7 @@ public class MasterController {
 
     @FXML
     private void handleEmployeeManagement() {
-        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
     }
 
     @FXML
