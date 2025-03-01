@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.manager.MasterController">
+    <!-- Header -->
+    <top>
+        <HBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 10" alignment="CENTER_RIGHT">
+            <Label text="Dashboard" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+
+                    <ImageView fitHeight="30" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+                        <Image url="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f657721a7eb06acae52a29ad3a951f20c1e5fc60-1920x1080.jpg"/>
+                    </ImageView>
+                <MenuButton text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
+                    <items>
+<!--                        <MenuItem style="-fx-padding: 10" text="Settings" onAction="#handleSettings"/>-->
+                        <MenuItem style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
+                    </items>
+                </MenuButton>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 10 30 10 30;">
+            <Button styleClass="red" text="Home" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleDashboard"/>
+            <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>
+            <Button text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
+                <fx:include source="dashboard.fxml"/>
+                <fx:include source="room-management.fxml"/>
+                <fx:include source="employee-management.fxml"/>
+                <fx:include source="add-room.fxml"/>
+        </VBox>
+    </center>
+</BorderPane>
