@@ -14,7 +14,7 @@ import model.Service;
 
 import java.util.List;
 
-public class DashboardController {
+public class    DashboardController {
 
     @FXML
     private Label totalRevenueLabel;
