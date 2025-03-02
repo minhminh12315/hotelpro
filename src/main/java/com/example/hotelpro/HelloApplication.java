@@ -53,7 +53,6 @@ public class HelloApplication extends Application {
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này
         stage.setFullScreen(false);
-
         stage.show();
     }
 

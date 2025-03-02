@@ -17,7 +17,6 @@ module com.example.hotelpro {
 
     exports com.example.hotelpro;
     exports controller;
-    // Dương Minh Thêm
     opens model to javafx.base;
     exports model;
     opens controller.manager.employee to javafx.fxml;
