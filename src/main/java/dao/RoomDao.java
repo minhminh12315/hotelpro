@@ -49,7 +49,7 @@ public class RoomDao implements BaseDao<Room> {
     @Override
     public List<Room> getAll() {
         List<Room> rooms = new ArrayList<>();
-        String sql = "SELECT * FROM Room";
+        String sql = "SELECT * FROM Room order by roomNumber asc";
         try (Connection connection = Connect.connection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
