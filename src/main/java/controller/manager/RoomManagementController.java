@@ -14,6 +14,11 @@ import model.Room;
 import java.io.IOException;
 import java.util.List;
 
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
 public class RoomManagementController {
 
     @FXML
@@ -35,7 +40,7 @@ public class RoomManagementController {
 
     @FXML
     public void handleRoomClick(MouseEvent mouseEvent) {
-        System.out.println("Room clicked!");
+
 
     }
 

@@ -68,8 +68,6 @@ public class RoomDao implements BaseDao<Room> {
         }
         return rooms;
 
-
-        return List.of();
     }
 
 
