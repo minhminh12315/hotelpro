@@ -20,9 +20,9 @@
 
             <HBox spacing="10" alignment="CENTER_RIGHT">
 
-                    <ImageView fitHeight="30" fitWidth="50" pickOnBounds="true" preserveRatio="true">
-                        <Image url="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f657721a7eb06acae52a29ad3a951f20c1e5fc60-1920x1080.jpg"/>
-                    </ImageView>
+<!--                    <ImageView fitHeight="30" fitWidth="50" pickOnBounds="true" preserveRatio="true">-->
+<!--                        <Image url="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f657721a7eb06acae52a29ad3a951f20c1e5fc60-1920x1080.jpg"/>-->
+<!--                    </ImageView>-->
                 <MenuButton text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
                     <items>
 <!--                        <MenuItem style="-fx-padding: 10" text="Settings" onAction="#handleSettings"/>-->
@@ -38,7 +38,7 @@
         <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 10 30 10 30;">
             <Button styleClass="red" text="Home" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleDashboard"/>
             <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>
-            <Button text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
+            <Button fx:id="btnEmployeeManagement" text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
         </VBox>
     </left>
 

@@ -11,7 +11,7 @@
     <Label prefHeight="35.0" prefWidth="295.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Quản Lý Phòng Khách Sạn" />
     <ScrollPane fitToHeight="true" fitToWidth="true">
         <VBox fx:id="roomContainer" alignment="TOP_LEFT" spacing="10" style="-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1px; -fx-diplay: flex;">
-            <Button text="add-room" onAction="#handleAddRoom"/>
+
         </VBox>
     </ScrollPane>
 </VBox>

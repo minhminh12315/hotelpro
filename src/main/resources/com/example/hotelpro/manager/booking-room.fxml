@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
@@ -12,8 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
-<AnchorPane prefHeight="571.0" prefWidth="602.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.manager.BookingPageController">
+<VBox fx:id="booking_tai_cho" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.manager.BookingController">
     <VBox>
         <GridPane hgap="10" layoutX="20" layoutY="20" vgap="10">
             <columnConstraints>
@@ -22,7 +19,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints valignment="CENTER" />
-            <RowConstraints />
+                <RowConstraints />
             </rowConstraints>
 
             <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -38,7 +35,7 @@
             <TextField fx:id="addressInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
             <Label text="ID/Passport:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="idInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="idPassportInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
             <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
             <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -54,37 +51,43 @@
                 </items>
             </ComboBox>
 
+<!--            <Label text="Booking Date:" GridPane.columnIndex="0" GridPane.rowIndex="7" />-->
+<!--            <DatePicker fx:id="bookingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />-->
 
-            <Label text="Booking Date:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-            <DatePicker fx:id="bookingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <!-- Room ID -->
+            <Label text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <Label fx:id="roomNumberLabel" text="Mã phòng" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-            <Label text="Room Price:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-            <TextField fx:id="roomPriceInput" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <!-- Room Price -->
+            <Label text="Room Price:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+            <Label fx:id="priceLabel" text="Giá phòng" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-            <Label text="Expected Check-in:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-            <DatePicker fx:id="expectedCheckinPicker" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+<!--            <Label text="Expected Check-in:" GridPane.columnIndex="0" GridPane.rowIndex="10" />-->
+<!--            <DatePicker fx:id="expectedCheckinPicker" GridPane.columnIndex="1" GridPane.rowIndex="10" />-->
 
-            <Label text="Expected Check-out:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-            <DatePicker fx:id="expectedCheckoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+<!--            <Label text="Expected Check-out:" GridPane.columnIndex="0" GridPane.rowIndex="11" />-->
+<!--            <DatePicker fx:id="expectedCheckoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="11" />-->
 
-            <Label text="Check-in Date:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-            <DatePicker fx:id="checkinPicker" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+<!--            <Label text="Check-in Date:" GridPane.columnIndex="0" GridPane.rowIndex="12" />-->
+<!--            <DatePicker fx:id="checkinPicker" GridPane.columnIndex="1" GridPane.rowIndex="12" />-->
 
-            <Label text="Check-out Date:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-            <DatePicker fx:id="checkoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+<!--            <Label text="Check-out Date:" GridPane.columnIndex="0" GridPane.rowIndex="13" />-->
+<!--            <DatePicker fx:id="checkoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="13" />-->
 
-            <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
-            <ComboBox fx:id="statusBox" GridPane.columnIndex="1" GridPane.rowIndex="13">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Pending" />
-                        <String fx:value="CheckIn" />
-                        <String fx:value="Checkout" />
-                    </FXCollections>
-                </items>
-            </ComboBox>
-            <Button fx:id="submitButton" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="14" onAction="#handleBookingSubmit"/>
+<!--            <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="14" />-->
+<!--            <ComboBox fx:id="statusBox" GridPane.columnIndex="1" GridPane.rowIndex="14">-->
+<!--                <items>-->
+<!--                    <FXCollections fx:factory="observableArrayList">-->
+<!--                        <String fx:value="Pending" />-->
+<!--                        <String fx:value="CheckIn" />-->
+<!--                        <String fx:value="Checkout" />-->
+<!--                    </FXCollections>-->
+<!--                </items>-->
+<!--            </ComboBox>-->
 
+
+            <Button text="Quay lại" GridPane.columnIndex="1" GridPane.rowIndex="16" onAction="#handleCancle" />
+            <Button fx:id="submitButton" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="15" onAction="#handleBookingSubmit"/>
         </GridPane>
     </VBox>
-</AnchorPane>
+</VBox>
