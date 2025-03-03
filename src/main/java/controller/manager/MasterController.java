@@ -26,12 +26,11 @@ public class MasterController {
     private Button btnEmployeeManagement;
 
     public void initialize() {
-        // Giao diện ban đầu (nếu cần)
+        updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-        updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
+    public static void setUserRole(String userRole) {
+        MasterController.userRole = userRole;
     }
 
     private void updateViewBasedOnRole() {
@@ -57,6 +56,11 @@ public class MasterController {
     @FXML
     private void handleEmployeeManagement() {
         loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+    }
+
+    @FXML
+    private void handleServicesManagement() {
+        loadContent("/com/example/hotelpro/manager/services-management.fxml");
     }
 
     @FXML

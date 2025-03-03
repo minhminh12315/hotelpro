@@ -15,6 +15,8 @@ public class Service {
 
     private BigDecimal servicePrice;
 
+    private String serviceType;
+
     private String description;
 
     // JavaFX properties
@@ -46,6 +48,14 @@ public class Service {
 
     public void setServicePrice(BigDecimal servicePrice) {
         this.servicePrice = servicePrice;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
     public String getDescription() {

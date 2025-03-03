@@ -49,16 +49,18 @@ public class LoginController {
 
                 if (password.equals(storedPassword)) {
                     errorLabel.setText("Login successful!");
+
+                    if ("manager".equals(role)) {
+                        MasterController.setUserRole("manager");
+                    } else {
+                        MasterController.setUserRole("staff");
+                    }
+
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/master.fxml"));
                     Parent newContent = fxmlLoader.load();
                     root.getChildren().setAll(newContent);
 
-                    MasterController controller = fxmlLoader.getController();
-                    if ("manager".equals(role)) {
-                        controller.setUserRole("manager");
-                    } else {
-                        controller.setUserRole("staff");
-                    }
+
                 } else {
                     errorLabel.setText("Invalid password.");
                 }
