@@ -1,131 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
+<SplitPane fx:controller="com.example.hotelpro.HelloController" dividerPositions="0.5" prefHeight="616.0" prefWidth="1059.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+        <AnchorPane prefHeight="611.0" prefWidth="843.0">
+            <children>
+                <CheckBox fx:id="chkFood" layoutX="40.0" layoutY="97.0" text="Food">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkDrink" layoutX="40.0" layoutY="156.0" text="Drink">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkSnack" layoutX="40.0" layoutY="215.0" text="Snack">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <Text layoutX="40.0" layoutY="75.0" text="Food/Drink">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text layoutX="330.0" layoutY="74.0" text="Services">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <CheckBox fx:id="chkSpa" layoutX="654.0" layoutY="155.0" text="Spa">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkBed" layoutX="330.0" layoutY="156.0" text="Change bed sheets, pillows">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkRepair" layoutX="330.0" layoutY="97.0" text="Furniture repair">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkRoomSauna" layoutX="654.0" layoutY="97.0" text="Sauna">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkRoomDecor" layoutX="330.0" layoutY="215.0" text="Room decoration">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <Text layoutX="28.0" layoutY="331.0" text="Check in/ check out">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <CheckBox fx:id="chkAirport" layoutX="655.0" layoutY="215.0" text="Airport pickup">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <Text layoutX="330.0" layoutY="330.0" text="Entertainment">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <CheckBox fx:id="chkKaraoke" layoutX="336.0" layoutY="351.0" text="Karaoke">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkFishing" layoutX="578.0" layoutY="351.0" text="Fishing">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkBoating" layoutX="336.0" layoutY="410.0" text="Boating">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkBiking" layoutX="578.0" layoutY="410.0" text="Biking">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="chkCheckinout" layoutX="31.0" layoutY="351.0" text="Late check-in">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </CheckBox>
+            </children>
+        </AnchorPane>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <TextField layoutX="93.0" layoutY="281.0" prefHeight="27.0" prefWidth="211.0" />
-        <CheckBox layoutX="40.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Cơm">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="40.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Nước">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="40.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="184.0" text="Snack">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <Text layoutX="40.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Text>
-        <Text layoutX="60.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đồ Ăn/ Nước uống">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <Text layoutX="485.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dịch vụ " wrappingWidth="377.640625">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <CheckBox layoutX="466.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Spa">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="466.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Thay ga, gối, đệm">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="466.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="248.0" text="Sữa chữa đồ đạc">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <TextField layoutX="519.0" layoutY="281.0" prefHeight="27.0" prefWidth="241.0" />
-        <Text layoutX="466.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Text>
-        <CheckBox layoutX="218.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Bia">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="711.0" layoutY="97.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="190.0" text="Xông hơi">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="711.0" layoutY="156.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="323.0" text="Trang trí phòng ">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <Text layoutX="31.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in/ check out">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <CheckBox layoutX="711.0" layoutY="215.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="248.0" text="Đưa đón sân bay ">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <ChoiceBox layoutX="135.0" layoutY="114.0" prefHeight="26.0" prefWidth="31.0" />
-        <ChoiceBox layoutX="295.0" layoutY="114.0" prefHeight="26.0" prefWidth="31.0" />
-        <ChoiceBox layoutX="135.0" layoutY="232.0" prefHeight="26.0" prefWidth="31.0" />
-        <ChoiceBox layoutX="135.0" layoutY="173.0" prefHeight="26.0" prefWidth="31.0" />
-        <Text layoutX="466.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giải trí">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <CheckBox layoutX="460.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Hát karaoke">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="699.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Câu cá">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="460.0" layoutY="427.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Chèo thuyền">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="699.0" layoutY="427.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Đạp xe">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <CheckBox layoutX="31.0" layoutY="381.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="202.0" text="Check in trễ">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </CheckBox>
-        <Text layoutX="14.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khác:" wrappingWidth="158.9830722808838">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <TextField layoutX="84.0" layoutY="551.0" prefHeight="27.0" prefWidth="211.0" />
-    </children>
-</AnchorPane>
+        <SplitPane prefHeight="614.0" prefWidth="286.0">
+            <items>
+                <VBox prefHeight="614.0" prefWidth="207.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0" style="-fx-background-color: F5F5F5;">
+                            <children>
+                                <Text text="Cart">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                        </HBox>
+
+                        <ScrollPane>
+                            <content>
+                                <ListView fx:id="cartlistView" prefHeight="391.0" prefWidth="207.0" style="-fx-background-color: D3D3D3;" />
+                            </content>
+                        </ScrollPane>
+
+                        <Pane prefHeight="163.0" prefWidth="207.0" style="-fx-background-color: DCDCDC;">
+                            <children>
+                                <Button layoutX="16.0" layoutY="117.0" prefHeight="32.0" prefWidth="184.0" style="-fx-background-color: yellow;" text="Check out" />
+                                <Text layoutX="12.0" layoutY="29.0" text="Quantity:" />
+                                <Text layoutX="12.0" layoutY="58.0" text="Subtotal:" />
+                                <Separator layoutX="4.0" layoutY="69.0" prefWidth="200.0" />
+                                <Text layoutX="12.0" layoutY="101.0" text="Total:" />
+                            </children>
+                        </Pane>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </items>
+</SplitPane>
