@@ -30,6 +30,8 @@ public class EmployeeAddController {
     @FXML
     PasswordField addPassword;
     @FXML
+    PasswordField addConfirmPassword;
+    @FXML
     DatePicker addDate;
 
     public void initialize() {
@@ -42,9 +44,11 @@ public class EmployeeAddController {
         String email = addEmail.getText();
         String role = addRole.getValue();
         String password = addPassword.getText();
+        String confirmPassword = addConfirmPassword.getText();
         LocalDate date = addDate.getValue();
 
-        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() || date == null) {
+        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() ||
+                confirmPassword.isEmpty() || date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
             alert.showAndWait();
             return;
@@ -69,6 +73,12 @@ public class EmployeeAddController {
         }
 
 //        String hashedPassword = hashPasswordWithSHA1(password);
+
+        if (!password.equals(confirmPassword)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Passwords do not match");
+            alert.showAndWait();
+            return;
+        }
 
         try {
             LocalDate.parse(date.toString());

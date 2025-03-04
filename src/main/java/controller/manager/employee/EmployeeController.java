@@ -54,13 +54,15 @@ public class EmployeeController {
 
     @FXML
     public void initialize() {
-        employeeIdColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.07));
-        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1));
-        employeePhoneColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1));
-        employeeEmailColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.2));
-        employeeRoleColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.06));
-        employeePasswordColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1));
-        employeeStartColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1));
+        employeeIdColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.05)); // 5% of the width
+        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.15)); // 15% of the width
+        employeePhoneColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.15)); // 15% of the width
+        employeeEmailColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.2)); // 20% of the width
+        employeeRoleColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
+        employeePasswordColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
+        employeeStartColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.144)); // 15% of the width
+
 
         loadEmployees();
 

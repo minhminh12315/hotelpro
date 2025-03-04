@@ -33,6 +33,8 @@ public class EmployeeEditController {
     @FXML
     PasswordField editPassword;
     @FXML
+    PasswordField editConfirmPassword;
+    @FXML
     DatePicker editDate;
 
     Employee employee;
@@ -56,9 +58,11 @@ public class EmployeeEditController {
         String email = editEmail.getText();
         String role = editRole.getValue();
         String password = editPassword.getText();
+        String confirmPassword = editConfirmPassword.getText();
         String date = editDate.getValue().toString();
 
-        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() || date.isEmpty()) {
+        if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || role == null || password.isEmpty() ||
+                confirmPassword.isEmpty() || date.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
             alert.showAndWait();
             return;
@@ -84,6 +88,12 @@ public class EmployeeEditController {
 
 //        String hashedPassword = hashPasswordWithSHA1(password);
 
+        if (!password.equals(confirmPassword)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Passwords do not match");
+            alert.showAndWait();
+            return;
+        }
+
         try {
             LocalDate parsedDate = LocalDate.parse(date);
             employee.setStartDate(parsedDate);
@@ -98,12 +108,19 @@ public class EmployeeEditController {
         employee.setEmail(email);
         employee.setRole(role);
         employee.setPassword(password);
-        employee.update();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update successful");
-        alert.showAndWait();
+        try {
+            employee.update();
 
-        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update successful");
+            alert.showAndWait();
+
+            loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
+        } catch (RuntimeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Employee update failed: " + e.getMessage());
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
@@ -114,8 +131,9 @@ public class EmployeeEditController {
             editName.setText(employee.getFullName());
             editPhoneNumber.setText(employee.getPhoneNumber());
             editEmail.setText(employee.getEmail());
-            editRole.setValue(employee.getRole());  // Set the role in ComboBox
+            editRole.setValue(employee.getRole());
             editPassword.setText(employee.getPassword());
+            editConfirmPassword.setText(employee.getPassword());
             editDate.setValue(employee.getStartDate());
             editId.setText(String.valueOf(employee.getEmployeeID()));
         } else {

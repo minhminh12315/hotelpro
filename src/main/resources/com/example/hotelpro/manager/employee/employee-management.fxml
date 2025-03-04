@@ -5,34 +5,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.Region?>
-<VBox fx:id="contentArea" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 0 20 0 20;"
+
+<VBox fx:id="contentArea" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.manager.employee.EmployeeController">
     <children>
-        <HBox>
+        <!-- Header Section -->
+        <HBox prefHeight="70.0" prefWidth="295.0" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
             <children>
-                <Label prefHeight="35.0" prefWidth="295.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Quản Lý Nhân Sự"/>
-                <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
-                <Button mnemonicParsing="false" text="add new" onAction="#addEmployee"/>
+                <Label text="Quản Lý Nhân Sự" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button mnemonicParsing="false" text="Add New Employee" style="-fx-background-color: #FF9800; -fx-text-fill: white;" onAction="#addEmployee"/>
             </children>
         </HBox>
-        <TableView fx:id="employeesTable" prefHeight="258.0" prefWidth="607.0">
+
+        <!-- Employee Table Section -->
+        <TableView fx:id="employeesTable" prefHeight="500.0" prefWidth="295.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 1;">
             <columns>
-                <TableColumn fx:id="employeeIdColumn" prefWidth="43.4" style="-fx-alignment: center;"
-                             text="employeeid"/>
-                <TableColumn fx:id="employeeNameColumn" prefWidth="100" style="-fx-alignment: center;" text="fullname"/>
-                <TableColumn fx:id="employeePhoneColumn" prefWidth="96" style="-fx-alignment: center;"
-                             text="phonenumber"/>
-                <TableColumn fx:id="employeeEmailColumn" prefWidth="144" style="-fx-alignment: center;" text="email"/>
-                <TableColumn fx:id="employeeRoleColumn" prefWidth="33.4" style="-fx-alignment: center;" text="role"/>
-                <TableColumn fx:id="employeePasswordColumn" prefWidth="75.0" style="-fx-alignment: center;"
-                             text="password"/>
-                <TableColumn fx:id="employeeStartColumn" prefWidth="66.0" style="-fx-alignment: center;"
-                             text="startdate"/>
-                <TableColumn fx:id="actionColumn" text="Actions"/>
+                <TableColumn fx:id="employeeIdColumn" text="ID" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="50.0"/>
+                <TableColumn fx:id="employeeNameColumn" text="Name" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
+                <TableColumn fx:id="employeePhoneColumn" text="Phone Number" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
+                <TableColumn fx:id="employeeEmailColumn" text="Email" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
+                <TableColumn fx:id="employeeRoleColumn" text="Role" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
+                <TableColumn fx:id="employeePasswordColumn" text="Password" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
+                <TableColumn fx:id="employeeStartColumn" text="Start Date" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
+                <TableColumn fx:id="actionColumn" text="Actions" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
             </columns>
         </TableView>
     </children>

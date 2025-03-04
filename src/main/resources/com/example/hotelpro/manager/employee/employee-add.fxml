@@ -6,50 +6,73 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ComboBox?>
-<VBox fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 10;"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.manager.employee.EmployeeAddController">
+<?import javafx.scene.layout.Region?>
+
+<VBox fx:id="contentArea" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.employee.EmployeeAddController">
    <children>
-      <Label text="Add Employee" />
+      <!-- Header Section -->
+      <HBox prefHeight="70.0" prefWidth="100" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
+         <children>
+            <Label text="Add New Employee" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+         </children>
+      </HBox>
+
+      <!-- Employee Details Form -->
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="name" />
-            <TextField fx:id="addName" />
+            <Label text="Name" />
+            <TextField fx:id="addName" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
          </children>
       </VBox>
-      <VBox id="addEmail" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Label text="phonenumber" />
-            <TextField fx:id="addPhoneNumber" />
-         </children>
-      </VBox>
+
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="email" />
-            <TextField fx:id="addEmail" />
+            <Label text="Phone Number" />
+            <TextField fx:id="addPhoneNumber" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
          </children>
       </VBox>
+
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="role" />
-            <ComboBox fx:id="addRole" />
+            <Label text="Email" />
+            <TextField fx:id="addEmail" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
          </children>
       </VBox>
+
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="password" />
-            <PasswordField fx:id="addPassword"/>
+            <Label text="Role" />
+            <ComboBox fx:id="addRole" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
          </children>
       </VBox>
+
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="startdate" />
-            <DatePicker fx:id="addDate" />
+            <Label text="Password" />
+            <PasswordField fx:id="addPassword" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
          </children>
       </VBox>
-      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addEmployee" text="add new" />
+
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label text="Confirm Password" />
+            <PasswordField fx:id="addConfirmPassword"  style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+         </children>
+      </VBox>
+
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label text="Start Date" />
+            <DatePicker fx:id="addDate" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+         </children>
+      </VBox>
+
+      <!-- Add Button -->
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addEmployee" text="Add Employee"
+              style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
    </children>
 </VBox>
