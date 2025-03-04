@@ -9,8 +9,6 @@ public class Connect {
     private static final String USER = "postgres"; // Thay bằng username của bạn
     private static final String PASSWORD = "0804"; // Thay bằng mật khẩu của bạn
 
-    private Connection conn;
-
     public static Connection connection() {
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -27,13 +25,5 @@ public class Connect {
         } else {
             return false;
         }
-    }
-
-    public Connect(){
-        this.conn = connection();
-    }
-
-    public Connection getConn() {
-        return conn;
     }
 }
