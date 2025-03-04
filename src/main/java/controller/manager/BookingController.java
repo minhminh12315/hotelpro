@@ -73,7 +73,7 @@ public class BookingController {
                     double price = rs.getDouble("Price");
 
                     roomNumberLabel.setText(String.valueOf(roomNumber));
-                    priceLabel.setText(String.format("%.2f", price));
+                    priceLabel.setText(String.format("%.3f", price, "VND"));
                 }
             }
 

@@ -86,7 +86,7 @@
 <!--            </ComboBox>-->
 
 
-            <Button text="Quay lại" GridPane.columnIndex="1" GridPane.rowIndex="16" onAction="#handleCancle" />
+            <Button text="Back" GridPane.columnIndex="1" GridPane.rowIndex="16" onAction="#handleCancle" />
             <Button fx:id="submitButton" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="15" onAction="#handleBookingSubmit"/>
         </GridPane>
     </VBox>
