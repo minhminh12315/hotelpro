@@ -18,7 +18,7 @@
         <!-- Header Section -->
         <HBox prefHeight="70.0" prefWidth="295.0" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
             <children>
-                <Label text="Quản Lý Nhân Sự" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Manage Employee" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button mnemonicParsing="false" text="Add New Employee" style="-fx-background-color: #FF9800; -fx-text-fill: white;" onAction="#addEmployee"/>
             </children>
@@ -32,7 +32,7 @@
                 <TableColumn fx:id="employeePhoneColumn" text="Phone Number" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
                 <TableColumn fx:id="employeeEmailColumn" text="Email" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
                 <TableColumn fx:id="employeeRoleColumn" text="Role" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
-                <TableColumn fx:id="employeePasswordColumn" text="Password" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
+<!--                <TableColumn fx:id="employeePasswordColumn" text="Password" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>-->
                 <TableColumn fx:id="employeeStartColumn" text="Start Date" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
                 <TableColumn fx:id="actionColumn" text="Actions" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
             </columns>

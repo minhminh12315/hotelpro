@@ -48,10 +48,10 @@ public class MasterController {
         loadContent("/com/example/hotelpro/manager/dashboard.fxml");
     }
 
-//    @FXML
-//    private void handleRoomManagement() {
-//        loadContent("/com/example/hotelpro/manager/room-management.fxml");
-//    }
+    @FXML
+    private void handleRoomManagement() {
+        loadContent("/com/example/hotelpro/manager/room-management.fxml");
+    }
 
     @FXML
     private void handleEmployeeManagement() {
