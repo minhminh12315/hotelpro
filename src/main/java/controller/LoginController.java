@@ -38,7 +38,7 @@ public class LoginController {
         }
 
         try (Connection connection = Connect.connection()) {
-            String query = "SELECT password, role FROM Employee WHERE phonenumber = ?";
+            String query = "SELECT password, role FROM Employee WHERE fullname = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
 

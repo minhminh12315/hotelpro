@@ -29,6 +29,7 @@ public class MasterController {
     public void initialize() {
         if (userRole == null) {
             userRole = "manager";
+            System.out.println("Warning: userRole is null, defaulting to manager.");
         }
 //        if (userRole == null) {
 //            // chuyen trang login
