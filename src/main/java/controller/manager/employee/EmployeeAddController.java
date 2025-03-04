@@ -10,6 +10,7 @@ import model.Employee;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class EmployeeAddController {
@@ -38,7 +39,7 @@ public class EmployeeAddController {
         addRole.getItems().addAll("manager", "user");
     }
 
-    public void addEmployee() throws IOException {
+    public void addEmployee() throws IOException, SQLException {
         String name = addName.getText();
         String phone = addPhoneNumber.getText();
         String email = addEmail.getText();

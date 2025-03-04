@@ -17,6 +17,7 @@ import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,9 @@ public class EmployeeController {
 
     List<Employee> lstEmp = new Employee().getAll();
     ObservableList<Employee> employeelst = FXCollections.observableArrayList(lstEmp);
+
+    public EmployeeController() throws SQLException {
+    }
 
 
     @FXML
@@ -132,6 +136,8 @@ public class EmployeeController {
         } catch (IOException e) {
             e.printStackTrace();
             // Handle the exception if FXML loading fails
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

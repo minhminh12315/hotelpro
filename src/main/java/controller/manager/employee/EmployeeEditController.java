@@ -10,6 +10,7 @@ import model.Employee;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class EmployeeEditController {
@@ -41,7 +42,7 @@ public class EmployeeEditController {
 
     public EmployeeEditController() {}
 
-    public EmployeeEditController(int id) {
+    public EmployeeEditController(int id) throws SQLException {
         employee = new Employee().getById(id);
         System.out.println(id);
 
