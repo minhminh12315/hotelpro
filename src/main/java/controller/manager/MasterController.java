@@ -1,5 +1,6 @@
 package controller.manager;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +27,19 @@ public class MasterController {
     private Button btnEmployeeManagement;
 
     public void initialize() {
+        if (userRole == null) {
+            userRole = "manager";
+        }
+//        if (userRole == null) {
+//            // chuyen trang login
+//            try {
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/login/login.fxml"));
+//                Parent newContent = fxmlLoader.load();
+//                root.getChildren().setAll(newContent);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
     }
 
@@ -48,14 +62,14 @@ public class MasterController {
         loadContent("/com/example/hotelpro/manager/dashboard.fxml");
     }
 
-    @FXML
-    private void handleRoomManagement() {
-        loadContent("/com/example/hotelpro/manager/room-management.fxml");
-    }
+//    @FXML
+//    private void handleRoomManagement() {
+//        loadContent("/com/example/hotelpro/manager/room-management.fxml");
+//    }
 
     @FXML
     private void handleEmployeeManagement() {
-        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
     }
 
     @FXML

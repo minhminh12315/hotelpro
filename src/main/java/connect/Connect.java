@@ -26,4 +26,14 @@ public class Connect {
             return false;
         }
     }
+
+    private Connection conn;
+    public Connect(){
+        this.conn = connection();
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
 }
