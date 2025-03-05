@@ -83,9 +83,9 @@ public class HelloController {
     private String getFXMLForService(String serviceName) {
         switch (serviceName) {
             case "Food":
-                return "/com/example/hotelpro/food-selection.fxml";
+                return "/com/example/hotelpro/service/food-selection.fxml";
             case "Drink":
-                return "/com/example/hotelpro/water-selection.fxml";
+                return "/com/example/hotelpro/service/water-selection.fxml";
             case "Snack":
                 return "/com/example/hotelpro/snack.fxml";
             default:
