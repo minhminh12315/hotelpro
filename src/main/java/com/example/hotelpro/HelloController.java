@@ -4,11 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class HelloController {
+    @FXML
+    private Label welcomeText;
 
     @FXML
-    private Label someLabel;
-    @FXML
-    public void initialize() {
-        System.out.println("HotelController đã được khởi tạo!");
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }
