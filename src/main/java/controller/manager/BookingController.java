@@ -21,6 +21,8 @@ import java.sql.*;
 import java.time.LocalDate;
 
 import connect.Connect;
+import java.util.regex.Pattern;
+
 
 public class BookingController {
     @FXML
@@ -48,6 +50,9 @@ public class BookingController {
     @FXML
     private VBox booking_tai_cho;
 
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final String NUMBER_REGEX = "\\d+";
+
     public void setRoomId(int roomId) {
         this.roomId = roomId;
         loadRooms();
@@ -57,6 +62,9 @@ public class BookingController {
     public void initialize() {
         genderBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
 //        statusBox.setItems(FXCollections.observableArrayList("Pending", "Confirmed", "Cancelled"));
+        validateEmail();
+        validatePhoneNumber();
+        validateIDPassport();
     }
 
     private void loadRooms() {
@@ -89,6 +97,7 @@ public class BookingController {
 
     @FXML
     private void handleBookingSubmit(ActionEvent event) {
+
         try {
             String fullName = fullNameInput.getText(); // customer
             String phone = phoneInput.getText(); // customer
@@ -154,6 +163,8 @@ public class BookingController {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Cannot insert bookingg data: " + e.getMessage());
         }
+
+
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -181,6 +192,37 @@ public class BookingController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void validateEmail() {
+        emailInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.matches(EMAIL_REGEX, newValue) && !newValue.isEmpty()) {
+                emailInput.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            } else {
+                emailInput.setStyle(null);
+            }
+        });
+    }
+
+    private void validatePhoneNumber() {
+        phoneInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.matches(NUMBER_REGEX, newValue) && !newValue.isEmpty()) {
+                phoneInput.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            } else {
+                phoneInput.setStyle(null);
+            }
+        });
+    }
+
+    private void validateIDPassport() {
+        idPassportInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Pattern.matches(NUMBER_REGEX, newValue) && !newValue.isEmpty()) {
+                idPassportInput.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            } else {
+                idPassportInput.setStyle(null);
+            }
+        });
     }
 
 }
