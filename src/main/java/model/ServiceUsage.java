@@ -1,69 +1,71 @@
 package model;
 
-import jakarta.persistence.*;
+    import java.util.Date;
 
-import java.util.Date;
+    public class ServiceUsage {
+        private int serviceUsageID;
+        private Booking booking;
+        private Service service;
+        private Product product;
+        private int serviceUsagePrice;
+        private int quantity;
+        private Date usageDate;
 
-public class ServiceUsage {
-    private int serviceUsageID;
+        // Getters and setters...
 
-    private Booking booking;
+        public int getServiceUsageID() {
+            return serviceUsageID;
+        }
 
-    private Service service;
+        public void setServiceUsageID(int serviceUsageID) {
+            this.serviceUsageID = serviceUsageID;
+        }
 
-    private int serviceUsagePrice;
+        public Booking getBooking() {
+            return booking;
+        }
 
-    private int quantity;
+        public void setBooking(Booking booking) {
+            this.booking = booking;
+        }
 
-    private Date usageDate;
+        public Service getService() {
+            return service;
+        }
 
-    // Getters and setters...
+        public void setService(Service service) {
+            this.service = service;
+        }
 
-    public int getServiceUsageID() {
-        return serviceUsageID;
+        public Product getProduct() {
+            return product;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
+        }
+
+        public int getServiceUsagePrice() {
+            return serviceUsagePrice;
+        }
+
+        public void setServiceUsagePrice(int serviceUsagePrice) {
+            this.serviceUsagePrice = serviceUsagePrice;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public Date getUsageDate() {
+            return usageDate;
+        }
+
+        public void setUsageDate(Date usageDate) {
+            this.usageDate = usageDate;
+        }
     }
-
-    public void setServiceUsageID(int serviceUsageID) {
-        this.serviceUsageID = serviceUsageID;
-    }
-
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public int getServiceUsagePrice() {
-        return serviceUsagePrice;
-    }
-
-    public void setServiceUsagePrice(int serviceUsagePrice) {
-        this.serviceUsagePrice = serviceUsagePrice;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Date getUsageDate() {
-        return usageDate;
-    }
-
-    public void setUsageDate(Date usageDate) {
-        this.usageDate = usageDate;
-    }
-}

@@ -37,9 +37,13 @@
     <left>
         <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 10 30 10 30;">
             <Button styleClass="red" text="Home" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleDashboard"/>
-            <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>
+           <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>
             <Button fx:id="btnEmployeeManagement" text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
             <Button text="Services Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleServicesManagement"/>
+<!--            <Button text="Customer Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleCustomerManagement"/>-->
+<!--            <Button text="Booking Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleBookingManagement"/>-->
+<!--            <Button text="Report" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleReport"/>-->
+            <Button text="Product Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleProductManagement"/>
         </VBox>
     </left>
 
@@ -47,7 +51,7 @@
     <center>
         <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
                 <fx:include source="dashboard.fxml"/>
-                <fx:include source="room-management.fxml"/>
+<!--               <fx:include source="room-management.fxml"/>-->
                 <fx:include source="employee/employee-management.fxml"/>
                 <fx:include source="add-room.fxml"/>
         </VBox>
