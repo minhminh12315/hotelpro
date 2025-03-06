@@ -6,6 +6,8 @@ module com.example.hotelpro {
     opens controller.manager to javafx.fxml;
     opens com.example.hotelpro.manager to javafx.fxml;
 
+    opens controller.manager.product to javafx.fxml;
+    exports controller.manager.product;
 
     requires org.kordamp.bootstrapfx.core;
     requires jakarta.persistence;
