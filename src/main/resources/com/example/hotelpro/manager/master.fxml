@@ -23,10 +23,10 @@
 <!--                    <ImageView fitHeight="30" fitWidth="50" pickOnBounds="true" preserveRatio="true">-->
 <!--                        <Image url="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f657721a7eb06acae52a29ad3a951f20c1e5fc60-1920x1080.jpg"/>-->
 <!--                    </ImageView>-->
-                <MenuButton text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
+                <MenuButton fx:id="logoutButton" text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
                     <items>
 <!--                        <MenuItem style="-fx-padding: 10" text="Settings" onAction="#handleSettings"/>-->
-                        <MenuItem style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
+                        <MenuItem  style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
                     </items>
                 </MenuButton>
             </HBox>
@@ -51,7 +51,7 @@
     <center>
         <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
                 <fx:include source="dashboard.fxml"/>
-<!--               <fx:include source="room-management.fxml"/>-->
+                <fx:include source="room-management.fxml"/>
                 <fx:include source="employee/employee-management.fxml"/>
                 <fx:include source="add-room.fxml"/>
         </VBox>
