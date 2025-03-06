@@ -25,3 +25,12 @@
     -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
 }
+
+.required-field {
+    -fx-background-color: white;
+    -fx-prompt-text-fill: red; /* Màu đỏ cho promptText */
+}
+
+.required-field .text {
+    -fx-padding: 0 0 0 10; /* Tạo khoảng cách để thêm dấu * */
+}

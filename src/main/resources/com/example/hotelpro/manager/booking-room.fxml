@@ -23,19 +23,19 @@
             </rowConstraints>
 
             <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="fullNameInput" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <TextField fx:id="fullNameInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <Label text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="phoneInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="phoneInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <TextField fx:id="emailInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
             <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="addressInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addressInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
             <Label text="ID/Passport:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="idPassportInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="idPassportInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
             <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
             <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />

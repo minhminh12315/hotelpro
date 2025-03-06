@@ -22,6 +22,7 @@ import java.time.LocalDate;
 
 import connect.Connect;
 import java.util.regex.Pattern;
+import javafx.scene.control.ComboBox;
 
 
 public class BookingController {
@@ -50,6 +51,8 @@ public class BookingController {
     @FXML
     private VBox booking_tai_cho;
 
+
+
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String NUMBER_REGEX = "\\d+";
 
@@ -65,6 +68,7 @@ public class BookingController {
         validateEmail();
         validatePhoneNumber();
         validateIDPassport();
+        genderBox.setValue("Male");
     }
 
     private void loadRooms() {
@@ -224,5 +228,6 @@ public class BookingController {
             }
         });
     }
+
 
 }
