@@ -73,28 +73,28 @@ public class PreOrderRoomController {
     @FXML
     private void handleRoomClick(Room room) {
         if (room.getStatus().equals("Occupied")) {
-            System.out.println("Phòng đang được sử dụng: " + room.getRoomNumber());
             handleCheckout(room);
         } else {
-            System.out.println("Phòng trống: " + room.getRoomNumber());
             handleCheckin(room);
         }
     }
-
-    private void handleCheckout(Room room) {
-    }
-
+    @FXML
     private void handleCheckin(Room room) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/booking-room.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-page.fxml"));
             Parent newContent = fxmlLoader.load();
 
-            BookingController bookingController = fxmlLoader.getController();
-            bookingController.setRoomId(room.getRoomID());
+            PreOrderPageController preOrderController = fxmlLoader.getController();
+            preOrderController.setRoomId(room.getRoomID());
 
+            // Cập nhật giao diện
             root.getChildren().setAll(newContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleCheckout(Room room) {
+    }
+
 }
