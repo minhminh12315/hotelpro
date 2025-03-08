@@ -26,9 +26,6 @@ public class ProductController {
     @FXML
     private TextField unitField;
     @FXML
-    private TextField productIdField;
-
-    @FXML
     private TableView<Product> productsTable;
     @FXML
     private TableColumn<Product, Integer> productIdColumn;
@@ -97,72 +94,12 @@ public class ProductController {
     }
 
     public void addProduct() {
-        String productName = productNameField.getText();
-        String unitPriceText = unitPriceField.getText();
-        String description = descriptionField.getText();
-        String unit = unitField.getText();
-
-        if (productName.isEmpty() || unitPriceText.isEmpty() || description.isEmpty() || unit.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
-            alert.showAndWait();
-            return;
-        }
-
-        BigDecimal unitPrice;
-        try {
-            unitPrice = new BigDecimal(unitPriceText);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Unit price must be a valid number");
-            alert.showAndWait();
-            return;
-        }
-
-        Product product = new Product();
-        product.setProductName(productName);
-        product.setUnitPrice(unitPrice);
-        product.setDescription(description);
-        product.setUnit(unit);
-
-        productDao.save(product);
-        loadProducts();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Product added successfully");
-        alert.showAndWait();
+        loadContent("/com/example/hotelpro/manager/product/product-add.fxml");
     }
 
     public void updateProduct(int productId) {
-        String productName = productNameField.getText();
-        String unitPriceText = unitPriceField.getText();
-        String description = descriptionField.getText();
-        String unit = unitField.getText();
-
-        if (productName.isEmpty() || unitPriceText.isEmpty() || description.isEmpty() || unit.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "All fields are required");
-            alert.showAndWait();
-            return;
-        }
-
-        BigDecimal unitPrice;
-        try {
-            unitPrice = new BigDecimal(unitPriceText);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Unit price must be a valid number");
-            alert.showAndWait();
-            return;
-        }
-
-        Product product = new Product();
-        product.setProductID(productId);
-        product.setProductName(productName);
-        product.setUnitPrice(unitPrice);
-        product.setDescription(description);
-        product.setUnit(unit);
-
-        productDao.update(product);
-        loadProducts();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Product updated successfully");
-        alert.showAndWait();
+        ProductEditController productEditController = new ProductEditController();
+        productEditController.setProductId(productId);
     }
 
     public void deleteProduct(int productId) {
@@ -176,9 +113,7 @@ public class ProductController {
         alert.showAndWait();
     }
 
-    public void addEmployee() {
-        loadContent("/com/example/hotelpro/manager/product/product-add.fxml");
-    }
+
     private void loadContent(String fxmlPath) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
