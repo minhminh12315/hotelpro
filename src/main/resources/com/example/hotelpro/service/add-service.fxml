@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox fx:id="root" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.ServicesManagementController">
+<VBox  fx:id="root" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.service.ServicesAddController">
     <Label text="Add New Service" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
     <TextField fx:id="serviceNameField" promptText="serviceName" />
     <TextField fx:id="servicePriceField" promptText="servicePrice" />
@@ -19,8 +19,10 @@
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Food" />
                 <String fx:value="Service" />
+                <String fx:value="Entertainment" />
+                <String fx:value="Other" />
             </FXCollections>
         </items>
     </ComboBox>
-    <Button text="Save" onAction="#handleSave" />
+    <Button text="Save" onAction="#handleService"/>
 </VBox>
