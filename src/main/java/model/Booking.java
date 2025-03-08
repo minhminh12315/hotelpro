@@ -2,14 +2,16 @@ package model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Booking {
     private int bookingID;
 
-    private Customer customer;
+    private Customer customerid;
 
-    private Room room;
+    private Room roomid;
 
     private Date bookingDate;
 
@@ -20,6 +22,9 @@ public class Booking {
     private Date checkOutDate;
 
     private String status;
+
+    public Booking(int bookingid, int customerid, int roomid, LocalDate bookingdate, BigDecimal roomprice, LocalDate expectedcheckindate, LocalDate expectedcheckoutdate, LocalDate localDate, LocalDate localDate1, String status) {
+    }
 
     // Getters and setters...
 
@@ -32,19 +37,19 @@ public class Booking {
     }
 
     public Customer getCustomer() {
-        return customer;
+        return customerid;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Customer customerid) {
+        this.customerid = customerid;
     }
 
     public Room getRoom() {
-        return room;
+        return roomid;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoom(Room roomid) {
+        this.roomid = roomid;
     }
 
     public Date getBookingDate() {

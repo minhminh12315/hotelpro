@@ -81,6 +81,12 @@ public class MasterController {
     }
 
     @FXML
+    private void handleCustomerManagement() {
+        loadContent("/com/example/hotelpro/manager/customer/customer-management.fxml");
+    }
+
+
+    @FXML
     private void handleSettings() {
         loadContent("/com/example/hotelpro/settings/settings.fxml");
     }

@@ -40,7 +40,7 @@
            <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>
             <Button fx:id="btnEmployeeManagement" text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
             <Button text="Services Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleServicesManagement"/>
-<!--            <Button text="Customer Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleCustomerManagement"/>-->
+            <Button text="Customer Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleCustomerManagement"/>
 <!--            <Button text="Booking Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleBookingManagement"/>-->
 <!--            <Button text="Report" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleReport"/>-->
             <Button text="Product Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleProductManagement"/>
@@ -50,10 +50,11 @@
     <!-- Main Content -->
     <center>
         <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
-                <fx:include source="dashboard.fxml"/>
-                <fx:include source="room-management.fxml"/>
-                <fx:include source="employee/employee-management.fxml"/>
-                <fx:include source="add-room.fxml"/>
+            <fx:include source="dashboard.fxml"/>
+            <fx:include source="room-management.fxml"/>
+            <fx:include source="employee/employee-management.fxml"/>
+            <fx:include source="customer/customer-management.fxml"/>
+            <fx:include source="add-room.fxml"/>
         </VBox>
     </center>
 </BorderPane>
