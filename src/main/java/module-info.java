@@ -12,6 +12,7 @@ module com.example.hotelpro {
 
     // JDK modules
     requires jdk.jdi;
+    requires java.desktop;
 
     // Exported packages
     exports com.example.hotelpro;

@@ -31,8 +31,6 @@
                 <TableColumn fx:id="roomIdColumn" text="Room ID" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
                 <TableColumn fx:id="bookingDateColumn" text="Booking Date" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
                 <TableColumn fx:id="roomPriceColumn" text="Room Price" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
-                <TableColumn fx:id="expectedCheckInColumn" text="Expected Check-In" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
-                <TableColumn fx:id="expectedCheckOutColumn" text="Expected Check-Out" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
                 <TableColumn fx:id="checkInDateColumn" text="Check-In Date" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
                 <TableColumn fx:id="checkOutDateColumn" text="Check-Out Date" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
                 <TableColumn fx:id="statusColumn" text="Status" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>

@@ -52,17 +52,17 @@ public class CustomerController {
 
     @FXML
     public void initialize(){
-        customerIdColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1)); // 10% of the width for ID
-        customerNameColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.2)); // 20% of the width for Name
-        customerPhoneColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.15)); // 15% of the width for Phone Number
-        customerEmailColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.2)); // 20% of the width for Email
-        customerAddressColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.15)); // 15% of the width for Address
-        customerIdPassportColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1)); // 10% of the width for ID/Passport
-        customerDOBColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1)); // 7.5% of the width for Date of Birth
-        customerGenderColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1)); // 7.5% of the width for Gender
+        customerIdColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.025));
+        customerNameColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
+        customerPhoneColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
+        customerEmailColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.15));
+        customerAddressColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.15));
+        customerIdPassportColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
+        customerDOBColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
+        customerGenderColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.075));
 
         // Action column - give it more space since it holds multiple buttons
-        actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.25)); // 25% of the width for Actions
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.18));
 
         loadCustomers();
 
