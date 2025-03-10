@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.Region?>
 
-<VBox fx:id="contentArea" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"
+<VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.employee.EmployeeAddController">
    <children>
       <!-- Header Section -->

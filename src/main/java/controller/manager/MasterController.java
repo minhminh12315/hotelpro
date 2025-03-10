@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ public class MasterController {
 
     @FXML
     public BorderPane root;
+    public MenuButton logoutButton;
 
     @FXML
     private VBox contentArea;
@@ -29,6 +31,7 @@ public class MasterController {
     public void initialize() {
         if (userRole == null) {
             userRole = "manager";
+            System.out.println("Warning: userRole is null, defaulting to manager.");
         }
 //        if (userRole == null) {
 //            // chuyen trang login
@@ -78,15 +81,40 @@ public class MasterController {
     }
 
     @FXML
+    private void handleCustomerManagement() {
+        loadContent("/com/example/hotelpro/manager/customer/customer-management.fxml");
+    }
+
+
+    @FXML
     private void handleSettings() {
         loadContent("/com/example/hotelpro/settings/settings.fxml");
     }
 
     @FXML
-    private void handleLogout() {
-        loadContent("/com/example/hotelpro/login/login.fxml");
-    }
+    public void handleLogout(ActionEvent event) {
+        try {
+            // Close the current stage (window)
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
 
+            // Load the new scene (login.fxml in this case)
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/login/login.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+
+            // Set the title of the new stage (optional)
+            currentStage.setTitle("Login");
+
+            // Show the new stage (login window)
+            currentStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private void loadContent(String fxmlPath) {

@@ -37,8 +37,8 @@ public class EmployeeController {
     private TableColumn<Employee, String> employeeEmailColumn;
     @FXML
     private TableColumn<Employee, String> employeeRoleColumn;
-    @FXML
-    private TableColumn<Employee, String> employeePasswordColumn;
+//    @FXML
+//    private TableColumn<Employee, String> employeePasswordColumn;
     @FXML
     private TableColumn<Employee, LocalDate> employeeStartColumn;
 
@@ -59,12 +59,12 @@ public class EmployeeController {
     @FXML
     public void initialize() {
         employeeIdColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.05)); // 5% of the width
-        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.15)); // 15% of the width
-        employeePhoneColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.15)); // 15% of the width
+        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.2)); // 20% of the width
+        employeePhoneColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.2)); // 20% of the width
         employeeEmailColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.2)); // 20% of the width
         employeeRoleColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
-        employeePasswordColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
         employeeStartColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
+//        employeePasswordColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.1)); // 10% of the width
         actionColumn.prefWidthProperty().bind(Bindings.multiply(employeesTable.widthProperty(), 0.144)); // 15% of the width
 
 
@@ -113,7 +113,7 @@ public class EmployeeController {
         employeePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         employeeEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         employeeRoleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
-        employeePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+//        employeePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         employeeStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 
 //        eventTable.getItems().addAll(lstEmp);
@@ -121,14 +121,26 @@ public class EmployeeController {
     }
 
     public void addEmployee() {
-        loadContent("/com/example/hotelpro/manager/employee/employee-add.fxml");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/employee/employee-add.fxml"));
+
+            EmployeeAddController employeeAddController = new EmployeeAddController(contentArea);
+            fxmlLoader.setControllerFactory(param -> employeeAddController);
+
+            Parent newContent = fxmlLoader.load();
+            contentArea.getChildren().setAll(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void update(int id) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/employee/employee-edit.fxml"));
 
-            EmployeeEditController editEventController = new EmployeeEditController(id);
+            EmployeeEditController editEventController = new EmployeeEditController(id, contentArea);
             fxmlLoader.setControllerFactory(param -> editEventController);
 
             Parent newContent = fxmlLoader.load();

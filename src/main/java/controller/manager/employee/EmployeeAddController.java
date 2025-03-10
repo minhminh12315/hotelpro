@@ -17,7 +17,7 @@ public class EmployeeAddController {
     @FXML
     Button addButton;
     @FXML
-    private VBox contentArea;
+    VBox contentArea;
 
     @FXML
     TextField addName;
@@ -34,6 +34,14 @@ public class EmployeeAddController {
     PasswordField addConfirmPassword;
     @FXML
     DatePicker addDate;
+
+    Employee employee;
+
+    public EmployeeAddController() {}
+
+    public EmployeeAddController(VBox contentArea) throws SQLException {
+        this.contentArea = contentArea;
+    }
 
     public void initialize() {
         addRole.getItems().addAll("manager", "user");
@@ -93,11 +101,11 @@ public class EmployeeAddController {
         int res = employee.addEmployee();
 
         if (res > 0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thêm mới thành công");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Add successful");
             alert.showAndWait();
             loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Thêm mới thất bại");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Add Employee failed:");
             alert.showAndWait();
         }
     }

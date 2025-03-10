@@ -1,25 +1,32 @@
 module com.example.hotelpro {
+    // JavaFX modules
     requires javafx.controls;
     requires javafx.fxml;
-    requires jdk.jdi;
+    requires javafx.base;
 
-    opens controller.manager to javafx.fxml;
-    opens com.example.hotelpro.manager to javafx.fxml;
-
-    opens controller.manager.product to javafx.fxml;
-    exports controller.manager.product;
-
+    // Hibernate and Jakarta modules
     requires org.kordamp.bootstrapfx.core;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires java.naming;
 
-    opens com.example.hotelpro to javafx.fxml;
-    opens controller to javafx.fxml;
+    // JDK modules
+    requires jdk.jdi;
+    requires java.desktop;
 
+    // Exported packages
     exports com.example.hotelpro;
     exports controller;
-    opens model to javafx.base;
     exports model;
+    exports controller.manager.product;
+    exports controller.manager.customer;
+
+    // Open specific packages for reflection (JavaFX FXML)
+    opens com.example.hotelpro to javafx.fxml;
+    opens controller to javafx.fxml;
+    opens controller.manager to javafx.fxml;
+    opens controller.manager.product to javafx.fxml;
     opens controller.manager.employee to javafx.fxml;
+    opens controller.manager.customer to javafx.fxml;
+    opens model to javafx.base;
 }

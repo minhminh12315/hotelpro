@@ -19,6 +19,7 @@ public class EmployeeEditController {
     Button editButton;
     @FXML
     VBox contentArea;
+
     @FXML
     TextField editId;
 
@@ -42,7 +43,7 @@ public class EmployeeEditController {
 
     public EmployeeEditController() {}
 
-    public EmployeeEditController(int id) throws SQLException {
+    public EmployeeEditController(int id, VBox contentArea) throws SQLException {
         employee = new Employee().getById(id);
         System.out.println(id);
 
@@ -51,6 +52,8 @@ public class EmployeeEditController {
         } else {
             System.out.println("Employee loaded: " + employee.getFullName());
         }
+
+        this.contentArea = contentArea;
     }
 
     public void updateEmployee() throws IOException {
