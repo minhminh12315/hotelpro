@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.sql.PreparedStatement;
 
 public class RegisterController {
 
+    @FXML
+    private VBox root;
     @FXML
     private TextField fullnameField;
     @FXML
@@ -72,10 +76,8 @@ public class RegisterController {
     public void openLoginPage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/login/login.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Parent newContent = fxmlLoader.load();
+            root.getChildren().setAll(newContent);
         } catch (IOException e) {
             e.printStackTrace();
             errorLabel.setText("An error occurred while opening the login page.");

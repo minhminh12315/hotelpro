@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox fx:id="root" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.LoginController">
-
-    <children>
-        <TextField fx:id="usernameField" promptText="Username"/>
-        <PasswordField fx:id="passwordField" promptText="Password"/>
-        <Label fx:id="errorLabel"/>
-        <Button text="Login" onAction="#handleLogin"/>
-        <Button text="Register" onAction="#openRegisterPage"/>
-    </children>
-</VBox>
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.LoginController">
+    <left>
+        <VBox alignment="CENTER" spacing="20.0" styleClass="welcome-section">
+            <children>
+                <Text text="Welcome to HotelPro" styleClass="welcome-text"/>
+                <Text text="Please login to continue" styleClass="welcome-subtext"/>
+            </children>
+        </VBox>
+    </left>
+    <right>
+        <VBox alignment="CENTER" spacing="20.0" styleClass="login-form">
+            <children>
+                <TextField fx:id="usernameField" promptText="Username" styleClass="form-control"/>
+                <PasswordField fx:id="passwordField" promptText="Password" styleClass="form-control"/>
+                <Label fx:id="errorLabel" styleClass="error-label"/>
+                <Button text="Login" onAction="#handleLogin" styleClass="btn btn-primary"/>
+                <Button text="Register" onAction="#openRegisterPage" styleClass="btn btn-secondary"/>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>

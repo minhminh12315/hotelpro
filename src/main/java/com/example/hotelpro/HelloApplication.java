@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
         if (connection == null) {
             System.out.println("Không tìm thấy cơ sở dữ liệu!");
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/manager/master.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         // title

@@ -1,34 +1,34 @@
 package service;
 
-import dao.ServiceUsageDao;
-import model.ServiceUsage;
+import dao.BookingUsageDao;
+import model.BookingUsage;
 
 import java.util.List;
 
 public class ServiceUsageService {
-    private ServiceUsageDao serviceUsageDao;
+    private BookingUsageDao serviceUsageDao;
 
     public ServiceUsageService() {
-        this.serviceUsageDao = new ServiceUsageDao();
+        this.serviceUsageDao = new BookingUsageDao();
     }
 
-    public void addServiceUsage(ServiceUsage serviceUsage) {
+    public void addServiceUsage(BookingUsage serviceUsage) {
         serviceUsageDao.save(serviceUsage);
     }
 
-    public void updateServiceUsage(ServiceUsage serviceUsage) {
+    public void updateServiceUsage(BookingUsage serviceUsage) {
         serviceUsageDao.update(serviceUsage);
     }
 
-    public void deleteServiceUsage(ServiceUsage serviceUsage) {
+    public void deleteServiceUsage(BookingUsage serviceUsage) {
         serviceUsageDao.delete(serviceUsage);
     }
 
-    public ServiceUsage getServiceUsageById(int id) {
+    public BookingUsage getServiceUsageById(int id) {
         return serviceUsageDao.findById(id);
     }
 
-    public List<ServiceUsage> getAllServiceUsages() {
+    public List<BookingUsage> getAllServiceUsages() {
         return serviceUsageDao.getAll();
     }
 }

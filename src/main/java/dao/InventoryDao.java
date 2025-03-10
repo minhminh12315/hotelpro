@@ -1,7 +1,7 @@
 package dao;
 
 import model.Inventory;
-import model.ServiceUsage;
+import model.BookingUsage;
 
 import java.util.List;
 

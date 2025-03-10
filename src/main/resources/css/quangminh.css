@@ -1,0 +1,73 @@
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 0;
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100%;
+    -fx-alignment: center; /* Căn giữa nội dung */
+}
+
+.welcome-section {
+    -fx-background-color: #343a40;
+    -fx-text-fill: white;
+    -fx-pref-width: 70%;
+    -fx-alignment: center;
+    -fx-padding: 50;
+}
+
+.welcome-text {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+
+.welcome-subtext {
+    -fx-font-size: 24px;
+    -fx-fill: white;
+}
+
+.login-form {
+    -fx-background-color: #ffffff;
+    -fx-pref-width: 400px; /* Tăng kích thước chiều rộng */
+    -fx-padding: 40px; /* Tăng padding bên trong */
+    -fx-alignment: center; /* Đặt nội dung form ở giữa */
+    -fx-border-radius: 10px; /* Bo góc form */
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); /* Hiệu ứng bóng */
+}
+
+.form-control {
+    -fx-pref-width: 100%;
+    -fx-padding: 12px; /* Tăng kích thước padding */
+    -fx-font-size: 16px;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+}
+
+.btn {
+    -fx-pref-width: 100%;
+    -fx-padding: 12px; /* Tăng padding nút */
+    -fx-font-size: 16px;
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 3); /* Hiệu ứng bóng nhẹ */
+}
+
+.btn:hover {
+    -fx-background-color: #0056b3; /* Màu sắc khi hover */
+}
+
+.btn-secondary {
+    -fx-background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #5a6268;
+}

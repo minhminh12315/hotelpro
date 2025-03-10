@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS ServiceUsage (
-    ServiceUsageID SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS BookingUsage (
+    BookingUsageID SERIAL PRIMARY KEY,
     BookingID INT NOT NULL,
     ServiceID INT,
     ProductID INT,

@@ -3,11 +3,14 @@ package controller.manager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class MasterController {
@@ -89,25 +92,17 @@ public class MasterController {
     }
 
     @FXML
-    public void handleLogout(ActionEvent event) {
+    private void handleLogout() {
         try {
-            // Close the current stage (window)
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            currentStage.close();
-
-            // Load the new scene (login.fxml in this case)
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/login/login.fxml"));
             Parent root = fxmlLoader.load();
-
-            Scene scene = new Scene(root);
-            currentStage.setScene(scene);
-
-            // Set the title of the new stage (optional)
+    
+            // Lấy Scene hiện tại và thay đổi root
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            Scene currentScene = currentStage.getScene();
+            currentScene.setRoot(root);
+    
             currentStage.setTitle("Login");
-
-            // Show the new stage (login window)
-            currentStage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

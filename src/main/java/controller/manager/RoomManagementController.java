@@ -92,7 +92,23 @@ public class RoomManagementController {
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
 
-            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+            String backgroundColor;
+            switch (room.getStatus()) {
+                case "Occupied":
+                    backgroundColor = "red";
+                    break;
+                case "Available":
+                    backgroundColor = "#41ff1f";
+                    break;
+                case "Maintenance":
+                    backgroundColor = "yellow";
+                    break;
+                default:
+                    backgroundColor = "gray";
+                    break;
+            }
+
+            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
@@ -121,7 +137,7 @@ public class RoomManagementController {
             // Xử lý logic cho phòng đang được sử dụng (Check-out hoặc xem thông tin chi tiết)
             System.out.println("Phòng đang được sử dụng: " + room.getRoomNumber());
             handleCheckout(room);
-        } else {
+        } else if (room.getStatus().equals("Available")) {
             // Xử lý logic cho phòng trống (Check-in)
             System.out.println("Phòng trống: " + room.getRoomNumber());
             handleCheckin(room);
