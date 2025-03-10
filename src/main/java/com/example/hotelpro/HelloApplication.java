@@ -4,12 +4,14 @@ import connect.Connect;
 import connect.Migration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.sql.Connection;
 
 public class HelloApplication extends Application {
@@ -48,6 +50,7 @@ public class HelloApplication extends Application {
         // stage.setFullScreen(true); // Không sử dụng dòng này
         stage.setFullScreen(false);
         stage.show();
+
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true">
+   <content>
+      <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 20;">
+         <!-- =============== MỤC CƠM =============== -->
+         <VBox spacing="10" alignment="CENTER">
+            <Label text="Cơm" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <FlowPane hgap="20" vgap="20" prefWrapLength="600">
+               <!-- Món 1: Cơm rang thập cẩm -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Cơm rang thập cẩm" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 45.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 2: Cơm rang dưa bò -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Cơm rang dưa bò" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 45.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 3: Cơm tấm -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Cơm tấm" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 55.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 4: Cơm niêu -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Cơm niêu" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 55.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+            </FlowPane>
+         </VBox>
+
+         <!-- =============== MỤC PHỞ =============== -->
+         <VBox spacing="10" alignment="CENTER">
+            <Label text="Phở" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <FlowPane hgap="20" vgap="20" prefWrapLength="600">
+               <!-- Món 1: Phở gà -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Phở gà" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 35.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 2: Phở bò -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Phở bò" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 35.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 3: Phở trộn -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Phở trộn" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 40.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 4: Phở xào -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Phở xào" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 40.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+            </FlowPane>
+         </VBox>
+
+         <!-- =============== MỤC TRÁI CÂY =============== -->
+         <VBox spacing="10" alignment="CENTER">
+            <Label text="Trái cây" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <FlowPane hgap="20" vgap="20" prefWrapLength="600">
+               <!-- Món 1: Set trái cây 40k -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Set trái cây 40k" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 40.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 2: Set trái cây 80k -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Set trái cây 80k" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 80.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 3: Set trái cây 120k -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Set trái cây 120k" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 120.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+            </FlowPane>
+         </VBox>
+
+         <!-- =============== MỤC KHÁC =============== -->
+         <VBox spacing="10" alignment="CENTER">
+            <Label text="Khác" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <FlowPane hgap="20" vgap="20" prefWrapLength="600">
+               <!-- Món 1: Combo A -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Combo A" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 30.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 2: Combo B -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Combo B" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 50.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+               <!-- Món 3: Combo C -->
+               <VBox spacing="5" alignment="CENTER">
+                  <ImageView fitWidth="166" fitHeight="95" preserveRatio="true" />
+                  <Text text="Combo C" style="-fx-font-size: 20px;"/>
+                  <Text text="Giá tiền: 55.000đ" style="-fx-font-size: 20px;"/>
+                  <HBox spacing="5" alignment="CENTER">
+                     <Label text="Số lượng:" style="-fx-font-size: 20px;"/>
+                     <Spinner prefWidth="78"/>
+                  </HBox>
+               </VBox>
+            </FlowPane>
+         </VBox>
+      </VBox>
+   </content>
+</ScrollPane>
