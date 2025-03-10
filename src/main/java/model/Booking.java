@@ -4,13 +4,9 @@ import connect.Connect;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Booking {
@@ -122,22 +118,22 @@ public class Booking {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            int rowCount = 0;
             while (rs.next()) {
+                java.sql.Date bookingDate = rs.getDate("bookingdate");
+                java.sql.Date checkInDate = rs.getDate("checkindate");
+                Date checkOutDate = rs.getDate("checkoutdate");
+
                 Booking booking = new Booking(
                         rs.getInt("bookingid"),
                         rs.getInt("customerid"),
                         rs.getInt("roomid"),
-                        rs.getDate("bookingdate").toLocalDate(),
+                        bookingDate != null ? bookingDate.toLocalDate() : null,
                         rs.getInt("roomprice"),
-//                        rs.getDate("expectedcheckindate").toLocalDate(),
-//                        rs.getDate("expectedcheckoutdate").toLocalDate(),
-                        rs.getDate("checkindate").toLocalDate(),
-                        rs.getDate("checkoutdate").toLocalDate(),
+                        checkInDate != null ? checkInDate.toLocalDate() : null,
+                        checkOutDate != null ? checkOutDate.toLocalDate() : null,
                         rs.getString("status")
                 );
                 bookings.add(booking);
-                rowCount++;
             }
         } catch (SQLException e) {
             e.printStackTrace();  // Log full exception stack trace
