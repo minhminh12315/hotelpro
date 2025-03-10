@@ -46,8 +46,9 @@ public class MasterController {
         updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
     }
 
-    public static void setUserRole(String userRole) {
-        MasterController.userRole = userRole;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+        updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
     }
 
     private void updateViewBasedOnRole() {
@@ -65,19 +66,18 @@ public class MasterController {
         loadContent("/com/example/hotelpro/manager/dashboard.fxml");
     }
 
-   @FXML
-   private void handleRoomManagement() {
-       loadContent("/com/example/hotelpro/manager/room-management.fxml");
-   }
-
     @FXML
-    private void handleEmployeeManagement() {
-        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
+    private void handleRoomManagement() {
+        loadContent("/com/example/hotelpro/manager/room-management.fxml");
     }
 
     @FXML
     private void handleServicesManagement() {
         loadContent("/com/example/hotelpro/service/services-management.fxml");
+    }
+    @FXML
+    private void handleEmployeeManagement() {
+        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
     }
 
     @FXML
@@ -117,9 +117,5 @@ public class MasterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void handleProductManagement() {
-        loadContent("/com/example/hotelpro/manager/product/product-management.fxml");
     }
 }
