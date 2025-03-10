@@ -2,16 +2,20 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
 <VBox fx:id="root" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.RoomManagementController">
 
     <Label prefHeight="35.0" prefWidth="295.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Quản Lý Phòng Khách Sạn" />
-    <ScrollPane fitToHeight="true" fitToWidth="true">
-        <VBox fx:id="roomContainer" alignment="TOP_LEFT" spacing="10" style="-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1px; -fx-diplay: flex;">
 
+    <ScrollPane fitToHeight="true" fitToWidth="true">
+        <VBox fx:id="roomContainer" alignment="TOP_LEFT" spacing="10" style="-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1px;">
         </VBox>
     </ScrollPane>
+
+    <!-- Thêm nút "Pre Order Room" -->
+    <Button fx:id="preOrderButton" text="Pre Order Room" style="-fx-font-size: 16px; -fx-padding: 10;" onAction="#handlePreOrderButtonClick"/>
+
 </VBox>
