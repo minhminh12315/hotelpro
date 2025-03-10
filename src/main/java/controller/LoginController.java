@@ -51,10 +51,11 @@ public class LoginController {
                 if (password.equals(storedPassword)) {
                     errorLabel.setText("Login successful!");
 
-                    if ("manager".equals(role)) {
-                        MasterController.setUserRole("manager");
+                    MasterController masterController = new MasterController();
+                    if ("Manager".equals(role)) {
+                        masterController.setUserRole("Manager");
                     } else {
-                        MasterController.setUserRole("staff");
+                        masterController.setUserRole("Staff");
                     }
 
                     FXMLLoader fxmlLoader = new FXMLLoader(

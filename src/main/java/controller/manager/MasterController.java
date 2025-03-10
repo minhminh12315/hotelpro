@@ -1,5 +1,6 @@
 package controller.manager;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class MasterController {
@@ -46,19 +46,21 @@ public class MasterController {
         updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-        updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
+    public static void setUserRole(String userRole) {
+        MasterController.userRole = userRole;
+        System.out.println("User role set to: " + userRole);
     }
 
     private void updateViewBasedOnRole() {
-        if ("staff".equalsIgnoreCase(userRole)) {
+
+        if ("Staff".equalsIgnoreCase(userRole)) {
             btnEmployeeManagement.setVisible(false);
             btnEmployeeManagement.setManaged(false); // Loại bỏ khỏi layout
-        } else {
+        } else if ("Manager".equalsIgnoreCase(userRole)) {
             btnEmployeeManagement.setVisible(true);
             btnEmployeeManagement.setManaged(true);
         }
+        System.out.println("User role: " + userRole);
     }
 
     @FXML
@@ -66,18 +68,19 @@ public class MasterController {
         loadContent("/com/example/hotelpro/manager/dashboard.fxml");
     }
 
+   @FXML
+   private void handleRoomManagement() {
+       loadContent("/com/example/hotelpro/manager/room-management.fxml");
+   }
+
     @FXML
-    private void handleRoomManagement() {
-        loadContent("/com/example/hotelpro/manager/room-management.fxml");
+    private void handleEmployeeManagement() {
+        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
     }
 
     @FXML
     private void handleServicesManagement() {
-        loadContent("/com/example/hotelpro/service/services-management.fxml");
-    }
-    @FXML
-    private void handleEmployeeManagement() {
-        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+        loadContent("/com/example/hotelpro/manager/services-management.fxml");
     }
 
     @FXML
@@ -92,17 +95,25 @@ public class MasterController {
     }
 
     @FXML
-    private void handleLogout() {
+    public void handleLogout(ActionEvent event) {
         try {
+            // Close the current stage (window)
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Load the new scene (login.fxml in this case)
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/login/login.fxml"));
             Parent root = fxmlLoader.load();
-    
-            // Lấy Scene hiện tại và thay đổi root
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            Scene currentScene = currentStage.getScene();
-            currentScene.setRoot(root);
-    
+
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+
+            // Set the title of the new stage (optional)
             currentStage.setTitle("Login");
+
+            // Show the new stage (login window)
+            currentStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,5 +128,9 @@ public class MasterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleProductManagement() {
+        loadContent("/com/example/hotelpro/manager/product/product-management.fxml");
     }
 }
