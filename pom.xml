@@ -109,6 +109,7 @@
                     <url>jdbc:postgresql://localhost:5432/hotelpro</url>
                     <user>postgres</user>
                     <password>0804</password>
+                    <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>
         </plugins>
