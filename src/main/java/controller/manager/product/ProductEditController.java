@@ -7,8 +7,10 @@ import javafx.scene.control.TextField;
 import model.Product;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class ProductEditController {
+
     @FXML
     private TextField productNameField;
     @FXML
@@ -19,22 +21,31 @@ public class ProductEditController {
     private TextField unitField;
 
     private ProductDao productDao = new ProductDao();
-
-    @FXML
     private int productId;
 
-    @FXML
     public void setProductId(int productId) {
         this.productId = productId;
     }
 
+
     @FXML
     private void initialize() {
-        Product product = productDao.findById(productId);
-        productNameField.setText(product.getProductName());
-        unitPriceField.setText(product.getUnitPrice().toString());
-        descriptionField.setText(product.getDescription());
-        unitField.setText(product.getUnit());
+        loadProductDetails();
+    }
+
+    private void loadProductDetails() {
+        if (productId != 0) {
+            Product product = productDao.findById(productId);
+            if (product != null) {
+                productNameField.setText(product.getProductName());
+                unitPriceField.setText(product.getUnitPrice().toString());
+                descriptionField.setText(product.getDescription());
+                unitField.setText(product.getUnit());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Product not found");
+                alert.showAndWait();
+            }
+        }
     }
 
     @FXML

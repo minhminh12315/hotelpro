@@ -51,7 +51,7 @@
         </VBox>
 
         <!-- Add Button -->
-        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addProduct" text="Add Product"
+        <Button fx:id="addButton" mnemonicParsing="false" onAction="#storeProduct" text="Add Product"
                 style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
     </children>
 </VBox>

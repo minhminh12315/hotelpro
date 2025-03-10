@@ -1,5 +1,6 @@
 package controller.manager.product;
 
+import controller.manager.employee.EmployeeEditController;
 import dao.ProductDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class ProductController {
     @FXML
@@ -71,7 +73,11 @@ public class ProductController {
 
                             updateButton.setOnAction(event -> {
                                 Product product = getTableView().getItems().get(getIndex());
-                                updateProduct(product.getProductID());
+                                try {
+                                    updateProduct(product.getProductID());
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
                             });
 
                             deleteButton.setOnAction(event -> {
@@ -97,9 +103,10 @@ public class ProductController {
         loadContent("/com/example/hotelpro/manager/product/product-add.fxml");
     }
 
-    public void updateProduct(int productId) {
-        ProductEditController productEditController = new ProductEditController();
-        productEditController.setProductId(productId);
+    public void updateProduct(int productId) throws SQLException {
+       loadContent("/com/example/hotelpro/manager/product/product-edit.fxml");
+       ProductEditController controller = new ProductEditController();
+       controller.setProductId(productId);
     }
 
     public void deleteProduct(int productId) {

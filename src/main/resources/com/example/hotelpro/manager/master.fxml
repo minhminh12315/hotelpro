@@ -26,7 +26,7 @@
                 <MenuButton fx:id="logoutButton" text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
                     <items>
 <!--                        <MenuItem style="-fx-padding: 10" text="Settings" onAction="#handleSettings"/>-->
-                        <MenuItem  style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
+                        <MenuItem style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
                     </items>
                 </MenuButton>
             </HBox>
