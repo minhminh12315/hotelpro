@@ -1,11 +1,7 @@
 package dao;
 
 import connect.Connect;
-import model.Room;
 import model.Service;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import util.HibernateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,15 +17,19 @@ public class ServiceDao implements BaseDao<Service> {
         String sql = "INSERT INTO service (serviceName, servicePrice, serviceType, description) VALUES (?, ?, ?, ?)";
         try (Connection connection = Connect.connection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setString(1, service.getServiceName());
             statement.setBigDecimal(2, service.getServicePrice());
             statement.setString(3, service.getServiceType());
             statement.setString(4, service.getDescription());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Database error: " + e.getMessage());
         }
     }
+
 
 
     @Override
@@ -48,7 +48,6 @@ public class ServiceDao implements BaseDao<Service> {
         }
     }
 
-
     @Override
     public void delete(Service service) {
         String sql = "DELETE FROM service WHERE serviceID = ?";
@@ -60,7 +59,6 @@ public class ServiceDao implements BaseDao<Service> {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public Service findById(int id) {
