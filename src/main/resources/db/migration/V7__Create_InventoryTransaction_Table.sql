@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS InventoryTransactions (
     EmployeeID INT REFERENCES Employee(EmployeeID),
     Quantity INT NOT NULL,
     TransactionType VARCHAR(10) NOT NULL CHECK (TransactionType IN ('Import', 'Export')),
-    TransactionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    TransactionDate DATE DEFAULT CURRENT_TIMESTAMP,
     Remarks TEXT
 );
