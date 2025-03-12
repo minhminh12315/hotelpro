@@ -119,6 +119,17 @@ public class PreOrderPageController {
                 return;
             }
 
+            // Kiểm tra xem phòng có bị đặt trước chưa
+            String checkRoomQuery = "SELECT COUNT(*) FROM Booking WHERE RoomID = ? AND (Status = 'Booked' OR Status = 'PreOrder')";
+            try (PreparedStatement checkStmt = connection.prepareStatement(checkRoomQuery)) {
+                checkStmt.setInt(1, selectedRoomId);
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Phòng này đã được đặt hoặc đang trong quá trình đặt trước!");
+                    return;
+                }
+            }
+
             double price = Double.parseDouble(priceLabel.getText());
             String sql_customer = "INSERT INTO Customer (FullName, PhoneNumber, Email, Address, ID_Passport, DateOfBirth, Gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
             String sql_preorder = "INSERT INTO Booking (CustomerID, RoomID, BookingDate, RoomPrice, ExpectedCheckInDate, ExpectedCheckOutDate, Status) VALUES (?, ?, ?, ?, ?, ?, 'PreOrder')";
@@ -135,17 +146,14 @@ public class PreOrderPageController {
                 stmt1.setString(7, gender);
                 stmt1.executeUpdate();
 
-                ResultSet rs = stmt1.getGeneratedKeys();
+                ResultSet rs1 = stmt1.getGeneratedKeys();
                 int customerId = 0;
-                if (rs.next()) {
-                    customerId = rs.getInt(1);
+                if (rs1.next()) {
+                    customerId = rs1.getInt(1);
                 }
 
-                System.out.println("Generated Customer ID: " + customerId);
-                System.out.println("RoomID: " + selectedRoomId);
-
                 stmt2.setInt(1, customerId);
-                stmt2.setInt(2, selectedRoomId); // Sử dụng RoomID đã lấy từ database
+                stmt2.setInt(2, selectedRoomId);
                 LocalDate bookingDate = LocalDate.now();
                 stmt2.setDate(3, java.sql.Date.valueOf(bookingDate));
                 stmt2.setDouble(4, price);
@@ -155,11 +163,11 @@ public class PreOrderPageController {
                 stmt2.executeUpdate();
             }
 
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Pre-order placed successfully!");
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đặt trước phòng thành công!");
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Dữ liệu phòng không hợp lệ: " + e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to place pre-order: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể đặt trước phòng: " + e.getMessage());
         }
     }
 

@@ -21,6 +21,12 @@ public class HelloApplication extends Application {
         Connection connection = Connect.connection();
         if (connection == null) {
             System.out.println("Không tìm thấy cơ sở dữ liệu!");
+        } else {
+            if (!Connect.checkTable("Customer")) {
+                Migration.migrate();
+            } else {
+                System.out.println("Cơ sở dữ liệu đã tồn tại!");
+            }
         }
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/hotelpro/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -49,6 +55,7 @@ public class HelloApplication extends Application {
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này
         stage.setFullScreen(false);
+
         stage.show();
 
     }

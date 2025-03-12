@@ -20,9 +20,9 @@ public class Service {
 
     private BigDecimal servicePrice;
 
-    private String serviceType;
-
     private String description;
+
+    private String serviceType;
 
     // JavaFX properties
     private final IntegerProperty idProperty = new SimpleIntegerProperty();
@@ -55,14 +55,6 @@ public class Service {
         this.servicePrice = servicePrice;
     }
 
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -79,6 +71,21 @@ public class Service {
         return nameProperty;
     }
 
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public int getIdProperty() {
+        return idProperty.get();
+    }
+
+    public IntegerProperty idPropertyProperty() {
+        return idProperty;
+    }
 
     static Connection conn = new Connect().getConn();
     public static double getTotalServicesToday(){

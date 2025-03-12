@@ -52,10 +52,10 @@ public class LoginController {
                     errorLabel.setText("Login successful!");
 
                     MasterController masterController = new MasterController();
-                    if ("Manager".equals(role)) {
-                        masterController.setUserRole("Manager");
+                    if ("manager".equals(role)) {
+                        masterController.setUserRole("manager");
                     } else {
-                        masterController.setUserRole("Staff");
+                        masterController.setUserRole("staff");
                     }
 
                     FXMLLoader fxmlLoader = new FXMLLoader(
