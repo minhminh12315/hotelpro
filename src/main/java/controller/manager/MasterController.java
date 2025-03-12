@@ -80,7 +80,7 @@ public class MasterController {
 
     @FXML
     private void handleServicesManagement() {
-        loadContent("/com/example/hotelpro/manager/services-management.fxml");
+        loadContent("/com/example/hotelpro/service/services-management.fxml");
     }
 
     @FXML
