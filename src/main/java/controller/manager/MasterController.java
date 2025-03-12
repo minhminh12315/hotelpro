@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,6 +20,9 @@ public class MasterController {
     @FXML
     public BorderPane root;
     public MenuButton logoutButton;
+
+    @FXML
+    ScrollPane contentScrollPane;
 
     @FXML
     private VBox contentArea;
@@ -43,7 +48,15 @@ public class MasterController {
 //                e.printStackTrace();
 //            }
 //        }
+        contentScrollPane.addEventFilter(ScrollEvent.ANY, event -> {
+            if (event.getDeltaY() != 0) {
+                double multiplier = 6.0;  // Increase this value to speed up scrolling
+                contentScrollPane.setVvalue(contentScrollPane.getVvalue() - event.getDeltaY() * multiplier / contentScrollPane.getContent().getBoundsInLocal().getHeight());
+                event.consume();
+            }
+        });
         updateViewBasedOnRole(); // Cập nhật giao diện dựa trên vai trò
+        handleDashboard();
     }
 
     public static void setUserRole(String userRole) {

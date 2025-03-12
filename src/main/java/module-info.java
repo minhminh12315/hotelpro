@@ -3,6 +3,7 @@ module com.example.hotelpro {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
+    requires javafx.graphics;
 
     // Hibernate and Jakarta modules
     requires org.kordamp.bootstrapfx.core;

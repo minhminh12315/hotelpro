@@ -12,6 +12,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.manager.MasterController">
     <!-- Header -->
     <top>
@@ -26,7 +27,7 @@
                 <MenuButton fx:id="logoutButton" text="User Name" style="-fx-background-color: #fff; -fx-text-fill: white;">
                     <items>
 <!--                        <MenuItem style="-fx-padding: 10" text="Settings" onAction="#handleSettings"/>-->
-                        <MenuItem  style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
+                        <MenuItem style="-fx-padding: 10" text="Logout" onAction="#handleLogout"/>
                     </items>
                 </MenuButton>
             </HBox>
@@ -49,11 +50,10 @@
 
     <!-- Main Content -->
     <center>
-        <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 10;">
-                <fx:include source="dashboard.fxml"/>
-<!--               <fx:include source="room-management.fxml"/>-->
-<!--                <fx:include source="employee/employee-management.fxml"/>-->
-<!--                <fx:include source="add-room.fxml"/>-->
-        </VBox>
+        <ScrollPane fx:id="contentScrollPane" style="-fx-padding: 10;" fitToWidth="true" fitToHeight="true">
+            <VBox fx:id="contentArea" spacing="10">
+
+            </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

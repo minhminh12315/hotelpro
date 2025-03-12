@@ -107,7 +107,7 @@ public class Booking {
         this.status = status;
     }
 
-    Connection conn = new Connect().getConn();
+    static Connection conn = new Connect().getConn();
 
     public List<Booking> getByCustomerId(Integer id) {
         String sql = "SELECT * FROM booking WHERE customerid = ? ORDER BY checkindate ASC";
@@ -138,6 +138,106 @@ public class Booking {
         } catch (SQLException e) {
             e.printStackTrace();  // Log full exception stack trace
             throw new RuntimeException(e);
+        }
+        return bookings;
+    }
+
+
+
+    public static double getTotalPendingBooking() {
+        double total = 0;
+        String query = "SELECT * FROM Booking where Status = 'Pending'";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int quantity = rs.getInt("bookingid");
+                total += quantity;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+    public static double getTotalCheckedInBooking() {
+        double total = 0;
+        String query = "SELECT * FROM Booking where Status = 'CheckedIn'";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int quantity = rs.getInt("bookingid");
+                total += quantity;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+    public static double getTotalCheckedOutBooking() {
+        double total = 0;
+        String query = "SELECT * FROM Booking where Status = 'CheckedOut'";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int quantity = rs.getInt("bookingid");
+                total += quantity;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+
+    private String fullname;
+    private String roomnumber;
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public String getRoomnumber() {
+        return roomnumber;
+    }
+
+    public Booking(int bookingid, String fullname, String roomnumber, LocalDate checkInDate) {
+        this.bookingID = bookingid;
+        this.fullname = fullname;
+        this.roomnumber = roomnumber;
+        this.checkInDate = checkInDate;
+    }
+
+    public List<Booking> getUpcomingBooking() {
+        String query = "SELECT b.bookingid, c.fullname, r.roomnumber, b.checkindate " +
+                "FROM Booking as b " +
+                "join customer as c on c.customerid = b.customerid " +
+                "join room as r on r.roomid = b.roomid " +
+                "where b.Status = 'CheckedOut'";
+        List<Booking> bookings = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Booking booking = new Booking(
+                    rs.getInt("bookingid"),
+                    rs.getString("fullname"),
+                    rs.getString("roomnumber"),
+                    rs.getDate("checkindate").toLocalDate());
+                bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return bookings;
     }

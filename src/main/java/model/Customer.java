@@ -37,9 +37,9 @@ public class Customer {
     private final IntegerProperty idProperty = new SimpleIntegerProperty();
     private final StringProperty nameProperty = new SimpleStringProperty();
 //
-//    public Customer(){
-//
-//    }
+    public Customer(){
+
+    }
 //
 //    public Customer(int customerID, String fullName, String phoneNumber, String email, String address, String idPassport, LocalDate dateOfBirth, String gender) {
 //        this.customerID = customerID;
@@ -124,57 +124,73 @@ public class Customer {
     public StringProperty nameProperty() {
         return nameProperty;
     }
-//
-//    Connection conn = new Connect().getConn();
-//
-//    public List<Customer> getAll() {
-//        String sql = "SELECT * FROM customer " +
-//                "ORDER BY customerid ASC";
-//        List<Customer> customers = new ArrayList<>();
-//        try {
-//            ResultSet rs = conn.createStatement().executeQuery(sql);
-//            while (rs.next()) {
-//                Customer customer = new Customer(
-//                        rs.getInt("customerid"),
-//                        rs.getString("fullname"),
-//                        rs.getString("phonenumber"),
-//                        rs.getString("email"),
-//                        rs.getString("address"),
-//                        rs.getString("id_passport"),
-//                        rs.getDate("dateofbirth").toLocalDate(),
-//                        rs.getString("gender"));
-//                customers.add(customer);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return customers;
-//    }
-//    public Booking getById(Integer id) {
-//        String sql = "SELECT * FROM booking WHERE customerid = ?";
-//        try {
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                return new Booking(
-//                        rs.getInt("bookingid"),
-//                        rs.getInt("customerid"),
-//                        rs.getInt("roomid"),
-//                        rs.getDate("bookingdate").toLocalDate(),
-//                        rs.getBigDecimal("roomprice"),
-//                        rs.getDate("expectedcheckindate").toLocalDate(),
-//                        rs.getDate("expectedcheckoutdate").toLocalDate(),
-//                        rs.getDate("checkindate") != null ? rs.getDate("checkindate").toLocalDate() : null,
-//                        rs.getDate("checkoutdate") != null ? rs.getDate("checkoutdate").toLocalDate() : null,
-//                        rs.getString("status")
-//                );
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return null;
-//    }
-//
+
+    static Connection conn = new Connect().getConn();
+    public static double getTotalCustomers(){
+        double total = 0;
+        String query = "SELECT * FROM Customer";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int quantity = rs.getInt("customerid");
+                total += quantity;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+    private String roomNumber;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public LocalDate getCheckInDate() {
+        return checkInDate;
+    }
+
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public Customer(String fullName, String roomNumber, LocalDate checkInDate, LocalDate checkOutDate) {
+        this.fullName = fullName;
+        this.roomNumber = roomNumber;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
+
+    public List<Customer> getCustomersInHotel(){
+        String query = "SELECT c.fullname, r.roomnumber, b.checkindate, b.checkoutdate " +
+                "FROM Customer as c " +
+                "JOIN booking as b on b.customerid = c.customerid " +
+                "JOIN room as r on r.roomid = b.roomid";
+        List<Customer> customers = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Customer customer = new Customer(
+                        rs.getString("fullname"),
+                        rs.getString("roomnumber"),
+                        rs.getDate("checkindate").toLocalDate(),
+                        rs.getDate("checkoutdate").toLocalDate()
+                );
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
 
 }

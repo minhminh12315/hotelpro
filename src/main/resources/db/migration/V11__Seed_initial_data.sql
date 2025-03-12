@@ -1,16 +1,16 @@
 -- Seed data for Employee table V1
 INSERT INTO Employee (FullName, PhoneNumber, Email, Role, Password, StartDate)
 VALUES
-('admin', '1231231234', 'alicej@example.com', 'Manager', '123456789', '2020-01-01'),
-('Bob Wilson', '2342342345', 'bobw@example.com', 'Staff', 'hashed_password2', '2021-06-15'),
-('Emma Brown', '3453453456', 'emmab@example.com', 'Staff', 'hashed_password3', '2022-05-20'),
-('Michael Green', '4564564567', 'michaelg@example.com', 'Manager', 'hashed_password4', '2019-11-10'),
-('Sophia Taylor', '5675675678', 'sophiat@example.com', 'Staff', 'hashed_password5', '2023-01-01'),
-('James Davis', '6786786789', 'jamesd@example.com', 'Manager', 'hashed_password6', '2018-05-15'),
-('Olivia Harris', '7897897890', 'oliviah@example.com', 'Staff', 'hashed_password7', '2021-03-20'),
-('Liam Martin', '8908908901', 'liamm@example.com', 'Staff', 'hashed_password8', '2022-08-10'),
-('Charlotte Lewis', '9019019012', 'charlottel@example.com', 'Manager', 'hashed_password9', '2017-09-25'),
-('Elijah Walker', '0120120123', 'elijahw@example.com', 'Staff', 'hashed_password10', '2020-11-30');
+('admin', '1231231234', 'alicej@example.com', 'manager', '1', '2020-01-01'),
+('staff', '2342342345', 'bobw@example.com', 'staff', '1', '2021-06-15'),
+('Emma Brown', '3453453456', 'emmab@example.com', 'staff', 'hashed_password3', '2022-05-20'),
+('Michael Green', '4564564567', 'michaelg@example.com', 'manager', 'hashed_password4', '2019-11-10'),
+('Sophia Taylor', '5675675678', 'sophiat@example.com', 'staff', 'hashed_password5', '2023-01-01'),
+('James Davis', '6786786789', 'jamesd@example.com', 'manager', 'hashed_password6', '2018-05-15'),
+('Olivia Harris', '7897897890', 'oliviah@example.com', 'staff', 'hashed_password7', '2021-03-20'),
+('Liam Martin', '8908908901', 'liamm@example.com', 'staff', 'hashed_password8', '2022-08-10'),
+('Charlotte Lewis', '9019019012', 'charlottel@example.com', 'manager', 'hashed_password9', '2017-09-25'),
+('Elijah Walker', '0120120123', 'elijahw@example.com', 'staff', 'hashed_password10', '2020-11-30');
 
 -- Seed data for Customer table V2
 INSERT INTO Customer (FullName, PhoneNumber, Email, Address, ID_Passport, DateOfBirth, Gender)
@@ -67,16 +67,16 @@ VALUES
 -- Seed data for Booking table V4
 INSERT INTO Booking (CustomerID, RoomID, BookingDate, RoomPrice, ExpectedCheckInDate, ExpectedCheckOutDate, CheckInDate, CheckOutDate, Status)
 VALUES
-(1, 2, '2025-03-01', 150.00, '2025-03-05', '2025-03-10', NULL, NULL, 'Pending'),
+(1, 2, '2025-03-01', 150.00, '2025-03-05', '2025-03-10', '2025-02-22', '2025-03-02', 'Pending'),
 (2, 1, '2025-02-25', 100.00, '2025-03-01', '2025-03-02', '2025-03-01', '2025-03-02', 'CheckedOut'),
-(3, 3, '2025-02-20', 300.00, '2025-02-22', '2025-02-24', '2025-02-22', NULL, 'CheckedIn'),
-(4, 4, '2025-03-02', 120.00, '2025-03-03', '2025-03-05', NULL, NULL, 'Pending'),
+(3, 3, '2025-02-20', 300.00, '2025-02-22', '2025-02-24', '2025-02-22', '2025-03-02', 'CheckedIn'),
+(4, 4, '2025-03-02', 120.00, '2025-03-03', '2025-03-05', '2025-02-22', '2025-03-02', 'Pending'),
 (5, 5, '2025-02-28', 160.00, '2025-03-02', '2025-03-04', '2025-03-02', '2025-03-04', 'CheckedOut'),
-(6, 6, '2025-03-03', 350.00, '2025-03-06', '2025-03-09', NULL, NULL, 'Pending'),
-(7, 7, '2025-03-04', 110.00, '2025-03-08', '2025-03-12', NULL, NULL, 'Pending'),
-(8, 8, '2025-03-05', 170.00, '2025-03-09', '2025-03-13', NULL, NULL, 'Pending'),
-(9, 9, '2025-03-06', 400.00, '2025-03-10', '2025-03-14', NULL, NULL, 'Pending'),
-(10, 10, '2025-03-07', 105.00, '2025-03-11', '2025-03-15', NULL, NULL, 'Pending');
+(6, 6, '2025-03-03', 350.00, '2025-03-06', '2025-03-09', '2025-02-22', '2025-03-02', 'Pending'),
+(7, 7, '2025-03-04', 110.00, '2025-03-08', '2025-03-12', '2025-02-22', '2025-03-02', 'Pending'),
+(8, 8, '2025-03-05', 170.00, '2025-03-09', '2025-03-13', '2025-02-22', '2025-03-02', 'Pending'),
+(9, 9, '2025-03-06', 400.00, '2025-03-10', '2025-03-14', '2025-02-22', '2025-03-02', 'Pending'),
+(10, 10, '2025-03-07', 105.00, '2025-03-11', '2025-03-15', '2025-02-22', '2025-03-02', 'Pending');
 
 -- Seed data for Product table V5
 INSERT INTO Product (ProductName, UnitPrice, Description, Unit)
@@ -148,16 +148,17 @@ VALUES
 -- Seed data for BookingUsage table V9
 INSERT INTO BookingUsage (BookingID, ServiceID, ProductID, ServiceUsagePrice, Quantity, UsageDate)
 VALUES
-(1, 1, NULL, 50, 1, '2025-03-05'), -- Room Cleaning service for BookingID 1
-(2, 2, NULL, 30, 1, '2025-03-02'), -- Laundry service for BookingID 2
-(3, 3, NULL, 100, 1, '2025-02-22'), -- Spa service for BookingID 3
-(4, 4, NULL, 20, 1, '2025-03-03'), -- Gym Access service for BookingID 4
-(5, 5, NULL, 15, 1, '2025-03-04'), -- Breakfast service for BookingID 5
-(6, NULL, 1, 1.50, 2, '2025-03-06'), -- 2 Bottles of Water for BookingID 6
-(7, NULL, 2, 2.00, 1, '2025-03-08'), -- 1 Snack Pack for BookingID 7
-(8, NULL, 3, 2.50, 3, '2025-03-09'), -- 3 Soft Drinks for BookingID 8
-(9, NULL, 4, 3.50, 1, '2025-03-10'), -- 1 Shampoo for BookingID 9
-(10, NULL, 5, 1.20, 1, '2025-03-11'); -- 1 Toothbrush for BookingID 10
+(1, 1, NULL, 20.00, 1, '2025-03-02'), -- Room Cleaning for booking 1
+(2, 3, NULL, 25.00, 2, '2025-03-02'), -- Room Service for booking 2
+(3, 4, NULL, 50.00, 1, '2025-02-23'), -- Massage Service for booking 3
+(4, 2, NULL, 15.00, 1, '2025-03-03'), -- Laundry Service for booking 4
+(5, 5, NULL, 75.00, 1, '2025-03-02'), -- Spa Service for booking 5
+(6, NULL, 2, 2.00, 3, '2025-03-06'), -- Snack Pack for booking 6
+(7, NULL, 6, 1.20, 5, '2025-03-07'), -- Toothbrush for booking 7
+(8, 6, NULL, 40.00, 1, '2025-03-08'), -- Airport Pickup for booking 8
+(9, NULL, 9, 3.50, 2, '2025-03-10'), -- Energy Drink for booking 9
+(10, NULL, 4, 3.50, 1, '2025-03-11'); -- Shampoo for booking 10
+
 
 
 -- Seed data for Invoice table V10
@@ -173,3 +174,30 @@ VALUES
 (8, '2025-03-08', 320.00, 'Cash', 'Paid'),
 (9, '2025-03-09', 150.00, 'EWallet', 'Paid'),
 (10, '2025-03-10', 105.00, 'Card', 'Paid');
+
+-- Seed data for InventoryTransactions table
+INSERT INTO InventoryTransactions (ProductID, BookingID, EmployeeID, Quantity, TransactionType, TransactionDate, Remarks)
+VALUES
+(1, 1, 1, 10, 'Import', '2025-03-01', 'Restocking after usage for Booking 1'), -- Imported Bottle of Water
+(3, 2, 2, 20, 'Export', '2025-03-02', 'Exported Soft Drinks for Booking 2'), -- Exported Soft Drinks for Booking 2
+(4, 3, 3, 5, 'Import', '2025-02-22', 'Restocking Shampoo for Booking 3'), -- Imported Shampoo
+(5, 4, 4, 2, 'Export', '2025-03-03', 'Exported Toothbrush for Booking 4'), -- Exported Toothbrush
+(7, 5, 5, 15, 'Import', '2025-03-02', 'Restocking Coffee Pack for Booking 5'), -- Imported Coffee Pack
+(8, 6, 6, 30, 'Export', '2025-03-06', 'Exported Soap Bar for Booking 6'), -- Exported Soap Bar
+(9, 7, 7, 25, 'Import', '2025-03-08', 'Restocking Chocolate for Booking 7'), -- Imported Chocolate
+(10, 8, 8, 40, 'Export', '2025-03-09', 'Exported Tea Pack for Booking 8'), -- Exported Tea Pack
+(6, 9, 9, 50, 'Import', '2025-03-10', 'Restocking Energy Drinks for Booking 9'), -- Imported Energy Drink
+(3, 10, 10, 10, 'Export', '2025-03-11', 'Exported Soft Drink for Booking 10'); -- Exported Soft Drink for Booking 10
+
+-- Seed data for Service table with correct table structure
+INSERT INTO Service (ServiceName, ServicePrice, ServiceType, Description)
+VALUES
+('Room Cleaning', 20.00, 'Room', 'Basic room cleaning service including tidying up, changing bed linens, and cleaning the bathroom.'),
+('Laundry Service', 15.00, 'Room', 'Laundry service for clothes including washing, drying, and ironing.'),
+('Room Service', 25.00, 'Food & Beverage', 'Food and beverages served directly to your room at any time of the day or night.'),
+('Massage Service', 50.00, 'Spa', 'A full-body massage service to help you relax and unwind. Includes aromatherapy and soothing oils.'),
+('Spa Service', 75.00, 'Spa', 'Full spa treatment that includes facial, massage, and other rejuvenating services.'),
+('Airport Pickup', 40.00, 'Transport', 'Pickup service from the airport to the hotel with a comfortable vehicle.'),
+('Late Check-out', 30.00, 'Room', 'Extended check-out service allowing you to stay longer in the room past the regular check-out time.'),
+('Early Check-in', 30.00, 'Room', 'Service that allows you to check-in early before the usual check-in time.');
+

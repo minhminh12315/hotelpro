@@ -200,4 +200,45 @@ public class Employee {
         }
     }
 
+
+
+    // Get total transaction count by employee
+    public List<EmployeePerformance> getEmployeePerformance() {
+        List<EmployeePerformance> performanceList = new ArrayList<>();
+        String query = "SELECT e.employeeid, e.fullname, COUNT(it.transactionid) AS transaction_count " +
+                "FROM employee e " +
+                "LEFT JOIN inventorytransactions it ON e.employeeid = it.employeeid " +
+                "GROUP BY e.employeeid, e.fullname " +
+                "ORDER BY transaction_count DESC LIMIT 5"; // Get top 5 employees
+
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                EmployeePerformance performance = new EmployeePerformance();
+                performance.setEmployeeName(rs.getString("fullname"));
+                performance.setTransactionCount(rs.getInt("transaction_count"));
+                performanceList.add(performance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return performanceList;
+    }
+
+    // Get total transactions in the system
+    public int getTotalTransactions() {
+        int total = 0;
+        String query = "SELECT COUNT(transactionid) AS total_transactions FROM inventorytransactions";
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                total = rs.getInt("total_transactions");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
 }
