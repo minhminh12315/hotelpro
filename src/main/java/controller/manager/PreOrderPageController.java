@@ -7,10 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+
 import connect.Connect;
 
 public class PreOrderPageController {
@@ -48,8 +50,6 @@ public class PreOrderPageController {
     private String ExpectedCheckOutDate;
 
 
-
-
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String NUMBER_REGEX = "\\d+";
 
@@ -57,7 +57,6 @@ public class PreOrderPageController {
         this.roomId = roomId;
         loadRooms();
     }
-
 
 
     @FXML
@@ -102,6 +101,11 @@ public class PreOrderPageController {
 
     @FXML
     private void handlePreOrderSubmit(ActionEvent event) {
+        // Kiểm tra dữ liệu nhập trước khi thực hiện đặt phòng
+        if (!isValidInput()) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đúng thông tin trước khi đặt phòng!");
+            return;
+        }
         try (Connection connection = Connect.connection()) {
             String fullName = fullNameInput.getText();
             String phone = phoneInput.getText();
@@ -119,16 +123,36 @@ public class PreOrderPageController {
                 return;
             }
 
+            // Kiểm tra ngày exspecteCheckIn và exspectedCheckOut có bị trùng không, nếu trùng thì báo có người đặt rồi
             // Kiểm tra xem phòng có bị đặt trước chưa
-            String checkRoomQuery = "SELECT COUNT(*) FROM Booking WHERE RoomID = ? AND (Status = 'Booked' OR Status = 'PreOrder')";
+            // Kiểm tra xem phòng đã được đặt trong khoảng thời gian này chưa
+            String checkRoomQuery = """
+                        SELECT COUNT(*) FROM Booking 
+                        WHERE RoomID = ? 
+                        AND Status IN ('CheckIn', 'PreOrder') 
+                        AND (
+                            (ExpectedCheckInDate BETWEEN ? AND ?) 
+                            OR (ExpectedCheckOutDate BETWEEN ? AND ?) 
+                            OR (? BETWEEN ExpectedCheckInDate AND ExpectedCheckOutDate)
+                            OR (? BETWEEN ExpectedCheckInDate AND ExpectedCheckOutDate)
+                        )
+                    """;
             try (PreparedStatement checkStmt = connection.prepareStatement(checkRoomQuery)) {
                 checkStmt.setInt(1, selectedRoomId);
+                checkStmt.setDate(2, java.sql.Date.valueOf(expectedCheckInDate));
+                checkStmt.setDate(3, java.sql.Date.valueOf(expectedCheckOutDate));
+                checkStmt.setDate(4, java.sql.Date.valueOf(expectedCheckInDate));
+                checkStmt.setDate(5, java.sql.Date.valueOf(expectedCheckOutDate));
+                checkStmt.setDate(6, java.sql.Date.valueOf(expectedCheckInDate));
+                checkStmt.setDate(7, java.sql.Date.valueOf(expectedCheckOutDate));
+
                 ResultSet rs = checkStmt.executeQuery();
                 if (rs.next() && rs.getInt(1) > 0) {
-                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Phòng này đã được đặt hoặc đang trong quá trình đặt trước!");
+                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Phòng này đã có người đặt trong khoảng thời gian bạn chọn!");
                     return;
                 }
             }
+
 
             double price = Double.parseDouble(priceLabel.getText());
             String sql_customer = "INSERT INTO Customer (FullName, PhoneNumber, Email, Address, ID_Passport, DateOfBirth, Gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -164,13 +188,13 @@ public class PreOrderPageController {
             }
 
             showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đặt trước phòng thành công!");
+            loadContent();
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Dữ liệu phòng không hợp lệ: " + e.getMessage());
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể đặt trước phòng: " + e.getMessage());
         }
     }
-
 
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -221,4 +245,50 @@ public class PreOrderPageController {
             }
         });
     }
+
+    private boolean isValidInput() {
+        String email = emailInput.getText();
+        String phone = phoneInput.getText();
+        String idPassport = idPassportInput.getText();
+
+        // Kiểm tra Email
+        if (!Pattern.matches(EMAIL_REGEX, email)) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Email không hợp lệ!");
+            return false;
+        }
+
+        // Kiểm tra số điện thoại
+        if (!Pattern.matches(NUMBER_REGEX, phone)) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Số điện thoại không hợp lệ!");
+            return false;
+        }
+
+        // Kiểm tra số CMND/Hộ chiếu
+        if (!Pattern.matches(NUMBER_REGEX, idPassport)) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Số CMND/Hộ chiếu không hợp lệ!");
+            return false;
+        }
+
+        // Kiểm tra ngày tháng hợp lệ
+        if (dobPicker.getValue() == null || expectedCheckinPicker.getValue() == null || expectedCheckoutPicker.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Vui lòng chọn đầy đủ ngày sinh, ngày nhận và ngày trả!");
+            return false;
+        }
+
+        LocalDate checkIn = expectedCheckinPicker.getValue();
+        LocalDate checkOut = expectedCheckoutPicker.getValue();
+
+        if (checkIn.isBefore(LocalDate.now())) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Ngày nhận phòng phải từ hôm nay trở đi!");
+            return false;
+        }
+
+        if (checkOut.isBefore(checkIn)) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Ngày trả phòng phải sau ngày nhận phòng!");
+            return false;
+        }
+
+        return true;
+    }
+
 }

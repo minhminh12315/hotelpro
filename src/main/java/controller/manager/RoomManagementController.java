@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Room;
+import javafx.event.ActionEvent;  // ✅ Đúng, dùng cho JavaFX
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +30,10 @@ public class RoomManagementController {
 
     @FXML
     private VBox root;
+
+    @FXML
+    private Button preOrderButton;  // Đảm bảo khai báo nếu cần
+
 
     @FXML
     private VBox roomContainer;
@@ -54,6 +59,7 @@ public class RoomManagementController {
     @FXML
     private void initialize() {
         loadRoomData();
+
     }
 
     public void loadRoomData() {
@@ -154,6 +160,24 @@ public class RoomManagementController {
             Parent newContent = fxmlLoader.load();
 
             root.getChildren().setAll(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Stage stage;
+    private Scene scene;
+
+    @FXML
+    public void handlePreOrderButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-room.fxml"));
+            Parent root = loader.load();
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
