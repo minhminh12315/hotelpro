@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="pre_order" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.manager.PreOrderPageController">
+<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.manager.PreOrderPageController">
     <VBox>
         <GridPane hgap="10" layoutX="20" layoutY="20" vgap="10">
             <columnConstraints>
@@ -50,9 +50,6 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-
-                        <Label text="Booking Date:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                        <DatePicker fx:id="bookingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
             <!-- Room ID -->
             <Label text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="8" />

@@ -111,6 +111,11 @@ public class MasterController {
     }
 
     @FXML
+    private void handleBookingManagement() {
+        loadContent("/com/example/hotelpro/manager/booking/booking-management.fxml");
+    }
+
+    @FXML
     public void handleLogout(ActionEvent event) {
         try {
             // Close the current stage (window)

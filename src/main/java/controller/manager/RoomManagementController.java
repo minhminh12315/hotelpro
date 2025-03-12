@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Room;
+import javafx.event.ActionEvent;  // ✅ Đúng, dùng cho JavaFX
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +30,10 @@ public class RoomManagementController {
 
     @FXML
     private VBox root;
+
+    @FXML
+    private Button preOrderButton;  // Đảm bảo khai báo nếu cần
+
 
     @FXML
     private VBox roomContainer;
@@ -54,6 +59,7 @@ public class RoomManagementController {
     @FXML
     private void initialize() {
         loadRoomData();
+
     }
 
     public void loadRoomData() {
@@ -92,23 +98,7 @@ public class RoomManagementController {
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
 
-            String backgroundColor;
-            switch (room.getStatus()) {
-                case "Occupied":
-                    backgroundColor = "red";
-                    break;
-                case "Available":
-                    backgroundColor = "#41ff1f";
-                    break;
-                case "Maintenance":
-                    backgroundColor = "yellow";
-                    break;
-                default:
-                    backgroundColor = "gray";
-                    break;
-            }
-
-            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
@@ -137,7 +127,7 @@ public class RoomManagementController {
             // Xử lý logic cho phòng đang được sử dụng (Check-out hoặc xem thông tin chi tiết)
             System.out.println("Phòng đang được sử dụng: " + room.getRoomNumber());
             handleCheckout(room);
-        } else if (room.getStatus().equals("Available")) {
+        } else {
             // Xử lý logic cho phòng trống (Check-in)
             System.out.println("Phòng trống: " + room.getRoomNumber());
             handleCheckin(room);
@@ -170,6 +160,24 @@ public class RoomManagementController {
             Parent newContent = fxmlLoader.load();
 
             root.getChildren().setAll(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Stage stage;
+    private Scene scene;
+
+    @FXML
+    public void handlePreOrderButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-room.fxml"));
+            Parent root = loader.load();
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
