@@ -31,4 +31,6 @@ module com.example.hotelpro {
     opens controller.manager.customer to javafx.fxml;
     opens controller.manager.service to javafx.fxml;
     opens model to javafx.base;
+    exports model.additional;
+    opens model.additional to javafx.base;
 }

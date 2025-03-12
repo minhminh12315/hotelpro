@@ -1,21 +1,17 @@
 package controller.manager;
 
-import dao.CustomerDao;
-import dao.RoomDao;
-import dao.ServiceDao;
-import dao.InvoiceDao;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import model.*;
+import model.additional.EmployeePerformance;
 
-import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,15 +26,17 @@ public class DashboardController {
     @FXML
     Label totalRevenueYearLabel;
     @FXML
-    private TableView<ServiceUsage> revenueBySourceTable;
+    TableView<BookingUsage> revenueBySourceTable;
     @FXML
-    private TableColumn<ServiceUsage, Integer> RevenueBookingIdColumn;
+    TableColumn<BookingUsage, Integer> RevenueBookingIdColumn;
     @FXML
-    private TableColumn<ServiceUsage, String> serviceTotalColumn;
+    TableColumn<BookingUsage, String> totalRevenueBookingColumn;
     @FXML
-    private TableColumn<ServiceUsage, String> productTotalColumn;
+    TableColumn<BookingUsage, String> serviceTotalColumn;
     @FXML
-    private TableColumn<ServiceUsage, String> roomTotalColumn;
+    TableColumn<BookingUsage, String> productTotalColumn;
+    @FXML
+    TableColumn<BookingUsage, String> roomTotalColumn;
 
     @FXML
     Label totalRoomsLabel;
@@ -92,11 +90,11 @@ public class DashboardController {
     @FXML
     Label totalServicesMonthLabel;
     @FXML
-    TableView<ServiceUsage> mostUsedServicesTable;
+    TableView<BookingUsage> mostUsedServicesTable;
     @FXML
-    TableColumn<ServiceUsage, String> serviceNameColumn;
+    TableColumn<BookingUsage, String> serviceNameColumn;
     @FXML
-    TableColumn<ServiceUsage, Integer> serviceUsageCountColumn;
+    TableColumn<BookingUsage, Integer> serviceUsageCountColumn;
 
     @FXML
     Label totalCustomersLabel;
@@ -139,7 +137,6 @@ public class DashboardController {
     @FXML
     Label totalRevenueTodaySummaryLabel;
 
-
     @FXML
     public void initialize() throws SQLException {
         RevenueOverview();
@@ -154,27 +151,28 @@ public class DashboardController {
     private void RevenueOverview(){
         configureTableView(revenueBySourceTable);
 
-        double totalRevenueToday = ServiceUsage.getRevenueForToday();
-        double totalRevenueMonth = ServiceUsage.getRevenueForMonth();
-        double totalRevenueYear = ServiceUsage.getRevenueForYear();
+        double totalRevenueToday = BookingUsage.getRevenueForToday();
+        double totalRevenueMonth = BookingUsage.getRevenueForMonth();
+        double totalRevenueYear = BookingUsage.getRevenueForYear();
 
         totalRevenueTodayLabel.setText("$" + totalRevenueToday);
         totalRevenueMonthLabel.setText("$" + totalRevenueMonth);
         totalRevenueYearLabel.setText("$" + totalRevenueYear);
 
-        List<ServiceUsage> lstSU = new ServiceUsage().getAll();
-        ObservableList<ServiceUsage> serviceUsageList = FXCollections.observableArrayList(lstSU);
+        List<BookingUsage> lstBU = new BookingUsage().getAll();
+        ObservableList<BookingUsage> bookingUsageList = FXCollections.observableArrayList(lstBU);
 
         RevenueBookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("BookingID"));
         serviceTotalColumn.setCellValueFactory(new PropertyValueFactory<>("ServiceTotal"));
         productTotalColumn.setCellValueFactory(new PropertyValueFactory<>("ProductTotal"));
         roomTotalColumn.setCellValueFactory(new PropertyValueFactory<>("RoomTotal"));
+        totalRevenueBookingColumn.setCellValueFactory(new PropertyValueFactory<>("TotalRevenueBooking"));  // Bind new column
 
-        revenueBySourceTable.setItems(serviceUsageList);
+
+        revenueBySourceTable.setItems(bookingUsageList);
     }
 
     private void RoomStatus() {
-
         double totalRoom = Room.getTotalRoom();
         double totalAvailableRoom = Room.getAvailableRoom();
         double totalOccupiedRoom = Room.getOccupiedRoom();
@@ -196,7 +194,6 @@ public class DashboardController {
         pendingBookingsLabel.setText(String.valueOf(totalPendingBooking));
         checkedInBookingsLabel.setText(String.valueOf(totalCheckedOutBooking));
         checkedOutBookingsLabel.setText(String.valueOf(totalCheckedInBooking));
-
 
         List<Booking> lstB = new Booking().getUpcomingBooking();
         ObservableList<Booking> bookingList = FXCollections.observableArrayList(lstB);
@@ -239,19 +236,17 @@ public class DashboardController {
         configureTableView(mostUsedServicesTable);
 
         double totalServicesToday = Service.getTotalServicesToday();
-        double totalServicesMonthly= Service.getTotalServicesMonthly();
+        double totalServicesMonthly = Service.getTotalServicesMonthly();
 
         totalServicesTodayLabel.setText(String.valueOf(totalServicesToday));
         totalServicesMonthLabel.setText(String.valueOf(totalServicesMonthly));
 
-
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         serviceUsageCountColumn.setCellValueFactory(new PropertyValueFactory<>("usageCount"));
 
-        List<ServiceUsage> mostUsedServices = ServiceUsage.getMostUsedServices();
-        ObservableList<ServiceUsage> servicesObservableList = FXCollections.observableArrayList(mostUsedServices);
+        List<BookingUsage> mostUsedServices = BookingUsage.getMostUsedServices();
+        ObservableList<BookingUsage> servicesObservableList = FXCollections.observableArrayList(mostUsedServices);
         mostUsedServicesTable.setItems(servicesObservableList);
-
     }
 
     private void CustomerOverview(){
@@ -260,7 +255,6 @@ public class DashboardController {
         double totalCustomer = Customer.getTotalCustomers();
 
         totalCustomersLabel.setText(String.valueOf(totalCustomer));
-
 
         customerInHotelNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         customerRoomColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
@@ -307,5 +301,4 @@ public class DashboardController {
         tableView.setMinHeight(300);
         tableView.setMaxHeight(300);
     }
-
 }

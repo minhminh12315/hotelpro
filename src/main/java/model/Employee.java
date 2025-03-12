@@ -1,14 +1,12 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 //import java.util.Date;
 
 import connect.Connect;
+import model.additional.EmployeePerformance;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
