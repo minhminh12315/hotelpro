@@ -31,7 +31,8 @@ public class InventoryTransactionDao implements BaseDao<InventoryTransaction> {
             }
             statement.setInt(4, inventoryTransaction.getQuantity());
             statement.setString(5, inventoryTransaction.getTransactionType());
-            statement.setTimestamp(6, inventoryTransaction.getTransactionDate());
+            // localdate
+            statement.setTimestamp(6, Timestamp.valueOf(inventoryTransaction.getTransactionDate().atStartOfDay()));
             statement.setString(7, inventoryTransaction.getRemarks());
 
             statement.executeUpdate();
@@ -58,7 +59,7 @@ public class InventoryTransactionDao implements BaseDao<InventoryTransaction> {
             }
             statement.setInt(4, inventoryTransaction.getQuantity());
             statement.setString(5, inventoryTransaction.getTransactionType());
-            statement.setTimestamp(6, inventoryTransaction.getTransactionDate());
+            statement.setTimestamp(6, Timestamp.valueOf(inventoryTransaction.getTransactionDate().atStartOfDay()));
             statement.setString(7, inventoryTransaction.getRemarks());
             statement.setInt(8, inventoryTransaction.getTransactionID());
 
@@ -124,7 +125,7 @@ public class InventoryTransactionDao implements BaseDao<InventoryTransaction> {
                 .setEmployeeID(resultSet.getObject("employeeID") != null ? resultSet.getInt("employeeID") : null);
         inventoryTransaction.setQuantity(resultSet.getInt("quantity"));
         inventoryTransaction.setTransactionType(resultSet.getString("transactionType"));
-        inventoryTransaction.setTransactionDate(resultSet.getTimestamp("transactionDate"));
+        inventoryTransaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime().toLocalDate());
         inventoryTransaction.setRemarks(resultSet.getString("remarks"));
         return inventoryTransaction;
     }
