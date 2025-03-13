@@ -53,7 +53,7 @@ public class EditServiceController {
             showAlert(Alert.AlertType.INFORMATION, "Service updated successfully!");
 
             if (parentController != null) {
-                parentController.reloadServiceTable();  // Gọi cha refresh table
+                parentController.reloadServiceTable();
             }
         } catch (Exception e) {
             e.printStackTrace();

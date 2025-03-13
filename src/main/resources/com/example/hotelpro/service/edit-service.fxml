@@ -51,9 +51,12 @@
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Food" />
-                            <String fx:value="Service" />
+                            <String fx:value="Drink"/>
+                            <String fx:value="Snack"/>
+                            <String fx:value="Room Service" />
+                            <String fx:value="Service"/>
                             <String fx:value="Entertainment" />
-                            <String fx:value="Other" />
+                            <String fx:value="Other"/>
                         </FXCollections>
                     </items>
                 </ComboBox>

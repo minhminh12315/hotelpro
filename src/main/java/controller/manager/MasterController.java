@@ -73,6 +73,8 @@ public class MasterController {
     private void handleServicesManagement() {
         loadContent("/com/example/hotelpro/service/services-management.fxml");
     }
+    @FXML
+    private void handleServicesPage(){loadContent("/com/example/hotelpro/service/hotel-service.fxml");}
 
     @FXML
     private void handleSettings() {

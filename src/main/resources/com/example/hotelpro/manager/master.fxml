@@ -40,6 +40,8 @@
 <!--            <Button text="Room Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleRoomManagement"/>-->
             <Button fx:id="btnEmployeeManagement" text="Employee Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleEmployeeManagement"/>
             <Button text="Services Management" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleServicesManagement"/>
+            <Button text="Services Page" style="-fx-background-color: #34495e; -fx-text-fill: white;" onAction="#handleServicesPage"/>
+
         </VBox>
     </left>
 
