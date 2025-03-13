@@ -155,7 +155,7 @@ public class DashboardController {
         roomTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
         serviceTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
         productTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
-        totalRevenueBookingColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.18));
+        totalRevenueBookingColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.183));
 
 
         double totalRevenueToday = BookingUsage.getRevenueForToday();
@@ -279,7 +279,7 @@ public class DashboardController {
         customerInHotelNameColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.338));
         customerRoomColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.20));
         customerCheckInColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.22));
-        customerCheckOutColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.23));
+        customerCheckOutColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.232));
 
 
         double totalCustomer = Customer.getTotalCustomers();
@@ -299,7 +299,7 @@ public class DashboardController {
 
     private void EmployeePerformance() throws SQLException {
         configureTableView(topEmployeesTable);
-        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(topEmployeesTable.widthProperty(), 0.495));
+        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(topEmployeesTable.widthProperty(), 0.492));
         employeeTransactionCountColumn.prefWidthProperty().bind(Bindings.multiply(topEmployeesTable.widthProperty(), 0.50));
 
 

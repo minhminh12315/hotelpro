@@ -2,6 +2,7 @@ package controller.manager.product;
 
 import controller.manager.employee.EmployeeEditController;
 import dao.ProductDao;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -50,6 +51,13 @@ public class ProductController {
 
     @FXML
     public void initialize() {
+        productIdColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.05));
+        productNameColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.2));
+        unitPriceColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
+        descriptionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.25));
+        unitColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.194));
+
         productIdColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));

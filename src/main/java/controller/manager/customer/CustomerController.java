@@ -59,7 +59,7 @@ public class CustomerController {
         customerAddressColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.15));
         customerIdPassportColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
         customerDOBColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.1));
-        customerGenderColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.075));
+        customerGenderColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.076));
 
         // Action column - give it more space since it holds multiple buttons
         actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.193));

@@ -69,7 +69,7 @@ public class ServicesManagementController {
         colPrice.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.15));
         colType.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.15));
         colDescription.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.25));
-        actionColumn.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.2));
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.182));
     }
 
     private void loadServices() {

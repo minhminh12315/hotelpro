@@ -1,6 +1,7 @@
 package controller.manager.booking;
 
 import dao.BookingDao;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,6 +55,14 @@ public class BookingController {
 
     @FXML
     public void initialize() {
+        bookingIdColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.05));
+        customerIdColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.05));
+        roomIdColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.05));
+        bookingDateColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.25));
+        checkInDateColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.25));
+        checkOutDateColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.25));
+        statusColumn.prefWidthProperty().bind(Bindings.multiply(bookingTable.widthProperty(), 0.095));
+
         bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         roomIdColumn.setCellValueFactory(new PropertyValueFactory<>("roomID"));
