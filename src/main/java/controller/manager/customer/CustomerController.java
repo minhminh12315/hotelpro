@@ -62,7 +62,7 @@ public class CustomerController {
         customerGenderColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.075));
 
         // Action column - give it more space since it holds multiple buttons
-        actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.18));
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.193));
 
         loadCustomers();
 

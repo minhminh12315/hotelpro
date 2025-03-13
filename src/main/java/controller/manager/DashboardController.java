@@ -1,5 +1,6 @@
 package controller.manager;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -150,6 +151,12 @@ public class DashboardController {
 
     private void RevenueOverview(){
         configureTableView(revenueBySourceTable);
+        RevenueBookingIdColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.15));
+        roomTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
+        serviceTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
+        productTotalColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.22));
+        totalRevenueBookingColumn.prefWidthProperty().bind(Bindings.multiply(revenueBySourceTable.widthProperty(), 0.18));
+
 
         double totalRevenueToday = BookingUsage.getRevenueForToday();
         double totalRevenueMonth = BookingUsage.getRevenueForMonth();
@@ -186,6 +193,11 @@ public class DashboardController {
 
     private void BookingOverview() {
         configureTableView(upcomingBookingsTable);
+        bookingIdColumn.prefWidthProperty().bind(Bindings.multiply(upcomingBookingsTable.widthProperty(), 0.141));
+        bookingCustomerNameColumn.prefWidthProperty().bind(Bindings.multiply(upcomingBookingsTable.widthProperty(), 0.35));
+        bookingRoomColumn.prefWidthProperty().bind(Bindings.multiply(upcomingBookingsTable.widthProperty(), 0.25));
+        bookingCheckInColumn.prefWidthProperty().bind(Bindings.multiply(upcomingBookingsTable.widthProperty(), 0.25));
+
 
         double totalPendingBooking = Booking.getTotalPendingBooking();
         double totalCheckedOutBooking = Booking.getTotalCheckedOutBooking();
@@ -209,6 +221,16 @@ public class DashboardController {
     private void InventoryStatus(){
         configureTableView(lowStockProductTable);
         configureTableView(inventoryTransactionsTable);
+
+        productIdColumn.prefWidthProperty().bind(Bindings.multiply(lowStockProductTable.widthProperty(), 0.32));
+        lowStockQuantityColumn.prefWidthProperty().bind(Bindings.multiply(lowStockProductTable.widthProperty(), 0.33));
+        lastUpdatedColumn.prefWidthProperty().bind(Bindings.multiply(lowStockProductTable.widthProperty(), 0.34));
+
+        transactionIdColumn.prefWidthProperty().bind(Bindings.multiply(inventoryTransactionsTable.widthProperty(), 0.22));
+        productColumn.prefWidthProperty().bind(Bindings.multiply(inventoryTransactionsTable.widthProperty(), 0.25));
+        quantityColumn.prefWidthProperty().bind(Bindings.multiply(inventoryTransactionsTable.widthProperty(), 0.23));
+        transactionDateColumn.prefWidthProperty().bind(Bindings.multiply(inventoryTransactionsTable.widthProperty(), 0.25));
+
 
         double totalProduct = Inventory.getTotalProduct();
 
@@ -234,6 +256,9 @@ public class DashboardController {
 
     private void ServiceUsage(){
         configureTableView(mostUsedServicesTable);
+        serviceNameColumn.prefWidthProperty().bind(Bindings.multiply(mostUsedServicesTable.widthProperty(), 0.493));
+        serviceUsageCountColumn.prefWidthProperty().bind(Bindings.multiply(mostUsedServicesTable.widthProperty(), 0.50));
+
 
         double totalServicesToday = Service.getTotalServicesToday();
         double totalServicesMonthly = Service.getTotalServicesMonthly();
@@ -251,6 +276,11 @@ public class DashboardController {
 
     private void CustomerOverview(){
         configureTableView(customersInHotelTable);
+        customerInHotelNameColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.338));
+        customerRoomColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.20));
+        customerCheckInColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.22));
+        customerCheckOutColumn.prefWidthProperty().bind(Bindings.multiply(customersInHotelTable.widthProperty(), 0.23));
+
 
         double totalCustomer = Customer.getTotalCustomers();
 
@@ -269,6 +299,9 @@ public class DashboardController {
 
     private void EmployeePerformance() throws SQLException {
         configureTableView(topEmployeesTable);
+        employeeNameColumn.prefWidthProperty().bind(Bindings.multiply(topEmployeesTable.widthProperty(), 0.495));
+        employeeTransactionCountColumn.prefWidthProperty().bind(Bindings.multiply(topEmployeesTable.widthProperty(), 0.50));
+
 
         Employee employee = new Employee();
 
