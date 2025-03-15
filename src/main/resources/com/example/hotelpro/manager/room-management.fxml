@@ -16,6 +16,6 @@
     </ScrollPane>
 
     <!-- Thêm nút "Pre Order Room" -->
-    <Button fx:id="preOrderButton" text="Pre Order Room" style="-fx-font-size: 16px; -fx-padding: 10;" onAction="#handlePreOrderButtonClick"/>
+    <!-- <Button fx:id="preOrderButton" text="Pre Order Room" style="-fx-font-size: 16px; -fx-padding: 10;" onAction="#handlePreOrderButtonClick"/> -->
 
 </VBox>

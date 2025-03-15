@@ -62,7 +62,7 @@ public class PreOrderRoomController {
             roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
 
             // Gán sự kiện click cho roomBox
-            roomBox.setOnMouseClicked(event -> handleRoomClick(room));
+            roomBox.setOnMouseClicked(event -> handlePreOrder(room));
             floorMap.get(floor).getChildren().add(roomBox);
         }
         for (Map.Entry<Integer, HBox> entry : floorMap.entrySet()) {
@@ -71,15 +71,7 @@ public class PreOrderRoomController {
     }
 
     @FXML
-    private void handleRoomClick(Room room) {
-        if (room.getStatus().equals("Occupied")) {
-            handleCheckout(room);
-        } else {
-            handleCheckin(room);
-        }
-    }
-    @FXML
-    private void handleCheckin(Room room) {
+    private void handlePreOrder(Room room) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-page.fxml"));
             Parent newContent = fxmlLoader.load();
@@ -92,9 +84,6 @@ public class PreOrderRoomController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @FXML
-    private void handleCheckout(Room room) {
     }
 
 }
