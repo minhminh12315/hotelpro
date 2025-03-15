@@ -16,7 +16,9 @@ import model.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ServicesManagementController {
 
@@ -44,6 +46,12 @@ public class ServicesManagementController {
     @FXML
     private TableColumn<Service, Void> actionColumn;
 
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Pagination pagination;
+    private int itemsPerPage = 13;
+
     private final ObservableList<Service> serviceList = FXCollections.observableArrayList();
     private final ServiceDao serviceDao = new ServiceDao();
 
@@ -52,6 +60,22 @@ public class ServicesManagementController {
         setupTableColumns();
         setupColumnWidths();
         loadServices();
+        setupActionColumn();
+
+        pagination.setPageCount((int) Math.ceil((double) serviceList.size() / itemsPerPage));
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(5);
+
+        loadPage(0);
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> loadPage(newValue.intValue()));
+    }
+
+    private void loadPage(int pageIndex) {
+        int start = pageIndex * itemsPerPage;
+        int end = Math.min(start + itemsPerPage, serviceList.size());
+
+        List<Service> pageData = serviceList.subList(start, end);
+        serviceTable.setItems(FXCollections.observableArrayList(pageData));
         setupActionColumn();
     }
 
@@ -69,7 +93,7 @@ public class ServicesManagementController {
         colPrice.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.15));
         colType.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.15));
         colDescription.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.25));
-        actionColumn.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.182));
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(serviceTable.widthProperty(), 0.19));
     }
 
     private void loadServices() {
@@ -164,5 +188,27 @@ public class ServicesManagementController {
 
     public void reloadServiceTable() {
         loadServices();
+    }
+
+    @FXML
+    private void searchService() {
+        String searchText = searchField.getText().toLowerCase();
+        serviceTable.setItems(FXCollections.observableArrayList());
+
+        if (searchText.isEmpty()) {
+            serviceTable.setItems(FXCollections.observableArrayList(serviceList));
+            setupActionColumn();
+        } else {
+            serviceList.setAll(serviceDao.getAll());
+            List<Service> filteredList = serviceList.stream()
+                    .filter(service ->
+                            service.getServiceName().toLowerCase().contains(searchText) ||
+                            String.valueOf(service.getServicePrice()).toLowerCase().contains(searchText) ||
+                            service.getServiceType().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+
+            serviceTable.setItems(FXCollections.observableArrayList(filteredList));
+            setupActionColumn();
+        }
     }
 }

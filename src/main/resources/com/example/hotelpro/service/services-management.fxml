@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Pagination?>
 <VBox fx:id="root" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.service.ServicesManagementController">
 
     <!-- Header Section -->
@@ -15,22 +18,36 @@
         <children>
             <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" text="Services Management" />
             <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Search Bar Section -->
+            <HBox prefHeight="50.0" spacing="10" style="-fx-padding: 10 0 0 0;">
+                <children>
+                    <TextField fx:id="searchField" promptText="Search Service..." style="-fx-font-size: 14px; -fx-padding: 5; -fx-pref-width: 300px;" />
+                    <Button text="Search" style="-fx-background-color: #FF9800; -fx-text-fill: white;" onAction="#searchService"/>
+                </children>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+
             <Button mnemonicParsing="false" onAction="#handleAddService" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Add New Service" />
         </children>
     </HBox>
+
 
     <!-- Content Area (This is the one we will replace) -->
     <VBox fx:id="contentArea" spacing="10.0" style="-fx-padding: 10;">
         <TableView fx:id="serviceTable" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 1;">
             <columns>
-                <TableColumn fx:id="colID" prefWidth="50.0" style="-fx-alignment: center;" text="ID" />
-                <TableColumn fx:id="colName" prefWidth="150.0" style="-fx-alignment: center;" text="Name" />
-                <TableColumn fx:id="colPrice" prefWidth="100.0" style="-fx-alignment: center;" text="Price" />
-                <TableColumn fx:id="colType" prefWidth="100.0" style="-fx-alignment: center;" text="Type" />
-                <TableColumn fx:id="colDescription" prefWidth="150.0" style="-fx-alignment: center;" text="Description" />
-                <TableColumn fx:id="actionColumn" prefWidth="120.0" style="-fx-alignment: center;" text="Actions" />
+                <TableColumn fx:id="colID" prefWidth="50.0" style="-fx-alignment: center; -fx-font-size: 14px;" text="ID" />
+                <TableColumn fx:id="colName" prefWidth="150.0" style="-fx-alignment: center; -fx-font-size: 14px;" text="Name" />
+                <TableColumn fx:id="colPrice" prefWidth="100.0" style="-fx-alignment: center;-fx-font-size: 14px;" text="Price" />
+                <TableColumn fx:id="colType" prefWidth="100.0" style="-fx-alignment: center;-fx-font-size: 14px;" text="Type" />
+                <TableColumn fx:id="colDescription" prefWidth="150.0" style="-fx-alignment: center;-fx-font-size: 14px;" text="Description" />
+                <TableColumn fx:id="actionColumn" prefWidth="121.0" style="-fx-alignment: center;-fx-font-size: 14px;" text="Actions" />
             </columns>
         </TableView>
+
+        <!-- Pagination Section -->
+        <Pagination fx:id="pagination" pageCount="1" currentPageIndex="1" style="-fx-padding: 10 0 0 0;"/>
     </VBox>
 
 </VBox>

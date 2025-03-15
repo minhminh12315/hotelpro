@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Pagination?>
 <VBox fx:id="contentArea" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.manager.customer.CustomerController">
@@ -17,23 +20,39 @@
             <children>
                 <Label text="Customer Management" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                 <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Search Bar Section -->
+                <HBox prefHeight="50.0" spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <children>
+                        <TextField fx:id="searchField" promptText="Search Customer..." style="-fx-font-size: 14px; -fx-padding: 5; -fx-pref-width: 300px;" />
+                        <Button text="Search" style="-fx-background-color: #FF9800; -fx-text-fill: white;" onAction="#searchCustomer"/>
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS"/>
+
                 <Button mnemonicParsing="false" text="Add New Customer" style="-fx-background-color: #FF9800; -fx-text-fill: white;" onAction="#addCustomer"/>
             </children>
         </HBox>
 
-        <!-- Customer Table Section -->
-        <TableView fx:id="customersTable" prefHeight="500.0" prefWidth="295.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 1;">
-            <columns>
-                <TableColumn fx:id="customerIdColumn" text="ID" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="50.0"/>
-                <TableColumn fx:id="customerNameColumn" text="Name" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
-                <TableColumn fx:id="customerPhoneColumn" text="Phone Number" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
-                <TableColumn fx:id="customerEmailColumn" text="Email" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
-                <TableColumn fx:id="customerAddressColumn" text="Address" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
-                <TableColumn fx:id="customerIdPassportColumn" text="ID/Passport" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
-                <TableColumn fx:id="customerDOBColumn" text="Date of Birth" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
-                <TableColumn fx:id="customerGenderColumn" text="Gender" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
-                <TableColumn fx:id="actionColumn" text="Actions" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
-            </columns>
-        </TableView>
+        <VBox spacing="10.0">
+                <!-- Customer Table Section -->
+                <TableView fx:id="customersTable" prefHeight="500.0" prefWidth="295.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 1;">
+                    <columns>
+                        <TableColumn fx:id="customerIdColumn" text="ID" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="50.0"/>
+                        <TableColumn fx:id="customerNameColumn" text="Name" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
+                        <TableColumn fx:id="customerPhoneColumn" text="Phone Number" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
+                        <TableColumn fx:id="customerEmailColumn" text="Email" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
+                        <TableColumn fx:id="customerAddressColumn" text="Address" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
+                        <TableColumn fx:id="customerIdPassportColumn" text="ID/Passport" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
+                        <TableColumn fx:id="customerDOBColumn" text="Date of Birth" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="100.0"/>
+                        <TableColumn fx:id="customerGenderColumn" text="Gender" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
+                        <TableColumn fx:id="actionColumn" text="Actions" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
+                    </columns>
+                </TableView>
+
+            <!-- Pagination Section -->
+            <Pagination fx:id="pagination" pageCount="1" currentPageIndex="1" style="-fx-padding: 10 0 0 0;"/>
+        </VBox>
+
     </children>
 </VBox>

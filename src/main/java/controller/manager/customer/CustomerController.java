@@ -1,7 +1,5 @@
 package controller.manager.customer;
 
-import controller.manager.employee.EmployeeAddController;
-import controller.manager.employee.EmployeeEditController;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerController {
     @FXML
@@ -46,6 +45,12 @@ public class CustomerController {
     private TableColumn<Customer,String> customerGenderColumn;
     @FXML
     private TableColumn<Customer, String> actionColumn;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Pagination pagination;
+
+    private int itemsPerPage = 13;
 
     private CustomerDao customerDao = new CustomerDao();
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -65,7 +70,26 @@ public class CustomerController {
         actionColumn.prefWidthProperty().bind(Bindings.multiply(customersTable.widthProperty(), 0.193));
 
         loadCustomers();
+        addActionButton();
 
+        pagination.setPageCount((int) Math.ceil((double) customerList.size() / itemsPerPage));
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(5);
+
+        loadPage(0);
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> loadPage(newValue.intValue()));
+    }
+
+    private void loadPage(int pageIndex) {
+        int start = pageIndex * itemsPerPage;
+        int end = Math.min(start + itemsPerPage, customerList.size());
+
+        List<Customer> pageData = customerList.subList(start, end);
+        customersTable.setItems(FXCollections.observableArrayList(pageData));
+        addActionButton();
+    }
+
+    private void addActionButton(){
         actionColumn.setCellFactory(new Callback<TableColumn<Customer, String>, TableCell<Customer, String>>() {
             @Override
             public TableCell<Customer, String> call(TableColumn<Customer, String> param) {
@@ -121,6 +145,31 @@ public class CustomerController {
 
         customerList.setAll(customerDao.getAll());
         customersTable.setItems(customerList);
+    }
+
+    @FXML
+    private void searchCustomer() {
+        String searchText = searchField.getText().toLowerCase();
+        customersTable.setItems(FXCollections.observableArrayList());
+
+        if (searchText.isEmpty()){
+            customersTable.setItems(FXCollections.observableArrayList(customerList));
+            addActionButton();
+        } else {
+            customerList.setAll(customerDao.getAll());
+            List<Customer> filteredList = customerList.stream()
+                    .filter(customer -> customer.getFullName().toLowerCase().contains(searchText) ||
+                            customer.getPhoneNumber().toLowerCase().contains(searchText) ||
+                            customer.getEmail().toLowerCase().contains(searchText) ||
+                            customer.getAddress().toLowerCase().contains(searchText) ||
+                            customer.getIdPassport().toLowerCase().contains(searchText) ||
+//                            customer.getDateOfBirth().toString().toLowerCase().contains(searchText)
+                            customer.getGender().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+
+            customersTable.setItems(FXCollections.observableArrayList(filteredList));
+            addActionButton();
+        }
     }
 
     public void detailButton(int id){

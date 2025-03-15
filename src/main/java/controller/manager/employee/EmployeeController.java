@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeController {
     @FXML
@@ -47,7 +48,12 @@ public class EmployeeController {
     @FXML
     public VBox contentArea;
     @FXML
-    public Button addNewButton;
+    private TextField searchField;
+    @FXML
+    private Pagination pagination;
+
+    private int itemsPerPage = 13;
+
 
     List<Employee> lstEmp = new Employee().getAll();
     ObservableList<Employee> employeelst = FXCollections.observableArrayList(lstEmp);
@@ -69,7 +75,18 @@ public class EmployeeController {
 
 
         loadEmployees();
+        addActionButton();
 
+        pagination.setPageCount((int) Math.ceil((double) lstEmp.size() / itemsPerPage));
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(5);
+
+        loadPage(0);
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> loadPage(newValue.intValue()));
+
+    }
+
+    private void addActionButton(){
         actionColumn.setCellFactory(new Callback<TableColumn<Employee, String>, TableCell<Employee, String>>() {
             @Override
             public TableCell<Employee, String> call(TableColumn<Employee, String> param) {
@@ -119,6 +136,36 @@ public class EmployeeController {
 //        eventTable.getItems().addAll(lstEmp);
         employeesTable.setItems(employeelst);
     }
+
+    @FXML
+    private void searchEmployee() {
+        String searchText = searchField.getText().toLowerCase();
+        employeesTable.setItems(FXCollections.observableArrayList());
+
+        if (searchText.isEmpty()){
+            employeesTable.setItems(FXCollections.observableArrayList(lstEmp));
+            addActionButton();
+        } else {
+            List<Employee> filteredList = lstEmp.stream()
+                    .filter(emp -> emp.getFullName().toLowerCase().contains(searchText) ||
+                            emp.getPhoneNumber().toLowerCase().contains(searchText) ||
+                            emp.getEmail().toLowerCase().contains(searchText) ||
+                            emp.getRole().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+            employeesTable.setItems(FXCollections.observableArrayList(filteredList));
+            addActionButton();
+        }
+    }
+
+    private void loadPage(int pageIndex) {
+        int start = pageIndex * itemsPerPage;
+        int end = Math.min(start + itemsPerPage, lstEmp.size());
+
+        List<Employee> pageData = lstEmp.subList(start, end);
+        employeesTable.setItems(FXCollections.observableArrayList(pageData));
+        addActionButton();
+    }
+
 
     public void addEmployee() {
         try {
