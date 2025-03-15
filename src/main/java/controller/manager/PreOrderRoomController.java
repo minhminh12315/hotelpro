@@ -81,7 +81,7 @@ public class PreOrderRoomController {
     @FXML
     private void handleCheckin(Room room) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/pre-order-page.fxml"));
             Parent newContent = fxmlLoader.load();
 
             PreOrderPageController preOrderController = fxmlLoader.getController();

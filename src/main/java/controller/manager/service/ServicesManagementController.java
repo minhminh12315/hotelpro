@@ -146,12 +146,12 @@ public class ServicesManagementController {
     }
 
     public void handleAddService() {
-        loadContent("/com/example/hotelpro/service/add-service.fxml");
+        loadContent("/com/example/hotelpro/manager/service/add-service.fxml");
     }
 
     private void handleUpdateService(Service service) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/service/edit-service.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/service/edit-service.fxml"));
             Parent newContent = loader.load();
 
             EditServiceController controller = loader.getController();

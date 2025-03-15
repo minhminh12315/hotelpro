@@ -83,12 +83,12 @@ public class MasterController {
 
     @FXML
     private void handleRoomManagement() {
-        loadContent("/com/example/hotelpro/manager/room-management.fxml");
+        loadContent("/com/example/hotelpro/manager/room/room-management.fxml");
     }
 
     @FXML
     private void handleServicesManagement() {
-        loadContent("/com/example/hotelpro/service/services-management.fxml");
+        loadContent("/com/example/hotelpro/manager/service/services-management.fxml");
     }
     
     @FXML

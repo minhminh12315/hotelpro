@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,6 +22,7 @@ import java.util.Map;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import model.Service;
 
 public class RoomManagementController {
 
@@ -37,6 +35,17 @@ public class RoomManagementController {
 
     @FXML
     private VBox roomContainer;
+
+    @FXML
+    private TextField searchBar;  // Search bar field
+    @FXML
+    Pagination pagination;
+
+    RoomDao roomDao = new RoomDao();
+    private List<Room> allRooms = roomDao.getAll();
+    private List<Room> filteredRooms = allRooms;
+
+    private static final int ITEMS_PER_PAGE = 10;
 
     @FXML
     private void handleAddRoom() {
@@ -60,11 +69,26 @@ public class RoomManagementController {
     private void initialize() {
         loadRoomData();
 
+        pagination.setPageCount((int) Math.ceil((double) allRooms.size() / ITEMS_PER_PAGE));
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(5);
+
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> displayRooms(newValue.intValue()));
+    }
+
+    @FXML
+    private void handleSearch() {
+        String query = searchBar.getText().toLowerCase().trim();
+
+        filteredRooms = allRooms.stream()
+                .filter(room -> String.valueOf(room.getRoomNumber()).contains(query) ||
+                        room.getRoomType().toLowerCase().contains(query) ||
+                        room.getStatus().toLowerCase().contains(query))
+                .toList();
+        displayRooms(0);
     }
 
     public void loadRoomData() {
-        RoomDao roomDao = new RoomDao();
-        List<Room> rooms = roomDao.getAll();
 
         // Xóa dữ liệu cũ trong roomContainer
         roomContainer.getChildren().clear();
@@ -75,51 +99,56 @@ public class RoomManagementController {
             addRoomButton.setOnAction(event -> handleAddRoom());
             roomContainer.getChildren().add(addRoomButton);
         }
+        displayRooms(0);
+    }
 
-        // Tổ chức phòng theo tầng
+    public void displayRooms(int pageIndex) {
+        roomContainer.getChildren().clear();
+
+        // Calculate starting index based on current page
+        int startIndex = pageIndex * ITEMS_PER_PAGE;
+        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredRooms.size());
+
+        // Organize rooms by floor
         Map<Integer, HBox> floorMap = new HashMap<>();
 
-        for (Room room : rooms) {
-            int floor = room.getRoomNumber() / 100; // Lấy số tầng từ số phòng (101 -> tầng 1)
+        for (int i = startIndex; i < endIndex; i++) {
+            Room room = filteredRooms.get(i);
+            int floor = room.getRoomNumber() / 100; // Get floor number from room number
 
-            // Tạo HBox cho mỗi tầng nếu chưa có
             if (!floorMap.containsKey(floor)) {
                 HBox floorBox = new HBox();
                 floorBox.setSpacing(10);
                 floorBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
-                Label floorLabel = new Label("Floor" + floor);
+                Label floorLabel = new Label("Floor " + floor);
                 floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
-                floorBox.getChildren().add(floorLabel); // Thêm nhãn hiển thị tầng
+                floorBox.getChildren().add(floorLabel);
                 floorMap.put(floor, floorBox);
             }
 
-            // Tạo VBox hiển thị phòng
             VBox roomBox = new VBox();
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
-
             roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
-            Label capacityLabel = new Label( "Capacity: " + room.getCapacity());
+            Label capacityLabel = new Label("Capacity: " + room.getCapacity());
             Label typeLabel = new Label("Type: " + room.getRoomType());
             Label statusLabel = new Label("Status: " + room.getStatus());
 
             roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
 
-            // Gán sự kiện click cho roomBox
             roomBox.setOnMouseClicked(event -> handleRoomClick(room));
 
-            // Thêm roomBox vào HBox của tầng
             floorMap.get(floor).getChildren().add(roomBox);
         }
 
-        // Thêm tất cả các tầng vào roomContainer
         for (Map.Entry<Integer, HBox> entry : floorMap.entrySet()) {
             roomContainer.getChildren().add(entry.getValue());
         }
     }
+
 
     @FXML
     private void handleRoomClick(Room room) {

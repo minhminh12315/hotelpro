@@ -188,7 +188,7 @@ public class PreOrderPageController {
             }
 
             showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đặt trước phòng thành công!");
-            loadContent("/com/example/hotelpro/manager/pre-order-room.fxml");
+            loadContent("/com/example/hotelpro/manager/room/pre-order-room.fxml");
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Dữ liệu phòng không hợp lệ: " + e.getMessage());
         } catch (Exception e) {
