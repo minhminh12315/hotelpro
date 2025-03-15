@@ -1,5 +1,6 @@
-package controller.manager;
+package controller.manager.room;
 
+import controller.manager.MasterController;
 import dao.BookingDao;
 import dao.RoomDao;
 import javafx.fxml.FXML;
@@ -12,23 +13,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Room;
-import javafx.event.ActionEvent;  // ✅ Đúng, dùng cho JavaFX
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import controller.manager.room.AddServiceController;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import model.Service;
 
 public class RoomManagementController {
 
@@ -52,7 +45,6 @@ public class RoomManagementController {
 
     private static final int ITEMS_PER_PAGE = 10;
 
-    RoomDao roomDao = new RoomDao();
     BookingDao bookingDao = new BookingDao();
 
     @FXML
@@ -127,10 +119,9 @@ public class RoomManagementController {
 
         for (int i = startIndex; i < endIndex; i++) {
             Room room = filteredRooms.get(i);
-            int floor = room.getRoomNumber() / 100; // Get floor number from room number
-        for (Room room : rooms) {
-            int floor = room.getRoomNumber() / 100; // Lấy số tầng từ số phòng (101 -> tầng 1)
+            int floor = room.getRoomNumber() / 100;
             int bookingID = -1;
+
             if (room.getStatus().equals("Occupied")) {
                 bookingID = getBookingIDFromRoomID(room.getRoomID());
             }
@@ -141,9 +132,6 @@ public class RoomManagementController {
                 floorBox.setSpacing(10);
                 floorBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
                 Label floorLabel = new Label("Floor " + floor);
-                floorBox.setStyle(
-                        "-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
-                Label floorLabel = new Label("Floor" + floor);
                 floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
                 floorBox.getChildren().add(floorLabel);
                 floorMap.put(floor, floorBox);
@@ -154,69 +142,63 @@ public class RoomManagementController {
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
             roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
-
-            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green")
-                    + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
-
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
             Label capacityLabel = new Label("Capacity: " + room.getCapacity());
             Label typeLabel = new Label("Type: " + room.getRoomType());
             Label statusLabel = new Label("Status: " + room.getStatus());
+
             if (bookingID != -1) {
                 statusLabel.setText(statusLabel.getText() + " (Booking ID: " + bookingID + ")");
             }
 
             roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
-
-            roomBox.setOnMouseClicked(event -> handleRoomClick(room));
             final int finalBookingID = bookingID;
-            // Gán sự kiện click cho roomBox
-            // show dropdown with 3 options: check-in or check-out, settings, add service
-            roomBox.setOnMouseClicked(
-                    event -> {
-                        ContextMenu contextMenu = new ContextMenu();
-                        MenuItem checkInItem = null;
-                        MenuItem checkOutItem = null;
 
-                        if (room.getStatus().equals("Occupied")) {
-                            checkOutItem = new MenuItem("Check-out");
-                            contextMenu.getItems().add(checkOutItem);
-                        } else if (room.getStatus().equals("Available")) {
-                            checkInItem = new MenuItem("Check-in");
-                            contextMenu.getItems().add(checkInItem);
-                        }
+            roomBox.setOnMouseClicked(event ->
+            {
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem checkInItem = null;
+                MenuItem checkOutItem = null;
 
-                        MenuItem settingsItem = new MenuItem("Settings");
-                        MenuItem addServiceItem = new MenuItem("Add Service");
+                if (room.getStatus().equals("Occupied")) {
+                    checkOutItem = new MenuItem("Check-out");
+                    contextMenu.getItems().add(checkOutItem);
+                } else if (room.getStatus().equals("Available")) {
+                    checkInItem = new MenuItem("Check-in");
+                    contextMenu.getItems().add(checkInItem);
+                }
 
-                        if (checkInItem != null) {
-                            checkInItem.setOnAction(e -> handleCheckin(room));
-                        }
-                        if (checkOutItem != null) {
-                            checkOutItem.setOnAction(e -> handleCheckout(room));
-                        }
-                        settingsItem.setOnAction(e -> handleSettings(room));
-                        if (room.getStatus().equals("Occupied") && finalBookingID != -1) {
-                            addServiceItem.setOnAction(e -> {
-                                handleAddService(finalBookingID);
-                            });
-                        }
+                MenuItem settingsItem = new MenuItem("Settings");
+                MenuItem addServiceItem = new MenuItem("Add Service");
 
-                        contextMenu.getItems().addAll(settingsItem, addServiceItem);
-                        contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
+                if (checkInItem != null) {
+                    checkInItem.setOnAction(e -> handleCheckin(room));
+                }
+                if (checkOutItem != null) {
+                    checkOutItem.setOnAction(e -> handleCheckout(room));
+                }
+                settingsItem.setOnAction(e -> handleSettings(room));
+                if (room.getStatus().equals("Occupied") && finalBookingID != -1) {
+                    addServiceItem.setOnAction(e -> {
+                        handleAddService(finalBookingID);
                     });
+                }
 
+                contextMenu.getItems().addAll(settingsItem, addServiceItem);
+                contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
+            });
             // roomBox.setOnMouseClicked(event -> handleRoomClick(room));
 
             // Thêm roomBox vào HBox của tầng
             floorMap.get(floor).getChildren().add(roomBox);
         }
 
-        // Thêm tất cả các tầng vào roomContainer
-        for (Map.Entry<Integer, HBox> entry : floorMap.entrySet()) {
+        for(Map.Entry<Integer, HBox> entry :floorMap.entrySet())
+        {
             roomContainer.getChildren().add(entry.getValue());
         }
+
     }
 
     private int getBookingIDFromRoomID(int roomID) {

@@ -1,4 +1,4 @@
-package controller.manager;
+package controller.manager.room;
 
 import dao.RoomDao;
 import javafx.fxml.FXML;

@@ -31,7 +31,19 @@ public class MasterController {
     public static String userRole;
 
     @FXML
+    private Button btnHome;
+    @FXML
+    private Button btnRoomManagement;
+    @FXML
     private Button btnEmployeeManagement;
+    @FXML
+    private Button btnServicesManagement;
+    @FXML
+    private Button btnCustomerManagement;
+    @FXML
+    private Button btnBookingManagement;
+    @FXML
+    private Button btnProductManagement;
 
     public void initialize() {
         if (userRole == null) {
@@ -146,8 +158,69 @@ public class MasterController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent newContent = fxmlLoader.load();
             contentArea.getChildren().setAll(newContent);
+
+            // Highlight the corresponding sidebar button based on the page loaded
+            if (fxmlPath.contains("dashboard")) {
+                highlightActiveButton("Dashboard");
+            } else if (fxmlPath.contains("room-management")) {
+                highlightActiveButton("RoomManagement");
+            } else if (fxmlPath.contains("employee-management")) {
+                highlightActiveButton("EmployeeManagement");
+            } else if (fxmlPath.contains("services-management")) {
+                highlightActiveButton("ServicesManagement");
+            } else if (fxmlPath.contains("customer-management")) {
+                highlightActiveButton("CustomerManagement");
+            } else if (fxmlPath.contains("booking-management")) {
+                highlightActiveButton("BookingManagement");
+            } else if (fxmlPath.contains("product-management")) {
+                highlightActiveButton("ProductManagement");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void highlightActiveButton(String pageName) {
+        // Remove active style from all buttons
+        resetButtonStyles();
+
+        // Add active style to the selected button
+        switch (pageName) {
+            case "Dashboard":
+                btnHome.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "RoomManagement":
+                btnRoomManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "EmployeeManagement":
+                btnEmployeeManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "ServicesManagement":
+                btnServicesManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "CustomerManagement":
+                btnCustomerManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "BookingManagement":
+                btnBookingManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "ProductManagement":
+                btnProductManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void resetButtonStyles() {
+        // Reset the styles of all buttons to their default state
+        btnHome.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnRoomManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnEmployeeManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnServicesManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnCustomerManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnBookingManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnProductManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+    }
+
 }

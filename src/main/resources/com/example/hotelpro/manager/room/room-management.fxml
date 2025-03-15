@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 
 <?import javafx.scene.control.Pagination?>
-<VBox fx:id="root" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.RoomManagementController">
+<VBox fx:id="root" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.room.RoomManagementController">
 
     <!-- Title Label -->
     <Label prefHeight="35.0" prefWidth="295.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Room Management" />
@@ -23,6 +23,6 @@
 
     <Pagination fx:id="pagination" pageCount="1" currentPageIndex="0" style="-fx-padding: 10 0 0 0;"/>
     <!-- Pre Order Button -->
-    <Button fx:id="preOrderButton" text="Pre Order Room" style="-fx-font-size: 16px; -fx-padding: 10;" onAction="#handlePreOrderButtonClick"/>
+<!--    <Button fx:id="preOrderButton" text="Pre Order Room" style="-fx-font-size: 16px; -fx-padding: 10;" onAction="#handlePreOrderButtonClick"/>-->
 
 </VBox>

@@ -18,9 +18,10 @@ module com.example.hotelpro {
     // Exported packages
     exports com.example.hotelpro;
     exports controller;
-    exports model;
     exports controller.manager.product;
     exports controller.manager.customer;
+    exports model;
+    exports model.additional;
 
     // Open specific packages for reflection (JavaFX FXML)
     opens com.example.hotelpro to javafx.fxml;
@@ -31,7 +32,7 @@ module com.example.hotelpro {
     opens controller.manager.customer to javafx.fxml;
     opens controller.manager.service to javafx.fxml;
     opens controller.manager.booking to javafx.fxml;
+    opens controller.manager.room to javafx.fxml;
     opens model to javafx.base;
-    exports model.additional;
     opens model.additional to javafx.base;
 }

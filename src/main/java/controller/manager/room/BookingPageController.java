@@ -1,4 +1,4 @@
-package controller.manager;
+package controller.manager.room;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
