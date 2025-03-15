@@ -178,12 +178,15 @@ public class Customer {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Customer customer = new Customer(
-                        rs.getString("fullname"),
-                        rs.getString("roomnumber"),
-                        rs.getDate("checkindate").toLocalDate(),
-                        rs.getDate("checkoutdate").toLocalDate()
-                );
+                String fullName = rs.getString("fullname");
+                String roomNumber = rs.getString("roomnumber");
+                Date checkInDateSql = rs.getDate("checkindate");
+                Date checkOutDateSql = rs.getDate("checkoutdate");
+
+                LocalDate checkInDate = (checkInDateSql != null) ? ((java.sql.Date) checkInDateSql).toLocalDate() : null;
+                LocalDate checkOutDate = (checkOutDateSql != null) ? ((java.sql.Date) checkOutDateSql).toLocalDate() : null;
+
+                Customer customer = new Customer(fullName, roomNumber, checkInDate, checkOutDate);
                 customers.add(customer);
             }
         } catch (SQLException e) {

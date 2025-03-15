@@ -133,4 +133,22 @@ public class BookingDao implements BaseDao<Booking> {
         }
         return bookings;
     }
+
+    public int getActiveBookingIDByRoomID(int roomID) {
+        String query = "SELECT BookingID FROM Booking WHERE RoomID = ? AND Status = 'CheckedIn'";
+        try (Connection connection = Connect.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, roomID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // return booking;
+                return resultSet.getInt("BookingID");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1; // Không tìm thấy booking nào
+    }
 }

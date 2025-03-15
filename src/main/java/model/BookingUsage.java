@@ -17,7 +17,7 @@ public class BookingUsage {
     private Integer productID; // Corresponds to ProductID in the table
     private int serviceUsagePrice; // Corresponds to ServiceUsagePrice in the table
     private int quantity; // Corresponds to Quantity in the table
-    private Date usageDate; // Corresponds to UsageDate in the table
+    private LocalDate usageDate; // Corresponds to UsageDate in the table
 
     // Additional fields for dashboard display
     private String ServiceTotal;
@@ -97,11 +97,11 @@ public class BookingUsage {
         this.quantity = quantity;
     }
 
-    public Date getUsageDate() {
+    public LocalDate getUsageDate() {
         return usageDate;
     }
 
-    public void setUsageDate(Date usageDate) {
+    public void setUsageDate(LocalDate usageDate) {
         this.usageDate = usageDate;
     }
 

@@ -13,13 +13,13 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
     public void save(BookingUsage bookingUsage) {
         String query = "INSERT INTO BookingUsage (BookingID, ServiceID, ProductID, ServiceUsagePrice, Quantity, UsageDate) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = Connect.connection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, bookingUsage.getBookingID());
             preparedStatement.setObject(2, bookingUsage.getServiceID(), Types.INTEGER);
             preparedStatement.setObject(3, bookingUsage.getProductID(), Types.INTEGER);
             preparedStatement.setInt(4, bookingUsage.getServiceUsagePrice());
             preparedStatement.setInt(5, bookingUsage.getQuantity());
-            preparedStatement.setDate(6, new java.sql.Date(bookingUsage.getUsageDate().getTime()));
+            preparedStatement.setDate(6, java.sql.Date.valueOf(bookingUsage.getUsageDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,13 +30,13 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
     public void update(BookingUsage bookingUsage) {
         String query = "UPDATE BookingUsage SET BookingID = ?, ServiceID = ?, ProductID = ?, ServiceUsagePrice = ?, Quantity = ?, UsageDate = ? WHERE BookingUsageID = ?";
         try (Connection connection = Connect.connection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, bookingUsage.getBookingID());
             preparedStatement.setObject(2, bookingUsage.getServiceID(), Types.INTEGER);
             preparedStatement.setObject(3, bookingUsage.getProductID(), Types.INTEGER);
             preparedStatement.setInt(4, bookingUsage.getServiceUsagePrice());
             preparedStatement.setInt(5, bookingUsage.getQuantity());
-            preparedStatement.setDate(6, new java.sql.Date(bookingUsage.getUsageDate().getTime()));
+            preparedStatement.setDate(6, java.sql.Date.valueOf(bookingUsage.getUsageDate()));
             preparedStatement.setInt(7, bookingUsage.getBookingUsageID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
     public void delete(BookingUsage bookingUsage) {
         String query = "DELETE FROM BookingUsage WHERE BookingUsageID = ?";
         try (Connection connection = Connect.connection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, bookingUsage.getBookingUsageID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
         }
     }
 
-    @Override
+        @Override
     public BookingUsage findById(int id) {
         String query = "SELECT * FROM BookingUsage WHERE BookingUsageID = ?";
         try (Connection connection = Connect.connection();
@@ -71,7 +71,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
                 bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
                 bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
                 bookingUsage.setQuantity(resultSet.getInt("Quantity"));
-                bookingUsage.setUsageDate(resultSet.getDate("UsageDate"));
+                bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
                 return bookingUsage;
             }
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
         }
         return null;
     }
-
+    
     @Override
     public List<BookingUsage> getAll() {
         List<BookingUsage> bookingUsages = new ArrayList<>();
@@ -95,7 +95,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
                 bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
                 bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
                 bookingUsage.setQuantity(resultSet.getInt("Quantity"));
-                bookingUsage.setUsageDate(resultSet.getDate("UsageDate"));
+                bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
                 bookingUsages.add(bookingUsage);
             }
         } catch (SQLException e) {
