@@ -90,13 +90,13 @@ public class Service {
     static Connection conn = new Connect().getConn();
     public static double getTotalServicesToday(){
         double total = 0;
-        String query = "SELECT * FROM ServiceUsage WHERE UsageDate >= CURRENT_DATE AND UsageDate < CURRENT_DATE + INTERVAL '1 day'";
+        String query = "SELECT * FROM BookingUsage WHERE UsageDate >= CURRENT_DATE AND UsageDate < CURRENT_DATE + INTERVAL '1 day'";
 
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int quantity = rs.getInt("serviceusageid");
+                int quantity = rs.getInt("bookingUsageID");
                 total += quantity;
             }
         } catch (SQLException e) {
@@ -107,14 +107,14 @@ public class Service {
     }
     public static double getTotalServicesMonthly(){
         double total = 0;
-        String query = "SELECT * FROM ServiceUsage WHERE EXTRACT(MONTH FROM UsageDate) = EXTRACT(MONTH FROM CURRENT_DATE)" +
+        String query = "SELECT * FROM BookingUsage WHERE EXTRACT(MONTH FROM UsageDate) = EXTRACT(MONTH FROM CURRENT_DATE)" +
                 "AND EXTRACT(YEAR FROM UsageDate) = EXTRACT(YEAR FROM CURRENT_DATE)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int quantity = rs.getInt("serviceusageid");
+                int quantity = rs.getInt("bookingUsageID");
                 total += quantity;
             }
         } catch (SQLException e) {

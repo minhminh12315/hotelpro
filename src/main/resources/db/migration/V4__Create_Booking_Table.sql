@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS Booking (
     CheckInDate DATE,
     CheckOutDate DATE,
     Status VARCHAR(15) DEFAULT 'Pending',
-    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-    FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID) ON DELETE CASCADE,
+    FOREIGN KEY (RoomID) REFERENCES Room(RoomID) ON DELETE CASCADE
 );

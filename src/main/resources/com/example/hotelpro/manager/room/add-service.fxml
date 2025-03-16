@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.manager.room.AddServiceController">
+    <center>
+        <VBox alignment="CENTER" spacing="10" padding="20">
+            <Label text="Add Service to Booking" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Booking ID:" />
+                <TextField fx:id="bookingIdField" promptText="Enter Booking ID" />
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Service:" />
+                <ComboBox fx:id="serviceComboBox" promptText="Select Service" prefWidth="200" />
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Quantity:" />
+                <Spinner fx:id="quantitySpinner" minWidth="80" editable="true" />
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Price:" />
+                <TextField fx:id="priceField" promptText="Enter Price" />
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Usage Date:" />
+                <DatePicker fx:id="usageDatePicker" />
+            </HBox>
+
+            <Button fx:id="addButton" text="Add Service" onAction="#handleAddService" />
+
+            <Label fx:id="statusLabel" textFill="red" visible="false" />
+        </VBox>
+    </center>
+</BorderPane>

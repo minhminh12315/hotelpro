@@ -95,16 +95,16 @@ VALUES
 -- Seed data for Inventory table V6
 INSERT INTO Inventory (ProductID, Quantity, LastUpdated)
 VALUES
-(1, 100, CURRENT_TIMESTAMP),
-(2, 50, CURRENT_TIMESTAMP),
-(3, 200, CURRENT_TIMESTAMP),
-(4, 30, CURRENT_TIMESTAMP),
-(5, 75, CURRENT_TIMESTAMP),
-(6, 120, CURRENT_TIMESTAMP),
-(7, 40, CURRENT_TIMESTAMP),
-(8, 60, CURRENT_TIMESTAMP),
-(9, 90, CURRENT_TIMESTAMP),
-(10, 45, CURRENT_TIMESTAMP);
+(1, 100,' 2025-03-02'),
+(2, 50, '2025-03-23'),
+(3, 200, '2025-01-05'),
+(4, 30, '2025-12-05'),
+(5, 75, '2025-03-05'),
+(6, 120, '2024-12-05'),
+(7, 40, '2025-03-05'),
+(8, 60, '2025-08-12'),
+(9, 90, '2025-03-31'),
+(10, 45, '2025-07-05');
 
 -- Seed data for InventoryTransactions table V7
 INSERT INTO InventoryTransactions (ProductID, BookingID, EmployeeID, Quantity, TransactionType, TransactionDate, Remarks)

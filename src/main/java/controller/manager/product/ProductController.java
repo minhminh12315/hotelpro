@@ -2,6 +2,7 @@ package controller.manager.product;
 
 import controller.manager.employee.EmployeeEditController;
 import dao.ProductDao;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import model.Employee;
 import model.Product;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductController {
     @FXML
@@ -44,12 +48,25 @@ public class ProductController {
 
     @FXML
     public VBox contentArea;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Pagination pagination;
+
+    private int itemsPerPage = 14;
 
     private ProductDao productDao = new ProductDao();
     private ObservableList<Product> productList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
+        productIdColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.05));
+        productNameColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.2));
+        unitPriceColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
+        descriptionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.25));
+        unitColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
+        actionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.194));
+
         productIdColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
@@ -57,7 +74,18 @@ public class ProductController {
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
 
         loadProducts();
+        addActionButton();
 
+        pagination.setPageCount((int) Math.ceil((double) productList.size() / itemsPerPage));
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(5);
+
+        loadPage(0);
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> loadPage(newValue.intValue()));
+
+    }
+
+    private void addActionButton(){
         actionColumn.setCellFactory(new Callback<TableColumn<Product, String>, TableCell<Product, String>>() {
             @Override
             public TableCell<Product, String> call(TableColumn<Product, String> param) {
@@ -97,6 +125,34 @@ public class ProductController {
     private void loadProducts() {
         productList.setAll(productDao.getAll());
         productsTable.setItems(productList);
+    }
+
+    @FXML
+    private void searchProduct() {
+        String searchText = searchField.getText().toLowerCase();
+        productsTable.setItems(FXCollections.observableArrayList());
+
+        if (searchText.isEmpty()){
+            productsTable.setItems(FXCollections.observableArrayList(productList));
+            addActionButton();
+        } else {
+            List<Product> filteredList = productList.stream()
+                    .filter(product -> product.getProductName().toLowerCase().contains(searchText) ||
+                            String.valueOf(product.getUnitPrice()).toLowerCase().contains(searchText) ||
+                            product.getUnit().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+            productsTable.setItems(FXCollections.observableArrayList(filteredList));
+            addActionButton();
+        }
+    }
+
+    private void loadPage(int pageIndex) {
+        int start = pageIndex * itemsPerPage;
+        int end = Math.min(start + itemsPerPage, productList.size());
+
+        List<Product> pageData = productList.subList(start, end);
+        productsTable.setItems(FXCollections.observableArrayList(pageData));
+        addActionButton();
     }
 
     public void addProduct() {

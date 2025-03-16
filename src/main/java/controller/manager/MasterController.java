@@ -93,7 +93,7 @@ public class MasterController {
     
     @FXML
     private void handleEmployeeManagement() {
-        loadContent("/com/example/hotelpro/manager/employee-management.fxml");
+        loadContent("/com/example/hotelpro/manager/employee/employee-management.fxml");
     }
 
     @FXML
@@ -101,10 +101,18 @@ public class MasterController {
         loadContent("/com/example/hotelpro/manager/customer/customer-management.fxml");
     }
 
+    public void handleProductManagement() {
+        loadContent("/com/example/hotelpro/manager/product/product-management.fxml");
+    }
 
     @FXML
     private void handleSettings() {
         loadContent("/com/example/hotelpro/settings/settings.fxml");
+    }
+
+    @FXML
+    private void handleBookingManagement() {
+        loadContent("/com/example/hotelpro/manager/booking/booking-management.fxml");
     }
 
     @FXML

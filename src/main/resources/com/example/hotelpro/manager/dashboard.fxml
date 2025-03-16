@@ -10,169 +10,276 @@
 <VBox fx:id="containArea" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.DashboardController">
     <children>
         <!-- Header Section -->
-        <HBox prefHeight="70.0" prefWidth="295.0" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
+        <HBox prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
             <children>
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" text="Dashboard" />
                 <Region HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
 
-        <!-- Revenue Overview Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Revenue Overview" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Revenue (Today):" />
-                <Label fx:id="totalRevenueTodayLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Revenue (Month):" />
-                <Label fx:id="totalRevenueMonthLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Revenue (Year):" />
-                <Label fx:id="totalRevenueYearLabel" style="-fx-font-size: 16px;" />
+        <!-- Dashboard Content -->
+        <VBox style="-fx-padding: 20 30 20 30; -fx-spacing: 25; -fx-border-color: #ddd; -fx-border-width: 1;">
+            <!-- Revenue Overview Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Revenue Overview" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Revenue (Today):" />
+                                    <Label fx:id="totalRevenueTodayLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Revenue (Month):" />
+                                    <Label fx:id="totalRevenueMonthLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Revenue (Year):" />
+                                    <Label fx:id="totalRevenueYearLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                            <VBox prefHeight="103.0" prefWidth="705.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px;-fx-font-weight: bold;" text="Revenue by Source" />
+                                    <TableView fx:id="revenueBySourceTable" prefHeight="200.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="RevenueBookingIdColumn" prefWidth="100" text="Booking ID" />
+                                            <TableColumn fx:id="roomTotalColumn" prefWidth="140" text="Room Price" />
+                                            <TableColumn fx:id="serviceTotalColumn" prefWidth="140" text="Service Total" />
+                                            <TableColumn fx:id="productTotalColumn" prefWidth="140" text="Product Total" />
+                                            <TableColumn fx:id="totalRevenueBookingColumn" prefWidth="140" text="Total Revenue Booking" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="10.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <Label style="-fx-font-size: 17px;" text="Revenue by Source" />
-            <TableView fx:id="revenueBySourceTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn fx:id="RevenueBookingIdColumn" prefWidth="100" text="Booking ID" />
-                    <TableColumn fx:id="serviceTotalColumn" prefWidth="100" text="Service Total" />
-                    <TableColumn fx:id="productTotalColumn" prefWidth="100" text="Product Total" />
-                    <TableColumn fx:id="roomTotalColumn" prefWidth="100" text="Room Total" />
-                </columns>
-            </TableView>
-        </VBox>
+            <!-- Room Status Section -->
+            <VBox style="-fx-spacing: 15;">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Room Status" />
+                <HBox spacing="10">
+                    <Label style="-fx-font-size: 16px;" text="Total Rooms:" />
+                    <Label fx:id="totalRoomsLabel" style="-fx-font-size: 16px;" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-size: 16px;" text="Available Rooms:" />
+                    <Label fx:id="availableRoomsLabel" style="-fx-font-size: 16px;" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-size: 16px;" text="Occupied Rooms:" />
+                    <Label fx:id="occupiedRoomsLabel" style="-fx-font-size: 16px;" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-size: 16px;" text="Maintenance Rooms:" />
+                    <Label fx:id="maintenanceRoomsLabel" style="-fx-font-size: 16px;" />
+                </HBox>
+            </VBox>
 
-        <!-- Room Status Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Room Status" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Rooms:" />
-                <Label fx:id="totalRoomsLabel" style="-fx-font-size: 16px;" />
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Available Rooms:" />
-                <Label fx:id="availableRoomsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Occupied Rooms:" />
-                <Label fx:id="occupiedRoomsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Maintenance Rooms:" />
-                <Label fx:id="maintenanceRoomsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-        </VBox>
 
-        <!-- Booking Overview Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Booking Overview" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Pending Bookings:" />
-                <Label fx:id="pendingBookingsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Checked-in Bookings:" />
-                <Label fx:id="checkedInBookingsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Checked-out Bookings:" />
-                <Label fx:id="checkedOutBookingsLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <Label style="-fx-font-size: 16px;" text="Upcoming Bookings" />
-            <TableView fx:id="upcomingBookingsTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn text="Booking ID" fx:id="bookingIdColumn"/>
-                    <TableColumn text="Customer Name" fx:id="bookingCustomerNameColumn"/>
-                    <TableColumn text="Room" fx:id="bookingRoomColumn"/>
-                    <TableColumn text="Check-in Date" fx:id="bookingCheckInColumn"/>
-                </columns>
-            </TableView>
-        </VBox>
+            <!-- Booking Overview Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Booking Overview" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Pending Bookings:" />
+                                    <Label fx:id="pendingBookingsLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Checked-in Bookings:" />
+                                    <Label fx:id="checkedInBookingsLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Checked-out Bookings:" />
+                                    <Label fx:id="checkedOutBookingsLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                            <VBox prefHeight="150.0" prefWidth="705.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Upcoming Bookings" />
+                                    <TableView fx:id="upcomingBookingsTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="bookingIdColumn" prefWidth="100" text="Booking ID" />
+                                            <TableColumn fx:id="bookingCustomerNameColumn" prefWidth="150" text="Customer Name" />
+                                            <TableColumn fx:id="bookingRoomColumn" prefWidth="100" text="Room" />
+                                            <TableColumn fx:id="bookingCheckInColumn" prefWidth="170" text="Check-in Date" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
 
-        <!-- Inventory Status Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Inventory Status" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Products:" />
-                <Label fx:id="totalProductsLabel" style="-fx-font-size: 16px;" />
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
-            <Label style="-fx-font-size: 16px;" text="Low Stock Products(less than 40):" />
-            <TableView fx:id="lowStockProductTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn text="Product ID" fx:id="productIdColumn"/>
-                    <TableColumn text="Quantity" fx:id="lowStockQuantityColumn"/>
-                    <TableColumn text="Last Updated" fx:id="lastUpdatedColumn"/>
-                </columns>
-            </TableView>
-            <Label style="-fx-font-size: 16px;" text="Inventory Transactions:" />
-            <TableView fx:id="inventoryTransactionsTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn text="Transaction ID" fx:id="transactionIdColumn"/>
-                    <TableColumn text="Product" fx:id="productColumn"/>
-                    <TableColumn text="Quantity" fx:id="quantityColumn"/>
-                    <TableColumn text="Date" fx:id="transactionDateColumn"/>
-                </columns>
-            </TableView>
-        </VBox>
 
-        <!-- Service Usage Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Service Usage" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Services Today:" />
-                <Label fx:id="totalServicesTodayLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Services This Month:" />
-                <Label fx:id="totalServicesMonthLabel" style="-fx-font-size: 16px;" />
-            </HBox>
-            <Label style="-fx-font-size: 16px;" text="Most Used Services" />
-            <TableView fx:id="mostUsedServicesTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn fx:id="serviceNameColumn" text="Service Name" />
-                    <TableColumn fx:id="serviceUsageCountColumn" text="Usage Count" />
-                </columns>
-            </TableView>
-        </VBox>
+            <!-- Inventory Status Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Inventory Status" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Products:" />
+                                    <Label fx:id="totalProductsLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                        </children>
+                    </HBox>
+                    <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-padding: 10 0 0 0;">
+                        <children>
+                            <VBox prefHeight="150.0" prefWidth="500.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Low Stock Products (less than 40)" />
+                                    <TableView fx:id="lowStockProductTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="productIdColumn" prefWidth="100" text="Product ID" />
+                                            <TableColumn fx:id="lowStockQuantityColumn" prefWidth="100" text="Quantity" />
+                                            <TableColumn fx:id="lastUpdatedColumn" prefWidth="140" text="Last Updated" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                            <VBox prefHeight="150.0" prefWidth="500.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Inventory Transactions" />
+                                    <TableView fx:id="inventoryTransactionsTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="transactionIdColumn" prefWidth="100" text="Transaction ID" />
+                                            <TableColumn fx:id="productColumn" prefWidth="100" text="Product" />
+                                            <TableColumn fx:id="quantityColumn" prefWidth="100" text="Quantity" />
+                                            <TableColumn fx:id="transactionDateColumn" prefWidth="140" text="Date" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
 
-        <!-- Customer Overview Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Customer Overview" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Customers:" />
-                <Label fx:id="totalCustomersLabel" style="-fx-font-size: 16px;" />
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
-            <Label style="-fx-font-size: 16px;" text="Customers in Hotel" />
-            <TableView fx:id="customersInHotelTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn text="Customer Name" fx:id="customerInHotelNameColumn"/>
-                    <TableColumn text="Room" fx:id="customerRoomColumn"/>
-                    <TableColumn text="Check-in Date" fx:id="customerCheckInColumn"/>
-                    <TableColumn text="Check-out Date" fx:id="customerCheckOutColumn"/>
-                </columns>
-            </TableView>
-        </VBox>
 
-        <!-- Employee Performance Section -->
-        <VBox spacing="10">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Employee Performance" />
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Total Transactions:" />
-                <Label fx:id="totalTransactionsLabel" style="-fx-font-size: 16px;" />
+            <!-- Service Usage Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Service Usage" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Services Today:" />
+                                    <Label fx:id="totalServicesTodayLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Services This Month:" />
+                                    <Label fx:id="totalServicesMonthLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                            <VBox prefHeight="150.0" prefWidth="705.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Most Used Services" />
+                                    <TableView fx:id="mostUsedServicesTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="serviceNameColumn" prefWidth="270" text="Service Name" />
+                                            <TableColumn fx:id="serviceUsageCountColumn" prefWidth="250" text="Usage Count" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
-            <HBox spacing="10">
-                <Label style="-fx-font-size: 16px;" text="Transactions per Employee:" />
-                <Label fx:id="transactionsPerEmployeeLabel" style="-fx-font-size: 16px;" />
+
+            <!-- Customer Overview Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Customer Overview" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Customers:" />
+                                    <Label fx:id="totalCustomersLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                            <VBox prefHeight="150.0" prefWidth="705.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Customers in Hotel" />
+                                    <TableView fx:id="customersInHotelTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="customerInHotelNameColumn" prefWidth="150" text="Customer Name" />
+                                            <TableColumn fx:id="customerRoomColumn" prefWidth="100" text="Room" />
+                                            <TableColumn fx:id="customerCheckInColumn" prefWidth="145" text="Check-in Date" />
+                                            <TableColumn fx:id="customerCheckOutColumn" prefWidth="145" text="Check-out Date" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <HBox style="-fx-padding: 5 0 5 0;">
+                <Region prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: #2c3e50; -fx-border-color: #ddd; -fx-border-width: 1;" HBox.hgrow="ALWAYS" />
             </HBox>
-            <Label style="-fx-font-size: 16px;" text="Top Employees" />
-            <TableView fx:id="topEmployeesTable" style="-fx-font-size: 16px;">
-                <columns>
-                    <TableColumn fx:id="employeeNameColumn" text="Employee Name" />
-                    <TableColumn fx:id="employeeTransactionCountColumn" text="Transaction Count" />
-                </columns>
-            </TableView>
+
+            <!-- Employee Performance Section -->
+            <VBox style="-fx-spacing: 15;">
+                <children>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <VBox style="-fx-spacing: 20;">
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Employee Performance" />
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Total Transactions:" />
+                                    <Label fx:id="totalTransactionsLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label style="-fx-font-size: 16px;" text="Transactions per Employee:" />
+                                    <Label fx:id="transactionsPerEmployeeLabel" style="-fx-font-size: 16px;" />
+                                </HBox>
+                            </VBox>
+                            <VBox prefHeight="150.0" prefWidth="705.0" style="-fx-padding: 0 0 0 30;">
+                                <children>
+                                    <Label style="-fx-font-size: 17px; -fx-font-weight: bold;" text="Top Employees" />
+                                    <TableView fx:id="topEmployeesTable" prefHeight="150.0" prefWidth="540.0" style="-fx-font-size: 14px; -fx-border-color: #e0e0e0; -fx-background-color: white;">
+                                        <columns>
+                                            <TableColumn fx:id="employeeNameColumn" prefWidth="270" text="Employee Name" />
+                                            <TableColumn fx:id="employeeTransactionCountColumn" prefWidth="250" text="Transaction Count" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
         </VBox>
 
 <!--        &lt;!&ndash; Alerts Section &ndash;&gt;-->
