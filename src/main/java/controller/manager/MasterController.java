@@ -12,6 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Employee;
 
 import java.io.IOException;
 
@@ -44,6 +45,16 @@ public class MasterController {
     private Button btnBookingManagement;
     @FXML
     private Button btnProductManagement;
+
+    public static int employeeID;
+
+    public static void setEmployeeID(int employeeID) {
+        MasterController.employeeID = employeeID;
+    }
+
+    public static int getEmployeeID() {
+        return employeeID;
+    }
 
     public void initialize() {
         if (userRole == null) {

@@ -103,4 +103,28 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
         }
         return bookingUsages;
     }
+
+    public List<BookingUsage> findByBookingId(int bookingId) {
+        List<BookingUsage> bookingUsages = new ArrayList<>();
+        String query = "SELECT * FROM BookingUsage WHERE BookingID = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, bookingId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                BookingUsage bookingUsage = new BookingUsage();
+                bookingUsage.setBookingUsageID(resultSet.getInt("BookingUsageID"));
+                bookingUsage.setBookingID(resultSet.getInt("BookingID"));
+                bookingUsage.setServiceID((Integer) resultSet.getObject("ServiceID"));
+                bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
+                bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
+                bookingUsage.setQuantity(resultSet.getInt("Quantity"));
+                bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
+                bookingUsages.add(bookingUsage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookingUsages;
+    }
 }

@@ -45,14 +45,17 @@ public class BookingController {
     @FXML
     private VBox booking_tai_cho;
 
-
-
+    private boolean checkin;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String NUMBER_REGEX = "\\d+";
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
         loadRooms();
+    }
+
+    public void setCheckIn(Boolean checkin) {
+        this.checkin = checkin;
     }
 
     @FXML
@@ -106,7 +109,7 @@ public class BookingController {
             String gender = genderBox.getValue(); // customer
 
             String sql_customer = "INSERT INTO Customer (FullName, PhoneNumber, Email, Address, ID_Passport, DateOfBirth, Gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            String sql_booking = "INSERT INTO Booking (CustomerID, RoomID, RoomPrice, CheckinDate) VALUES (?, ?, ?, ?)";
+            String sql_booking = "INSERT INTO Booking (CustomerID, RoomID, RoomPrice, CheckinDate, Status) VALUES (?, ?, ?, ?, ?)";
             String sql_room = "UPDATE Room SET Status = 'Occupied' WHERE RoomID = ?";
 
             try (Connection connection = Connect.connection();
@@ -142,6 +145,7 @@ public class BookingController {
                 }
                 stmt2.setDouble(3, price);
                 stmt2.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
+                stmt2.setString(5, "CheckedIn");
 
                 stmt2.executeUpdate();
 

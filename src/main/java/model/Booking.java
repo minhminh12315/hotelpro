@@ -1,6 +1,8 @@
 package model;
 
 import connect.Connect;
+import dao.BookingDao;
+import dao.CustomerDao;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -25,6 +27,7 @@ public class Booking {
     private LocalDate checkOutDate;
 
     private String status;
+
 
     public Booking() {
 

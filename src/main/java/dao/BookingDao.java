@@ -35,10 +35,22 @@ public class BookingDao implements BaseDao<Booking> {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, booking.getCustomerID());
             ps.setInt(2, booking.getRoomID());
-            ps.setDate(3, Date.valueOf(booking.getBookingDate()));
+            if (booking.getBookingDate() != null) {
+                ps.setDate(3, Date.valueOf(booking.getBookingDate()));
+            } else {
+                ps.setNull(3, Types.DATE);
+            }
             ps.setInt(4, booking.getRoomPrice());
-            ps.setDate(5, Date.valueOf(booking.getCheckInDate()));
-            ps.setDate(6, Date.valueOf(booking.getCheckOutDate()));
+            if (booking.getCheckInDate() != null) {
+                ps.setDate(5, Date.valueOf(booking.getCheckInDate()));
+            } else {
+                ps.setNull(5, Types.DATE);
+            }
+            if (booking.getCheckOutDate() != null) {
+                ps.setDate(6, Date.valueOf(booking.getCheckOutDate()));
+            } else {
+                ps.setNull(6, Types.DATE);
+            }
             ps.setString(7, booking.getStatus());
             ps.setInt(8, booking.getBookingID());
             ps.executeUpdate();
@@ -71,10 +83,10 @@ public class BookingDao implements BaseDao<Booking> {
                         rs.getInt("bookingid"),
                         rs.getInt("customerid"),
                         rs.getInt("roomid"),
-                        rs.getDate("bookingdate").toLocalDate(),
+                        rs.getDate("bookingdate") != null ? rs.getDate("bookingdate").toLocalDate() : null,
                         rs.getInt("roomprice"),
-                        rs.getDate("checkindate").toLocalDate(),
-                        rs.getDate("checkoutdate").toLocalDate(),
+                        rs.getDate("checkindate") != null ? rs.getDate("checkindate").toLocalDate() : null,
+                        rs.getDate("checkoutdate") != null ? rs.getDate("checkoutdate").toLocalDate() : null,
                         rs.getString("status")
                 );
             }
@@ -150,5 +162,22 @@ public class BookingDao implements BaseDao<Booking> {
             e.printStackTrace();
         }
         return -1; // Không tìm thấy booking nào
+    }
+
+    // getNumberOfDays
+    public int getNumberOfDays(int bookingID) {
+        String query = "SELECT (checkoutdate - checkindate) as days FROM Booking WHERE BookingID = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, bookingID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int days = resultSet.getInt("days");
+                return days < 1 ? 1 : days;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

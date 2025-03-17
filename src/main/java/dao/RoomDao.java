@@ -32,7 +32,19 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public void update(Room room) {
-
+        String sql = "UPDATE Room SET roomNumber = ?, roomType = ?, price = ?, capacity = ?, status = ? WHERE roomID = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, room.getRoomNumber());
+            statement.setString(2, room.getRoomType());
+            statement.setBigDecimal(3, room.getPrice());
+            statement.setInt(4, room.getCapacity());
+            statement.setString(5, room.getStatus());
+            statement.setInt(6, room.getRoomID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -42,8 +54,26 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public Room findById(int id) {
-
-        return null;
+        Room room = null;
+        String sql = "SELECT * FROM Room WHERE roomID = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    room = new Room();
+                    room.setRoomID(resultSet.getInt("roomID"));
+                    room.setRoomNumber(resultSet.getInt("roomNumber"));
+                    room.setRoomType(resultSet.getString("roomType"));
+                    room.setPrice(resultSet.getBigDecimal("price"));
+                    room.setCapacity(resultSet.getInt("capacity"));
+                    room.setStatus(resultSet.getString("status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return room;
     }
 
     @Override

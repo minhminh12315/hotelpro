@@ -122,9 +122,7 @@ public class RoomManagementController {
             int floor = room.getRoomNumber() / 100;
             int bookingID = -1;
 
-            if (room.getStatus().equals("Occupied")) {
-                bookingID = getBookingIDFromRoomID(room.getRoomID());
-            }
+            bookingID = getBookingIDFromRoomID(room.getRoomID());
 
             // Tạo HBox cho mỗi tầng nếu chưa có
             if (!floorMap.containsKey(floor)) {
@@ -141,7 +139,25 @@ public class RoomManagementController {
             VBox roomBox = new VBox();
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
-            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+
+            String backgroundColor;
+            switch (room.getStatus()) {
+                case "Occupied":
+                    backgroundColor = "red";
+                    break;
+                case "Available":
+                    backgroundColor = "#41ff1f";
+                    break;
+                case "Maintenance":
+                    backgroundColor = "yellow";
+                    break;
+                default:
+                    backgroundColor = "gray";
+                    break;
+            }
+
+            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
             Label capacityLabel = new Label("Capacity: " + room.getCapacity());
@@ -160,6 +176,7 @@ public class RoomManagementController {
                 ContextMenu contextMenu = new ContextMenu();
                 MenuItem checkInItem = null;
                 MenuItem checkOutItem = null;
+                MenuItem addServiceItem = null;
 
                 if (room.getStatus().equals("Occupied")) {
                     checkOutItem = new MenuItem("Check-out");
@@ -168,24 +185,27 @@ public class RoomManagementController {
                     checkInItem = new MenuItem("Check-in");
                     contextMenu.getItems().add(checkInItem);
                 }
-
-                MenuItem settingsItem = new MenuItem("Settings");
-                MenuItem addServiceItem = new MenuItem("Add Service");
+                if (room.getStatus().equals("Occupied")) {
+                    System.out.println("Booking ID: " + finalBookingID);
+                    addServiceItem = new MenuItem("Add Service");
+                    contextMenu.getItems().add(addServiceItem);
+                }
 
                 if (checkInItem != null) {
-                    checkInItem.setOnAction(e -> handleCheckin(room));
+                    checkInItem.setOnAction(_ -> handleCheckin(room));
                 }
                 if (checkOutItem != null) {
-                    checkOutItem.setOnAction(e -> handleCheckout(room));
+                    checkOutItem.setOnAction(_ -> handleCheckout(room));
                 }
-                settingsItem.setOnAction(e -> handleSettings(room));
-                if (room.getStatus().equals("Occupied") && finalBookingID != -1) {
-                    addServiceItem.setOnAction(e -> {
-                        handleAddService(finalBookingID);
-                    });
+                if (addServiceItem != null) {
+                    addServiceItem.setOnAction(_ -> handleAddService(finalBookingID));
                 }
 
-                contextMenu.getItems().addAll(settingsItem, addServiceItem);
+                MenuItem settingsItem = new MenuItem("Settings");
+                settingsItem.setOnAction(_ -> handleSettings(room));
+
+
+                contextMenu.getItems().addAll(settingsItem);
                 contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
             });
             // roomBox.setOnMouseClicked(event -> handleRoomClick(room));
@@ -202,45 +222,58 @@ public class RoomManagementController {
     }
 
     private int getBookingIDFromRoomID(int roomID) {
-
         return bookingDao.getActiveBookingIDByRoomID(roomID); // Truy vấn booking đang active
     }
 
     private void handleAddService(int bookingID) {
-
-        showAlert("Add Service", "Add service to booking ID: " + bookingID);
-
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/com/example/hotelpro/manager/room/add-service.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-service.fxml"));
             Parent newContent = fxmlLoader.load();
-
-
             AddServiceController addServiceController = fxmlLoader.getController();
             addServiceController.setBookingID(bookingID);
-
             root.getChildren().setAll(newContent);
+
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert("Error", "Error while adding service");
         }
-
-
     }
 
     private void handleSettings(Room room) {
     }
 
     private void handleCheckout(Room room) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/com/example/hotelpro/manager/room/checkout-room.fxml"));
+            Parent newContent = fxmlLoader.load();
+
+            CheckoutController checkoutController = fxmlLoader.getController();
+            checkoutController.setRoomId(room.getRoomID());
+            // check getBookingIDFromRoomID if null then alert error
+            int bookingID = getBookingIDFromRoomID(room.getRoomID());
+            if (bookingID == -1) {
+                showAlert("Error", "No active booking found for this room");
+                return;
+            } else {
+                checkoutController.setBookingId(bookingID);
+            }
+
+            root.getChildren().setAll(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleCheckin(Room room) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/com/example/hotelpro/manager/booking-room.fxml"));
+                    getClass().getResource("/com/example/hotelpro/manager/room/booking-room.fxml"));
             Parent newContent = fxmlLoader.load();
 
             BookingController bookingController = fxmlLoader.getController();
             bookingController.setRoomId(room.getRoomID());
+            bookingController.setCheckIn(true);
 
             root.getChildren().setAll(newContent);
         } catch (IOException e) {
