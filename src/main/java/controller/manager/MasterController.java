@@ -88,16 +88,59 @@ public class MasterController {
     }
 
     private void updateViewBasedOnRole() {
-
+        // Check the user role and show/hide management sections accordingly
         if ("Staff".equalsIgnoreCase(userRole)) {
+            // Staff role - only some buttons will be visible
+            btnRoomManagement.setVisible(true);
+            btnRoomManagement.setManaged(true);
+
             btnEmployeeManagement.setVisible(false);
-            btnEmployeeManagement.setManaged(false); // Loại bỏ khỏi layout
+            btnEmployeeManagement.setManaged(false);
+
+            btnServicesManagement.setVisible(true);
+            btnServicesManagement.setManaged(true);
+
+            btnCustomerManagement.setVisible(true);
+            btnCustomerManagement.setManaged(true);
+
+            btnBookingManagement.setVisible(true);
+            btnBookingManagement.setManaged(true);
+
+            btnProductManagement.setVisible(false);
+            btnProductManagement.setManaged(false);
+
+            // Hide settings or any other management sections staff shouldn't access
+            btnHome.setVisible(true);
+            btnHome.setManaged(true);
+
         } else if ("Manager".equalsIgnoreCase(userRole)) {
+            // Manager role - all buttons will be visible
+            btnRoomManagement.setVisible(true);
+            btnRoomManagement.setManaged(true);
+
             btnEmployeeManagement.setVisible(true);
             btnEmployeeManagement.setManaged(true);
+
+            btnServicesManagement.setVisible(true);
+            btnServicesManagement.setManaged(true);
+
+            btnCustomerManagement.setVisible(true);
+            btnCustomerManagement.setManaged(true);
+
+            btnBookingManagement.setVisible(true);
+            btnBookingManagement.setManaged(true);
+
+            btnProductManagement.setVisible(true);
+            btnProductManagement.setManaged(true);
+
+            // Allow access to home and settings as well
+            btnHome.setVisible(true);
+            btnHome.setManaged(true);
         }
+
         System.out.println("User role: " + userRole);
     }
+
 
     @FXML
     private void handleDashboard() {
