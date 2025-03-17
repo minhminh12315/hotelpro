@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
         // css tung thang
         scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/css/duongminh.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/quangminh.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/css/quangminh.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/css/quang.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/css/haianh.css").toExternalForm());
 
