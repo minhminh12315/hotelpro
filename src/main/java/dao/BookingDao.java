@@ -108,7 +108,7 @@ public class BookingDao implements BaseDao<Booking> {
                         rs.getInt("bookingid"),
                         rs.getInt("customerid"),
                         rs.getInt("roomid"),
-                        rs.getDate("bookingdate").toLocalDate(),
+                        rs.getDate("bookingdate") != null ? rs.getDate("bookingdate").toLocalDate() : null,
                         rs.getInt("roomprice"),
                         rs.getDate("checkindate") != null ? rs.getDate("checkindate").toLocalDate() : null,
                         rs.getDate("checkoutdate") != null ? rs.getDate("checkoutdate").toLocalDate() : null,

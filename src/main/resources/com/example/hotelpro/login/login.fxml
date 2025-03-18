@@ -72,6 +72,7 @@
             -fx-padding: 40px;
             -fx-alignment: center;
         ">
+        <Label text="Login to HotelPro" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
             <children>
                 <TextField fx:id="usernameField" promptText="Username" styleClass="form-control" style="
                     -fx-pref-width: 100%;
@@ -93,8 +94,8 @@
                     -fx-text-fill: red;
                     -fx-font-size: 14px;
                 "/>
-                <Button text="Login" onAction="#handleLogin" />
-                <Button text="Register" onAction="#openRegisterPage" fx:id="openRegisterButton"/>
+                <Button text="Login" style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8px; -fx-font-weight: bold;" onAction="#handleLogin" />
+                <Button text="Register" style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8px; -fx-font-weight: bold;" onAction="#openRegisterPage" fx:id="openRegisterButton"/>
             </children>
         </VBox>
     </right>

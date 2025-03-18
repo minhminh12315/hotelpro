@@ -14,7 +14,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.shape.Line?>
-<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.RegisterController">
+<BorderPane fx:id="root"
+    xmlns:fx="http://javafx.com/fxml" fx:controller="controller.RegisterController">
     <!-- Left Section: Welcome Text -->
     <left>
         <VBox alignment="CENTER" spacing="20.0" styleClass="welcome-section" style="
@@ -77,7 +78,9 @@
             -fx-padding: 40px;
             -fx-alignment: center;
         ">
+            <Label text="Register to HotelPro" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
             <children>
+
                 <TextField fx:id="fullnameField" promptText="Full Name" styleClass="form-control" style="
                     -fx-pref-width: 100%;
                     -fx-padding: 12px;
@@ -114,8 +117,8 @@
                     -fx-text-fill: red;
                     -fx-font-size: 14px;
                 "/>
-                <Button text="Register" onAction="#handleRegister"/>
-                <Hyperlink text="Back to Login" onAction="#openLoginPage" fx:id="openLoginButton"/>
+                <Button text="Register" onAction="#handleRegister" style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8px; -fx-font-weight: bold;"/>
+                <Hyperlink text="Back to Login" onAction="#openLoginPage" fx:id="openLoginButton" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-cursor: hand;" />
             </children>
         </VBox>
     </right>

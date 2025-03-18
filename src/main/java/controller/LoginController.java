@@ -22,7 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginController {
-
+    @FXML
     public Button openRegisterButton;
     @FXML
     private BorderPane root;

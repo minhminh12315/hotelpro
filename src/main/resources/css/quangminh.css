@@ -60,6 +60,24 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 3); /* Hiệu ứng bóng nhẹ */
 }
 
+.btn-primary {
+    -fx-background-color: #007bff;
+    -fx-border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0056b3;
+}
+
+.btn-green {
+    -fx-background-color: #28a745;
+    -fx-border-color: #218838;
+}
+
+.btn-green:hover {
+    -fx-background-color: #218838;
+}
+
 .btn:hover {
     -fx-background-color: #0056b3; /* Màu sắc khi hover */
 }

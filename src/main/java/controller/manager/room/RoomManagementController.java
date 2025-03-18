@@ -8,11 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -43,7 +38,7 @@ public class RoomManagementController {
     private List<Room> allRooms = roomDao.getAll();
     private List<Room> filteredRooms = allRooms;
 
-    private static final int ITEMS_PER_PAGE = 10;
+    private static final int ITEMS_PER_PAGE = 50;
 
     BookingDao bookingDao = new BookingDao();
 
@@ -93,26 +88,39 @@ public class RoomManagementController {
         // Xóa dữ liệu cũ trong roomContainer
         roomContainer.getChildren().clear();
 
-        if (MasterController.userRole.equals("manager")) {
-            // Thêm nút thêm phòng
-            Button addRoomButton = new Button("Add Room");
-            addRoomButton.setOnAction(event -> handleAddRoom());
-            roomContainer.getChildren().add(addRoomButton);
-        }
-        displayRooms(0);
+         HBox buttonContainer = new HBox();
+    buttonContainer.setSpacing(10);
+    buttonContainer.setStyle("-fx-alignment: center-right; -fx-padding: 10;");
+
+    if (MasterController.userRole.equals("manager")) {
+        // Add "Add Room" button
+        Button addRoomButton = new Button("Add Room");
+        addRoomButton.getStyleClass().add("btn-primary");
+        addRoomButton.setOnAction(event -> handleAddRoom());
+        buttonContainer.getChildren().add(addRoomButton);
+    }
+
+    // Add "Pre-order Room" button
+    Button preOrderButton = new Button("Pre-order Room");
+    preOrderButton.getStyleClass().add("btn-green");
+    preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
+    buttonContainer.getChildren().add(preOrderButton);
+
+    roomContainer.getChildren().add(buttonContainer);
+    displayRooms(0);
     }
 
     public void displayRooms(int pageIndex) {
-        roomContainer.getChildren().clear();
+        // roomContainer.getChildren().clear();
 
         // Calculate starting index based on current page
         int startIndex = pageIndex * ITEMS_PER_PAGE;
         int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredRooms.size());
 
         // Organize rooms by floor
-        Button preOrderButton = new Button("Pre-order Room");
-        preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
-        roomContainer.getChildren().add(preOrderButton);
+        // Button preOrderButton = new Button("Pre-order Room");
+        // preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
+        // roomContainer.getChildren().add(preOrderButton);
 
         // Tổ chức phòng theo tầng
         Map<Integer, HBox> floorMap = new HashMap<>();
