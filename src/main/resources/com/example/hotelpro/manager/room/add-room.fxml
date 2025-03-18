@@ -8,21 +8,58 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.room.AddRoomController">
-    <Label text="Add New Room" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-    <TextField fx:id="roomNumberField" promptText="RoomNumber" />
-    <TextField fx:id="priceField" promptText="Price" />
-    <TextField fx:id="capacityField" promptText="Capacity" />
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.room.AddRoomController">
+    <children>
+        <!-- Header Section -->
+        <HBox prefHeight="70.0" prefWidth="100" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
+            <children>
+                <Label text="Add New Room" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
 
-    <ComboBox fx:id="typeField" promptText="Type">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Single Room" />
-                <String fx:value="Double Room" />
-                <String fx:value="Twin Room" />
-                <String fx:value="Suit Room" />
-            </FXCollections>
-        </items>
-    </ComboBox>
-    <Button text="Save" onAction="#handleSave" />
+        <!-- Room Details Form -->
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Label text="Room Number" />
+                <TextField fx:id="roomNumberField" promptText="Room Number" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            </children>
+        </VBox>
+
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Label text="Price" />
+                <TextField fx:id="priceField" promptText="Price" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            </children>
+        </VBox>
+
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Label text="Capacity" />
+                <TextField fx:id="capacityField" promptText="Capacity" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            </children>
+        </VBox>
+
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Label text="Room Type" />
+                <ComboBox fx:id="typeField" promptText="Select Room Type" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Single Room" />
+                            <String fx:value="Double Room" />
+                            <String fx:value="Twin Room" />
+                            <String fx:value="Suite Room" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </children>
+        </VBox>
+
+        <!-- Save Button -->
+        <Button text="Save" onAction="#handleSave" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+    </children>
 </VBox>

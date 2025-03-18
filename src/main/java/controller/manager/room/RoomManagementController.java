@@ -47,14 +47,13 @@ public class RoomManagementController {
     @FXML
     private void handleAddRoom() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/add-room.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-room.fxml"));
             Parent parent = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Add New Room");
-            stage.setScene(new Scene(parent));
-            stage.show();
 
-            // sau khi thêm phòng xong thì load lại dữ liệu
+            root.getChildren().setAll(parent);
+
             stage.setOnHidden(event -> loadRoomData());
 
         } catch (IOException e) {
@@ -243,7 +242,10 @@ public class RoomManagementController {
     }
 
     private int getBookingIDFromRoomID(int roomID) {
-        return bookingDao.getActiveBookingIDByRoomID(roomID); // Truy vấn booking đang active
+//        System.out.println("Checking booking for Room ID: " + roomID);  // Debugging log
+        int bookingID = bookingDao.getActiveBookingIDByRoomID(roomID);
+//        System.out.println("Returned booking ID: " + bookingID);  // Debugging log
+        return bookingID;
     }
 
     private void handleAddService(int bookingID) {
@@ -271,6 +273,7 @@ public class RoomManagementController {
 
             CheckoutController checkoutController = fxmlLoader.getController();
             checkoutController.setRoomId(room.getRoomID());
+            checkoutController.setRoot(root);
             // check getBookingIDFromRoomID if null then alert error
             int bookingID = getBookingIDFromRoomID(room.getRoomID());
             if (bookingID == -1) {
@@ -294,6 +297,7 @@ public class RoomManagementController {
 
             BookingController bookingController = fxmlLoader.getController();
             bookingController.setRoomId(room.getRoomID());
+            bookingController.setbooking_tai_cho(root);
             bookingController.setCheckIn(true);
 
             root.getChildren().setAll(newContent);
@@ -319,7 +323,7 @@ public class RoomManagementController {
 
     @FXML
     public void handlePreOrderButtonClick() {
-        loadContent("/com/example/hotelpro/manager/pre-order-room.fxml");
+        loadContent("/com/example/hotelpro/manager/room/pre-order-room.fxml");
     }
 
     private void loadContent(String fxmlPath) {

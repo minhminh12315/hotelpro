@@ -11,7 +11,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Pagination?>
-<VBox fx:id="root" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.service.ServicesManagementController">
+<VBox fx:id="root" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9;"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.service.ServicesManagementController">
 
     <!-- Header Section -->
     <HBox prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #2c3e50; -fx-alignment: center-left; -fx-padding: 10 20 10 20;">
