@@ -3,8 +3,10 @@ package controller.manager.room;
 import controller.manager.MasterController;
 import dao.BookingDao;
 import dao.RoomDao;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,8 +25,8 @@ public class RoomManagementController {
     @FXML
     private VBox root;
 
-    // @FXML
-    // private Button preOrderButton; // Đảm bảo khai báo nếu cần
+    @FXML
+    HBox buttonContainer;
 
     @FXML
     private VBox roomContainer;
@@ -38,7 +40,7 @@ public class RoomManagementController {
     private List<Room> allRooms = roomDao.getAll();
     private List<Room> filteredRooms = allRooms;
 
-    private static final int ITEMS_PER_PAGE = 50;
+    private static final int ITEMS_PER_PAGE = 10;
 
     BookingDao bookingDao = new BookingDao();
 
@@ -84,34 +86,41 @@ public class RoomManagementController {
     }
 
     public void loadRoomData() {
+        // Check if buttonContainer is already added, and if not, add it
+        if (roomContainer.getChildren().isEmpty()) {
+            buttonContainer = new HBox();
+            buttonContainer.setId("buttonContainer");
+            buttonContainer.setSpacing(10);
+            buttonContainer.setStyle("-fx-alignment: center-right; -fx-padding: 10;");
 
-        // Xóa dữ liệu cũ trong roomContainer
-        roomContainer.getChildren().clear();
+            // Add "Add Room" button for manager role
+            if (MasterController.userRole.equals("manager")) {
+                Button addRoomButton = new Button("Add Room");
+                addRoomButton.getStyleClass().add("btn-primary");
+                addRoomButton.setOnAction(event -> handleAddRoom());
+                buttonContainer.getChildren().add(addRoomButton);
+            }
 
-         HBox buttonContainer = new HBox();
-    buttonContainer.setSpacing(10);
-    buttonContainer.setStyle("-fx-alignment: center-right; -fx-padding: 10;");
+            // Add "Pre-order Room" button
+            Button preOrderButton = new Button("Pre-order Room");
+            preOrderButton.getStyleClass().add("btn-green");
+            preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
+            buttonContainer.getChildren().add(preOrderButton);
 
-    if (MasterController.userRole.equals("manager")) {
-        // Add "Add Room" button
-        Button addRoomButton = new Button("Add Room");
-        addRoomButton.getStyleClass().add("btn-primary");
-        addRoomButton.setOnAction(event -> handleAddRoom());
-        buttonContainer.getChildren().add(addRoomButton);
-    }
+            // Add button container to roomContainer
+            roomContainer.getChildren().add(buttonContainer);
+        }
 
-    // Add "Pre-order Room" button
-    Button preOrderButton = new Button("Pre-order Room");
-    preOrderButton.getStyleClass().add("btn-green");
-    preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
-    buttonContainer.getChildren().add(preOrderButton);
-
-    roomContainer.getChildren().add(buttonContainer);
-    displayRooms(0);
+        displayRooms(0);
     }
 
     public void displayRooms(int pageIndex) {
-        // roomContainer.getChildren().clear();
+        // Clear only the rooms, not the buttons
+        ObservableList<Node> roomChildren = roomContainer.getChildren();
+
+        // Remove all room-related components but keep the button container
+        roomChildren.removeIf(node -> !(node == buttonContainer));
+
 
         // Calculate starting index based on current page
         int startIndex = pageIndex * ITEMS_PER_PAGE;
@@ -166,7 +175,11 @@ public class RoomManagementController {
 
             roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
-            Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
+            Label roomNumberLabel = new Label(String.valueOf(room.getRoomNumber()));
+                roomNumberLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+                roomNumberLabel.setMaxWidth(Double.MAX_VALUE);
+                roomNumberLabel.setAlignment(javafx.geometry.Pos.CENTER);
+
             Label priceLabel = new Label("Price: " + room.getPrice());
             Label capacityLabel = new Label("Capacity: " + room.getCapacity());
             Label typeLabel = new Label("Type: " + room.getRoomType());
