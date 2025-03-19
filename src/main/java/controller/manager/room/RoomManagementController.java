@@ -45,7 +45,7 @@ public class RoomManagementController {
     @FXML
     private void handleAddRoom() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/add-room.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-room.fxml"));
             Parent parent = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Add New Room");
@@ -292,7 +292,7 @@ public class RoomManagementController {
     private void handleCRUDRoom() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/com/example/hotelpro/manager/CRUD-room.fxml"));
+                    getClass().getResource("/com/example/hotelpro/manager/room/CRUD-room.fxml"));
             Parent newContent = fxmlLoader.load();
 
             root.getChildren().setAll(newContent);
@@ -306,7 +306,7 @@ public class RoomManagementController {
 
     @FXML
     public void handlePreOrderButtonClick() {
-        loadContent("/com/example/hotelpro/manager/pre-order-room.fxml");
+        loadContent("/com/example/hotelpro/manager/room/pre-order-room.fxml");
     }
 
     private void loadContent(String fxmlPath) {
