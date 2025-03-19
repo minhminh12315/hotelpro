@@ -1,54 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-
-<VBox fx:id="root" alignment="CENTER" spacing="15.0" style="-fx-background-color: #f5f7fa; -fx-padding: 30px;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.RegisterController">
-
-<!--    <left>-->
-<!--        <VBox alignment="CENTER" prefHeight="342.0" prefWidth="354.0" spacing="20.0" style="-fx-background-color: #2c3e50; -fx-padding: 20px;">-->
-<!--            <Text style="-fx-font-size: 28px; -fx-fill: white; -fx-font-weight: bold;" text="Welcome to HotelPro" />-->
-<!--            <Text style="-fx-font-size: 16px; -fx-fill: #ecf0f1;" text="Please login to continue" />-->
-<!--        </VBox>-->
-<!--    </left>-->
-    <Label text="Register to HotelPro" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
-
-    <TextField fx:id="fullnameField" promptText="Fullname"
-               style="-fx-pref-width: 200px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #b0b0b0; -fx-border-radius: 8px; -fx-padding: 6px;" />
-
-    <TextField fx:id="usernameField" promptText="Username"
-               style="-fx-pref-width: 200px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #b0b0b0; -fx-border-radius: 8px; -fx-padding: 6px;" />
-
-    <PasswordField fx:id="passwordField" promptText="Password"
-                   style="-fx-pref-width: 200px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #b0b0b0; -fx-border-radius: 8px; -fx-padding: 6px;" />
-
-    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"
-                   style="-fx-pref-width: 200px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #b0b0b0; -fx-border-radius: 8px; -fx-padding: 6px;" />
-
-    <Label fx:id="errorLabel" style="-fx-text-fill: #e74c3c; -fx-font-size: 12px; -fx-opacity: 0;" />
-
-    <HBox alignment="CENTER" spacing="10.0">
-        <Button text="Register" onAction="#handleRegister"
-                style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8px; -fx-font-weight: bold;" />
-
-        <Hyperlink text="Back to Login" onAction="#openLoginPage"
-                   style="-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-cursor: hand;" />
-    </HBox>
-
+<VBox fx:id="root" alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.RegisterController">
+    <Label text="Register" style="-fx-font-size: 20;"/>
+    <TextField fx:id="fullnameField" promptText="Fullname"/>
+    <TextField fx:id="usernameField" promptText="Username"/>
+    <PasswordField fx:id="passwordField" promptText="Password"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"/>
+    <Button text="Register" onAction="#handleRegister"/>
+    <Hyperlink text="Back to Login" onAction="#openLoginPage"/>
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
 </VBox>

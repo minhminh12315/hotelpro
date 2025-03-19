@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.manager.room.CheckoutController"
+      alignment="CENTER" spacing="10">
+    <VBox spacing="10" alignment="CENTER" prefWidth="400" prefHeight="400">
+        <Label text="Checkout Room" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Room ID:"/>
+            <Label fx:id="roomIdLabel"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Customer Name:"/>
+            <TextField fx:id="customerNameField" promptText="Enter customer name"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Phone number:"/>
+            <TextField fx:id="phoneNumberField" promptText="Enter phone number"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Total Amount:"/>
+            <TextField fx:id="totalAmountField" promptText="Enter total amount"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Checkin Date:"/>
+            <DatePicker fx:id="checkInDateField"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Checkout Date:"/>
+            <DatePicker fx:id="checkOutDateField"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Booking Usage:"/>
+            <ListView fx:id="bookingUsageListView" prefHeight="100"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="confirmCheckoutButton" text="Confirm Checkout"/>
+            <Button fx:id="cancelButton" text="Cancel"/>
+        </HBox>
+    </VBox>
+</VBox>

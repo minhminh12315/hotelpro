@@ -28,7 +28,6 @@ public class Service {
     private final IntegerProperty idProperty = new SimpleIntegerProperty();
     private final StringProperty nameProperty = new SimpleStringProperty();
 
-
     // Getters and setters...
 
     public int getServiceID() {
@@ -88,7 +87,8 @@ public class Service {
     }
 
     static Connection conn = new Connect().getConn();
-    public static double getTotalServicesToday(){
+
+    public static double getTotalServicesToday() {
         double total = 0;
         String query = "SELECT * FROM BookingUsage WHERE UsageDate >= CURRENT_DATE AND UsageDate < CURRENT_DATE + INTERVAL '1 day'";
 
@@ -105,9 +105,11 @@ public class Service {
 
         return total;
     }
-    public static double getTotalServicesMonthly(){
+
+    public static double getTotalServicesMonthly() {
         double total = 0;
-        String query = "SELECT * FROM BookingUsage WHERE EXTRACT(MONTH FROM UsageDate) = EXTRACT(MONTH FROM CURRENT_DATE)" +
+        String query = "SELECT * FROM BookingUsage WHERE EXTRACT(MONTH FROM UsageDate) = EXTRACT(MONTH FROM CURRENT_DATE)"
+                +
                 "AND EXTRACT(YEAR FROM UsageDate) = EXTRACT(YEAR FROM CURRENT_DATE)";
 
         try {
@@ -122,5 +124,10 @@ public class Service {
         }
 
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return serviceName;
     }
 }

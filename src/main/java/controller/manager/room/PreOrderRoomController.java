@@ -1,4 +1,4 @@
-package controller.manager;
+package controller.manager.room;
 
 import dao.RoomDao;
 import javafx.fxml.FXML;
@@ -50,8 +50,23 @@ public class PreOrderRoomController {
             VBox roomBox = new VBox();
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
+            String backgroundColor;
+            switch (room.getStatus()) {
+                case "Occupied":
+                    backgroundColor = "red";
+                    break;
+                case "Available":
+                    backgroundColor = "#41ff1f";
+                    break;
+                case "Maintenance":
+                    backgroundColor = "yellow";
+                    break;
+                default:
+                    backgroundColor = "gray";
+                    break;
+            }
 
-            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
@@ -73,7 +88,7 @@ public class PreOrderRoomController {
     @FXML
     private void handlePreOrder(Room room) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/pre-order-page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/pre-order-page.fxml"));
             Parent newContent = fxmlLoader.load();
 
             PreOrderPageController preOrderController = fxmlLoader.getController();

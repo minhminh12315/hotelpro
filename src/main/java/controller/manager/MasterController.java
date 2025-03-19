@@ -12,6 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Employee;
 
 import java.io.IOException;
 
@@ -31,7 +32,29 @@ public class MasterController {
     public static String userRole;
 
     @FXML
+    private Button btnHome;
+    @FXML
+    private Button btnRoomManagement;
+    @FXML
     private Button btnEmployeeManagement;
+    @FXML
+    private Button btnServicesManagement;
+    @FXML
+    private Button btnCustomerManagement;
+    @FXML
+    private Button btnBookingManagement;
+    @FXML
+    private Button btnProductManagement;
+
+    public static int employeeID;
+
+    public static void setEmployeeID(int employeeID) {
+        MasterController.employeeID = employeeID;
+    }
+
+    public static int getEmployeeID() {
+        return employeeID;
+    }
 
     public void initialize() {
         if (userRole == null) {
@@ -65,16 +88,59 @@ public class MasterController {
     }
 
     private void updateViewBasedOnRole() {
-
+        // Check the user role and show/hide management sections accordingly
         if ("Staff".equalsIgnoreCase(userRole)) {
+            // Staff role - only some buttons will be visible
+            btnRoomManagement.setVisible(true);
+            btnRoomManagement.setManaged(true);
+
             btnEmployeeManagement.setVisible(false);
-            btnEmployeeManagement.setManaged(false); // Loại bỏ khỏi layout
+            btnEmployeeManagement.setManaged(false);
+
+            btnServicesManagement.setVisible(true);
+            btnServicesManagement.setManaged(true);
+
+            btnCustomerManagement.setVisible(true);
+            btnCustomerManagement.setManaged(true);
+
+            btnBookingManagement.setVisible(true);
+            btnBookingManagement.setManaged(true);
+
+            btnProductManagement.setVisible(false);
+            btnProductManagement.setManaged(false);
+
+            // Hide settings or any other management sections staff shouldn't access
+            btnHome.setVisible(true);
+            btnHome.setManaged(true);
+
         } else if ("Manager".equalsIgnoreCase(userRole)) {
+            // Manager role - all buttons will be visible
+            btnRoomManagement.setVisible(true);
+            btnRoomManagement.setManaged(true);
+
             btnEmployeeManagement.setVisible(true);
             btnEmployeeManagement.setManaged(true);
+
+            btnServicesManagement.setVisible(true);
+            btnServicesManagement.setManaged(true);
+
+            btnCustomerManagement.setVisible(true);
+            btnCustomerManagement.setManaged(true);
+
+            btnBookingManagement.setVisible(true);
+            btnBookingManagement.setManaged(true);
+
+            btnProductManagement.setVisible(true);
+            btnProductManagement.setManaged(true);
+
+            // Allow access to home and settings as well
+            btnHome.setVisible(true);
+            btnHome.setManaged(true);
         }
+
         System.out.println("User role: " + userRole);
     }
+
 
     @FXML
     private void handleDashboard() {
@@ -83,12 +149,12 @@ public class MasterController {
 
     @FXML
     private void handleRoomManagement() {
-        loadContent("/com/example/hotelpro/manager/room-management.fxml");
+        loadContent("/com/example/hotelpro/manager/room/room-management.fxml");
     }
 
     @FXML
     private void handleServicesManagement() {
-        loadContent("/com/example/hotelpro/service/services-management.fxml");
+        loadContent("/com/example/hotelpro/manager/service/services-management.fxml");
     }
     
     @FXML
@@ -146,8 +212,69 @@ public class MasterController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent newContent = fxmlLoader.load();
             contentArea.getChildren().setAll(newContent);
+
+            // Highlight the corresponding sidebar button based on the page loaded
+            if (fxmlPath.contains("dashboard")) {
+                highlightActiveButton("Dashboard");
+            } else if (fxmlPath.contains("room-management")) {
+                highlightActiveButton("RoomManagement");
+            } else if (fxmlPath.contains("employee-management")) {
+                highlightActiveButton("EmployeeManagement");
+            } else if (fxmlPath.contains("services-management")) {
+                highlightActiveButton("ServicesManagement");
+            } else if (fxmlPath.contains("customer-management")) {
+                highlightActiveButton("CustomerManagement");
+            } else if (fxmlPath.contains("booking-management")) {
+                highlightActiveButton("BookingManagement");
+            } else if (fxmlPath.contains("product-management")) {
+                highlightActiveButton("ProductManagement");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void highlightActiveButton(String pageName) {
+        // Remove active style from all buttons
+        resetButtonStyles();
+
+        // Add active style to the selected button
+        switch (pageName) {
+            case "Dashboard":
+                btnHome.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "RoomManagement":
+                btnRoomManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "EmployeeManagement":
+                btnEmployeeManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "ServicesManagement":
+                btnServicesManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "CustomerManagement":
+                btnCustomerManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "BookingManagement":
+                btnBookingManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            case "ProductManagement":
+                btnProductManagement.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void resetButtonStyles() {
+        // Reset the styles of all buttons to their default state
+        btnHome.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnRoomManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnEmployeeManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnServicesManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnCustomerManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnBookingManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+        btnProductManagement.setStyle("-fx-background-color: #34495e; -fx-text-fill: white;");
+    }
+
 }

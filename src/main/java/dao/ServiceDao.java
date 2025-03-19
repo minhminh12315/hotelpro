@@ -16,7 +16,7 @@ public class ServiceDao implements BaseDao<Service> {
     public void save(Service service) {
         String sql = "INSERT INTO service (serviceName, servicePrice, serviceType, description) VALUES (?, ?, ?, ?)";
         try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, service.getServiceName());
             statement.setBigDecimal(2, service.getServicePrice());
@@ -34,7 +34,7 @@ public class ServiceDao implements BaseDao<Service> {
     public void update(Service service) {
         String sql = "UPDATE service SET serviceName = ?, servicePrice = ?, serviceType = ?, description = ? WHERE serviceID = ?";
         try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, service.getServiceName());
             statement.setBigDecimal(2, service.getServicePrice());
             statement.setString(3, service.getServiceType());
@@ -50,7 +50,7 @@ public class ServiceDao implements BaseDao<Service> {
     public void delete(Service service) {
         String sql = "DELETE FROM service WHERE serviceID = ?";
         try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, service.getServiceID());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -63,7 +63,7 @@ public class ServiceDao implements BaseDao<Service> {
         Service service = null;
         String sql = "SELECT * FROM service WHERE serviceID = ?";
         try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -86,8 +86,8 @@ public class ServiceDao implements BaseDao<Service> {
         List<Service> services = new ArrayList<>();
         String sql = "SELECT * FROM service";
         try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Service service = new Service();
                 service.setServiceID(resultSet.getInt("serviceID"));

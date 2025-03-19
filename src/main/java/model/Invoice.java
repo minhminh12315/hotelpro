@@ -1,8 +1,7 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Invoice {
@@ -10,7 +9,7 @@ public class Invoice {
 
     private Booking booking;
 
-    private Date issueDate;
+    private LocalDate issueDate;
 
     private BigDecimal totalAmount;
 
@@ -36,11 +35,11 @@ public class Invoice {
         this.booking = booking;
     }
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 

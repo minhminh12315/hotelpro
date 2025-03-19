@@ -86,6 +86,31 @@ public class CustomerDao implements BaseDao<Customer> {
         return null;
     }
 
+
+    public Customer findByBookingId(int bookingId) {
+        String sql = "SELECT c.* FROM customer c JOIN booking b ON c.customerid = b.customerid WHERE b.bookingid = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, bookingId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerID(resultSet.getInt("customerid"));
+                customer.setFullName(resultSet.getString("fullname"));
+                customer.setPhoneNumber(resultSet.getString("phonenumber"));
+                customer.setEmail(resultSet.getString("email"));
+                customer.setAddress(resultSet.getString("address"));
+                customer.setIdPassport(resultSet.getString("id_passport"));
+                customer.setDateOfBirth(resultSet.getDate("dateofbirth").toLocalDate());
+                customer.setGender(resultSet.getString("gender"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public List<Customer> getAll() {
         List<Customer> customers = new ArrayList<>();

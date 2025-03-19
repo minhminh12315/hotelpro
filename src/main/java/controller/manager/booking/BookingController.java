@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import model.Booking;
-import model.Employee;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -90,7 +89,7 @@ public class BookingController {
 
     @FXML
     public void addBooking() {
-        loadContent("/com/example/hotelpro/manager/pre-order-room.fxml");
+        loadContent("/com/example/hotelpro/manager/room/pre-order-room.fxml");
     }
 
     private void loadContent(String fxmlPath) {

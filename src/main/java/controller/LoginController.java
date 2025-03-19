@@ -2,10 +2,12 @@ package controller;
 
 import connect.Connect;
 import controller.manager.MasterController;
+import controller.manager.employee.EmployeeEditController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -17,9 +19,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
-
+    @FXML
+    public Button openRegisterButton;
     @FXML
     private BorderPane root;
     @FXML
@@ -39,7 +43,7 @@ public class LoginController {
         }
 
         try (Connection connection = Connect.connection()) {
-            String query = "SELECT password, role FROM Employee WHERE fullname = ?";
+            String query = "SELECT * FROM Employee WHERE fullname = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
 
@@ -47,11 +51,17 @@ public class LoginController {
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("password");
                 String role = resultSet.getString("role");
+                String employeeID = resultSet.getString("employeeID");
 
                 if (password.equals(storedPassword)) {
                     errorLabel.setText("Login successful!");
 
+
+
                     MasterController masterController = new MasterController();
+
+                    masterController.setEmployeeID(Integer.parseInt(employeeID));
+
                     if ("manager".equals(role)) {
                         masterController.setUserRole("manager");
                     } else {
@@ -81,18 +91,26 @@ public class LoginController {
 
     public void openRegisterPage() {
         try {
+            Stage currentStage = (Stage) openRegisterButton.getScene().getWindow();
+            currentStage.close();
 
             FXMLLoader fxmlLoader = new FXMLLoader(
                     getClass().getResource("/com/example/hotelpro/register/register.fxml"));
+
+            RegisterController registerController = new RegisterController(root);
+            fxmlLoader.setControllerFactory(param -> registerController);
+
             Parent newContent = fxmlLoader.load();
-            root.setTop(null);
-            root.setBottom(null);
-            root.setLeft(null);
-            root.setRight(null);
-            root.setCenter(newContent);
+
+            Scene scene = new Scene(newContent);
+            currentStage.setScene(scene);
+            currentStage.setTitle("Login");
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
             errorLabel.setText("An error occurred while opening the register page.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }
