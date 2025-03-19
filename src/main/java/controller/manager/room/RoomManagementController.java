@@ -209,12 +209,11 @@ public class RoomManagementController {
                     addServiceItem.setOnAction(_ -> handleAddService(finalBookingID));
                 }
 
-                MenuItem deleteRoomItem = new MenuItem("Xóa phòng");
-                deleteRoomItem.setOnAction(_ -> handleDeleteRoom(room));
+                MenuItem settingsItem = new MenuItem("Settings");
+                settingsItem.setOnAction(_ -> handleSettings(room));
 
 
-
-                contextMenu.getItems().add(deleteRoomItem);
+                contextMenu.getItems().addAll(settingsItem);
                 contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
             });
             // roomBox.setOnMouseClicked(event -> handleRoomClick(room));
@@ -328,7 +327,7 @@ public class RoomManagementController {
         alert.showAndWait();
     }
 
-    private void handleDeleteRoom(Room room) {
+//    private void handleDeleteRoom(Room room) {
 //        String currentUserRole = getCurrentUserRole();
 //        // In ra để kiểm tra
 //        System.out.println("Vai trò người dùng hiện tại: " + currentUserRole);
@@ -337,17 +336,17 @@ public class RoomManagementController {
 //            showAlert("Lỗi", "Bạn không có quyền xóa phòng.");
 //            return;
 //        }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Xác nhận xóa phòng");
-        alert.setHeaderText(null);
-        alert.setContentText("Bạn có chắc chắn muốn xóa phòng số " + room.getRoomNumber() + " không?");
-
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                roomDao.delete(room);
-                showAlert("Thành công", "Phòng đã được xóa.");
-                loadRoomData();
-            }
-        });
-    }
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Xác nhận xóa phòng");
+//        alert.setHeaderText(null);
+//        alert.setContentText("Bạn có chắc chắn muốn xóa phòng số " + room.getRoomNumber() + " không?");
+//
+//        alert.showAndWait().ifPresent(response -> {
+//            if (response == ButtonType.OK) {
+//                roomDao.delete(room);
+//                showAlert("Thành công", "Phòng đã được xóa.");
+//                loadRoomData();
+//            }
+//        });
+//    }
 }

@@ -49,15 +49,6 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public void delete(Room room) {
-        String sql = "DELETE FROM Room WHERE roomID = ?";
-        try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, room.getRoomID());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
