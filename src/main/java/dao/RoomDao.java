@@ -49,17 +49,59 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public void delete(Room room) {
-        String sql = "DELETE FROM Room WHERE roomID = ?";
-        try (Connection connection = Connect.connection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, room.getRoomID());
-            statement.executeUpdate();
+        Connection connection = null;
+        PreparedStatement deleteBookingsStmt = null;
+        PreparedStatement deleteRoomStmt = null;
+
+        try {
+            connection = Connect.connection();
+            // Bắt đầu transaction
+            connection.setAutoCommit(false);
+
+            // 1. Xóa tất cả booking liên quan đến phòng
+            String deleteBookingsSql = "DELETE FROM Booking WHERE roomNumber = ?";
+            deleteBookingsStmt = connection.prepareStatement(deleteBookingsSql);
+            deleteBookingsStmt.setString(1, String.valueOf(room.getRoomNumber()));
+            deleteBookingsStmt.executeUpdate();
+
+            // 2. Xóa phòng
+            String deleteRoomSql = "DELETE FROM Room WHERE roomNumber = ?";
+            deleteRoomStmt = connection.prepareStatement(deleteRoomSql);
+            deleteRoomStmt.setString(1, String.valueOf(room.getRoomNumber()));
+            int rowsAffected = deleteRoomStmt.executeUpdate();
+            // Commit transaction nếu thành công
+            connection.commit();
+
+            if (rowsAffected > 0) {
+                System.out.println("Phòng " + room.getRoomNumber() + " và các đặt phòng liên quan đã được xóa thành công.");
+            } else {
+                System.out.println("Không tìm thấy phòng có số: " + room.getRoomNumber());
+            }
+
         } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    // Rollback nếu có lỗi
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            System.out.println("Lỗi khi xóa phòng và các đặt phòng liên quan: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            try {
+                if (deleteBookingsStmt != null) deleteBookingsStmt.close();
+                if (deleteRoomStmt != null) deleteRoomStmt.close();
+                if (connection != null) {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-
 
 
     @Override
