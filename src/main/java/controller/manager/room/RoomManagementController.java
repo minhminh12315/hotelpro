@@ -309,7 +309,7 @@ public class RoomManagementController {
     private void handleCRUDRoom() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/com/example/hotelpro/manager/CRUD-room.fxml"));
+                    getClass().getResource("/com/example/hotelpro/manager/room/CRUD-room.fxml"));
             Parent newContent = fxmlLoader.load();
 
             root.getChildren().setAll(newContent);
@@ -343,4 +343,27 @@ public class RoomManagementController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+//    private void handleDeleteRoom(Room room) {
+//        String currentUserRole = getCurrentUserRole();
+//        // In ra để kiểm tra
+//        System.out.println("Vai trò người dùng hiện tại: " + currentUserRole);
+//
+//        if (currentUserRole == null || !"manager".equals(currentUserRole)) {
+//            showAlert("Lỗi", "Bạn không có quyền xóa phòng.");
+//            return;
+//        }
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Xác nhận xóa phòng");
+//        alert.setHeaderText(null);
+//        alert.setContentText("Bạn có chắc chắn muốn xóa phòng số " + room.getRoomNumber() + " không?");
+//
+//        alert.showAndWait().ifPresent(response -> {
+//            if (response == ButtonType.OK) {
+//                roomDao.delete(room);
+//                showAlert("Thành công", "Phòng đã được xóa.");
+//                loadRoomData();
+//            }
+//        });
+//    }
 }

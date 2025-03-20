@@ -98,7 +98,23 @@ public class PreOrderRoomController {
             VBox roomBox = new VBox();
             roomBox.setPrefHeight(150);
             roomBox.setPrefWidth(120);
-            roomBox.setStyle("-fx-background-color: " + (room.getStatus().equals("Occupied") ? "red" : "green") + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+            String backgroundColor;
+            switch (room.getStatus()) {
+                case "Occupied":
+                    backgroundColor = "red";
+                    break;
+                case "Available":
+                    backgroundColor = "#41ff1f";
+                    break;
+                case "Maintenance":
+                    backgroundColor = "yellow";
+                    break;
+                default:
+                    backgroundColor = "gray";
+                    break;
+            }
+
+            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
 
             Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
             Label priceLabel = new Label("Price: " + room.getPrice());
@@ -108,12 +124,10 @@ public class PreOrderRoomController {
 
             roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
 
-            // Add click event for pre-order functionality
+            // Gán sự kiện click cho roomBox
             roomBox.setOnMouseClicked(event -> handlePreOrder(room));
             floorMap.get(floor).getChildren().add(roomBox);
         }
-
-        // Add all floors (with rooms) to the roomContainer
         for (Map.Entry<Integer, HBox> entry : floorMap.entrySet()) {
             roomContainer.getChildren().add(entry.getValue());
         }
@@ -128,10 +142,11 @@ public class PreOrderRoomController {
             PreOrderPageController preOrderController = fxmlLoader.getController();
             preOrderController.setRoomId(room.getRoomID());
 
-            // Update the root container with the pre-order page
+            // Cập nhật giao diện
             root.getChildren().setAll(newContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

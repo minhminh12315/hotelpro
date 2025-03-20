@@ -49,7 +49,6 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public void delete(Room room) {
-
     }
 
     @Override
