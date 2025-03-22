@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.layout.Region?>
 
 <VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"
@@ -67,9 +68,11 @@
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
                 <Label text="Gender" />
-                <ComboBox fx:id="addGender" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+                <ComboBox fx:id="addGender" style="-fx-background-color: #EFEFEF; -fx-border-color: #ccc; -fx-border-width: 1;" />
+
             </children>
         </VBox>
+
 
         <!-- Add Button -->
         <Button fx:id="addButton" mnemonicParsing="false" onAction="#addCustomer" text="Add Customer"

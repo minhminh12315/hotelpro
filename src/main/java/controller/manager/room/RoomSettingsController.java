@@ -72,8 +72,6 @@ public class RoomSettingsController {
                 roomDao.delete(currentRoom);  // Gọi phương thức xóa phòng với đối tượng Room
 
                 showAlert("Thành công", "Phòng đã được xóa thành công!", Alert.AlertType.INFORMATION);
-
-                // Sau khi xóa, có thể cập nhật lại danh sách phòng hoặc đóng cửa sổ
                 // loadRoomData();  // Nếu có phương thức tải lại dữ liệu
             }
         });

@@ -42,6 +42,7 @@ public class CustomerAddController {
 
     @FXML
     public void initialize(){
+        addGender.getItems().addAll("Male", "Female");
     }
 
     @FXML
