@@ -99,6 +99,29 @@ public class RoomDao implements BaseDao<Room> {
 
     }
 
+    public Room findByRoomNumber(String roomNumber) {
+        Room room = null;
+        String sql = "SELECT * FROM Room WHERE roomNumber = ?";
+        try (Connection connection = Connect.connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, roomNumber); // Use setString for VARCHAR
+                try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    room = new Room();
+                    room.setRoomID(resultSet.getInt("roomID"));
+                    room.setRoomNumber(resultSet.getInt("roomNumber"));
+                    room.setRoomType(resultSet.getString("roomType"));
+                    room.setPrice(resultSet.getBigDecimal("price"));
+                    room.setCapacity(resultSet.getInt("capacity"));
+                    room.setStatus(resultSet.getString("status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return room;
+    }
+
 
 }
 
