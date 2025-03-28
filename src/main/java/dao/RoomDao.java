@@ -49,7 +49,52 @@ public class RoomDao implements BaseDao<Room> {
 
     @Override
     public void delete(Room room) {
+        Connection connection = null;
+        PreparedStatement deleteRoomStmt = null;
+
+        try {
+            connection = Connect.connection();
+            connection.setAutoCommit(false);
+
+            // Xóa phòng
+            String deleteRoomSql = "DELETE FROM Room WHERE roomNumber = ?";
+            deleteRoomStmt = connection.prepareStatement(deleteRoomSql);
+            deleteRoomStmt.setString(1, String.valueOf(room.getRoomNumber()));
+            int rowsAffected = deleteRoomStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                connection.commit();
+                System.out.println("Phòng " + room.getRoomNumber() + " đã được xóa thành công.");
+            } else {
+                connection.rollback();
+                System.out.println("Không tìm thấy phòng có số: " + room.getRoomNumber());
+            }
+
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                    System.out.println("Đã rollback do lỗi xảy ra.");
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            System.out.println("Lỗi khi xóa phòng: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (deleteRoomStmt != null) deleteRoomStmt.close();
+                if (connection != null) {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
 
     @Override
     public Room findById(int id) {

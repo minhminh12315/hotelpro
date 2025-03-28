@@ -33,35 +33,35 @@ VALUES
 -- Floor 1
 ('Single', 101, 100.00, 'Available', 1),
 ('Double', 102, 150.00, 'Occupied', 2),
-('Suite', 103, 300.00, 'Maintenance', 4),
+('Suite', 103, 300.00, 'Available', 4),
 ('Single', 104, 120.00, 'Available', 1),
 ('Double', 105, 160.00, 'Occupied', 2),
 
 -- Floor 2
 ('Single', 201, 100.00, 'Available', 1),
 ('Double', 202, 150.00, 'Occupied', 2),
-('Suite', 203, 300.00, 'Maintenance', 4),
+('Suite', 203, 300.00, 'Available', 4),
 ('Single', 204, 120.00, 'Available', 1),
 ('Double', 205, 160.00, 'Occupied', 2),
 
 -- Floor 3
 ('Single', 301, 100.00, 'Available', 1),
 ('Double', 302, 150.00, 'Occupied', 2),
-('Suite', 303, 300.00, 'Maintenance', 4),
+('Suite', 303, 300.00, 'Available', 4),
 ('Single', 304, 120.00, 'Available', 1),
 ('Double', 305, 160.00, 'Occupied', 2),
 
 -- Floor 4
 ('Single', 401, 100.00, 'Available', 1),
 ('Double', 402, 150.00, 'Occupied', 2),
-('Suite', 403, 300.00, 'Maintenance', 4),
+('Suite', 403, 300.00, 'Available', 4),
 ('Single', 404, 120.00, 'Available', 1),
 ('Double', 405, 160.00, 'Occupied', 2),
 
 -- Floor 5
 ('Single', 501, 100.00, 'Available', 1),
 ('Double', 502, 150.00, 'Occupied', 2),
-('Suite', 503, 300.00, 'Maintenance', 4),
+('Suite', 503, 300.00, 'Available', 4),
 ('Single', 504, 120.00, 'Available', 1),
 ('Double', 505, 160.00, 'Occupied', 2);
 -- Seed data for Booking table
