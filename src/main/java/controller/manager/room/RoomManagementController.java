@@ -3,8 +3,10 @@ package controller.manager.room;
 import controller.manager.MasterController;
 import dao.BookingDao;
 import dao.RoomDao;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,14 +19,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RoomManagementController {
 
     @FXML
-    private VBox root;
+    public VBox root;
 
-    // @FXML
-    // private Button preOrderButton; // Đảm bảo khai báo nếu cần
+    @FXML
+    HBox buttonContainer;
 
     @FXML
     private VBox roomContainer;
@@ -38,37 +42,31 @@ public class RoomManagementController {
     private List<Room> allRooms = roomDao.getAll();
     private List<Room> filteredRooms = allRooms;
 
-    private static final int ITEMS_PER_PAGE = 50;
+    private static final int ROOMS_PER_PAGE = 20;  // Changed from ITEMS_PER_PAGE
+    private static final int MAX_ROOMS_PER_FLOOR = 5;  // Maximum rooms per row in a floor
 
     BookingDao bookingDao = new BookingDao();
 
     @FXML
-    private void handleAddRoom() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-room.fxml"));
-            Parent parent = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Add New Room");
-            stage.setScene(new Scene(parent));
-            stage.show();
-
-            // sau khi thêm phòng xong thì load lại dữ liệu
-            stage.setOnHidden(event -> loadRoomData());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void initialize() {
+    public void initialize() {
         loadRoomData();
 
-        pagination.setPageCount((int) Math.ceil((double) allRooms.size() / ITEMS_PER_PAGE));
-        pagination.setCurrentPageIndex(0);
-        pagination.setMaxPageIndicatorCount(5);
+        // Calculate unique floors in the filtered rooms
+        List<Integer> sortedFloors = filteredRooms.stream()
+                .map(room -> room.getRoomNumber() / 100)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
 
-        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> displayRooms(newValue.intValue()));
+        // Calculate page count (2 floors per page)
+        int pageCount = (int) Math.ceil((double) sortedFloors.size() / 2);
+        pagination.setPageCount(pageCount);
+        pagination.setCurrentPageIndex(0);
+        pagination.setMaxPageIndicatorCount(Math.min(5, pageCount));
+
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
+            displayRooms(newValue.intValue());
+        });
     }
 
     @FXML
@@ -79,159 +77,187 @@ public class RoomManagementController {
                 .filter(room -> String.valueOf(room.getRoomNumber()).contains(query) ||
                         room.getRoomType().toLowerCase().contains(query) ||
                         room.getStatus().toLowerCase().contains(query))
-                .toList();
-        displayRooms(0);
+                .collect(Collectors.toList());
+
+        initialize();
     }
 
     public void loadRoomData() {
+        // Check if buttonContainer is already added, and if not, add it
+        if (roomContainer.getChildren().isEmpty()) {
+            buttonContainer = new HBox();
+            buttonContainer.setId("buttonContainer");
+            buttonContainer.setSpacing(10);
+            buttonContainer.setStyle("-fx-alignment: center-right; -fx-padding: 10;");
 
-        // Xóa dữ liệu cũ trong roomContainer
-        roomContainer.getChildren().clear();
+            // Add "Add Room" button for manager role
+            if (MasterController.userRole.equals("manager")) {
+                Button addRoomButton = new Button("Add Room");
+                addRoomButton.getStyleClass().add("btn-primary");
+                addRoomButton.setOnAction(event -> handleAddRoom());
+                buttonContainer.getChildren().add(addRoomButton);
+            }
 
-         HBox buttonContainer = new HBox();
-    buttonContainer.setSpacing(10);
-    buttonContainer.setStyle("-fx-alignment: center-right; -fx-padding: 10;");
+            // Add "Pre-order Room" button
+            Button preOrderButton = new Button("Pre-order Room");
+            preOrderButton.getStyleClass().add("btn-green");
+            preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
+            buttonContainer.getChildren().add(preOrderButton);
 
-    if (MasterController.userRole.equals("manager")) {
-        // Add "Add Room" button
-        Button addRoomButton = new Button("Add Room");
-        addRoomButton.getStyleClass().add("btn-primary");
-        addRoomButton.setOnAction(event -> handleAddRoom());
-        buttonContainer.getChildren().add(addRoomButton);
-    }
+            // Add button container to roomContainer
+            roomContainer.getChildren().add(buttonContainer);
+        }
 
-    // Add "Pre-order Room" button
-    Button preOrderButton = new Button("Pre-order Room");
-    preOrderButton.getStyleClass().add("btn-green");
-    preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
-    buttonContainer.getChildren().add(preOrderButton);
-
-    roomContainer.getChildren().add(buttonContainer);
-    displayRooms(0);
+        displayRooms(0);
     }
 
     public void displayRooms(int pageIndex) {
-        // roomContainer.getChildren().clear();
+        // Clear only the rooms, not the buttons
+        ObservableList<Node> roomChildren = roomContainer.getChildren();
+        roomChildren.removeIf(node -> !(node == buttonContainer));
 
-        // Calculate starting index based on current page
-        int startIndex = pageIndex * ITEMS_PER_PAGE;
-        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredRooms.size());
+        // Sort floors and get unique floors
+        List<Integer> sortedFloors = filteredRooms.stream()
+                .map(room -> room.getRoomNumber() / 100)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
 
-        // Organize rooms by floor
-        // Button preOrderButton = new Button("Pre-order Room");
-        // preOrderButton.setOnAction(event -> handlePreOrderButtonClick());
-        // roomContainer.getChildren().add(preOrderButton);
-
-        // Tổ chức phòng theo tầng
-        Map<Integer, HBox> floorMap = new HashMap<>();
-
-        for (int i = startIndex; i < endIndex; i++) {
-            Room room = filteredRooms.get(i);
-            int floor = room.getRoomNumber() / 100;
-            int bookingID = -1;
-
-            bookingID = getBookingIDFromRoomID(room.getRoomID());
-
-            // Tạo HBox cho mỗi tầng nếu chưa có
-            if (!floorMap.containsKey(floor)) {
-                HBox floorBox = new HBox();
-                floorBox.setSpacing(10);
-                floorBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
-                Label floorLabel = new Label("Floor " + floor);
-                floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
-                floorBox.getChildren().add(floorLabel);
-                floorMap.put(floor, floorBox);
-            }
-
-            // Tạo VBox hiển thị phòng
-            VBox roomBox = new VBox();
-            roomBox.setPrefHeight(150);
-            roomBox.setPrefWidth(120);
-
-            String backgroundColor;
-            switch (room.getStatus()) {
-                case "Occupied":
-                    backgroundColor = "red";
-                    break;
-                case "Available":
-                    backgroundColor = "#41ff1f";
-                    break;
-                case "Maintenance":
-                    backgroundColor = "yellow";
-                    break;
-                default:
-                    backgroundColor = "gray";
-                    break;
-            }
-
-            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
-
-            Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
-            Label priceLabel = new Label("Price: " + room.getPrice());
-            Label capacityLabel = new Label("Capacity: " + room.getCapacity());
-            Label typeLabel = new Label("Type: " + room.getRoomType());
-            Label statusLabel = new Label("Status: " + room.getStatus());
-
-            if (bookingID != -1) {
-                statusLabel.setText(statusLabel.getText() + " (Booking ID: " + bookingID + ")");
-            }
-
-            roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
-            final int finalBookingID = bookingID;
-
-            roomBox.setOnMouseClicked(event ->
-            {
-                ContextMenu contextMenu = new ContextMenu();
-                MenuItem checkInItem = null;
-                MenuItem checkOutItem = null;
-                MenuItem addServiceItem = null;
-
-                if (room.getStatus().equals("Occupied")) {
-                    checkOutItem = new MenuItem("Check-out");
-                    contextMenu.getItems().add(checkOutItem);
-                } else if (room.getStatus().equals("Available")) {
-                    checkInItem = new MenuItem("Check-in");
-                    contextMenu.getItems().add(checkInItem);
-                }
-                if (room.getStatus().equals("Occupied")) {
-                    System.out.println("Booking ID: " + finalBookingID);
-                    addServiceItem = new MenuItem("Add Service");
-                    contextMenu.getItems().add(addServiceItem);
-                }
-
-                if (checkInItem != null) {
-                    checkInItem.setOnAction(_ -> handleCheckin(room));
-                }
-                if (checkOutItem != null) {
-                    checkOutItem.setOnAction(_ -> handleCheckout(room));
-                }
-                if (addServiceItem != null) {
-                    addServiceItem.setOnAction(_ -> handleAddService(finalBookingID));
-                }
-
-                MenuItem settingsItem = new MenuItem("Settings");
-                settingsItem.setOnAction(_ -> handleSettings(room));
-
-
-                contextMenu.getItems().addAll(settingsItem);
-                contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
-            });
-            // roomBox.setOnMouseClicked(event -> handleRoomClick(room));
-
-            // Thêm roomBox vào HBox của tầng
-            floorMap.get(floor).getChildren().add(roomBox);
+        // If pageIndex is out of bounds, reset to 0
+        if (pageIndex >= Math.ceil((double) sortedFloors.size() / 2)) {
+            pageIndex = 0;
         }
 
-        for(Map.Entry<Integer, HBox> entry :floorMap.entrySet())
-        {
-            roomContainer.getChildren().add(entry.getValue());
+        // Calculate floors for the current page
+        int startFloorIndex = pageIndex * 2;
+        int endFloorIndex = Math.min(startFloorIndex + 2, sortedFloors.size());
+
+        // Display floors for the current page
+        for (int i = startFloorIndex; i < endFloorIndex; i++) {
+            int currentFloor = sortedFloors.get(i);
+
+            // Filter rooms for the current floor
+            List<Room> floorRooms = filteredRooms.stream()
+                    .filter(room -> room.getRoomNumber() / 100 == currentFloor)
+                    .collect(Collectors.toList());
+
+            // Create floor VBox
+            VBox floorVBox = new VBox();
+            floorVBox.setSpacing(10);
+            floorVBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
+
+            Label floorLabel = new Label("Floor " + currentFloor);
+            floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
+            floorVBox.getChildren().add(floorLabel);
+
+            // Current row for rooms
+            HBox currentRowBox = new HBox();
+            currentRowBox.setSpacing(10);
+            floorVBox.getChildren().add(currentRowBox);
+
+            // Add rooms to the floor
+            for (Room room : floorRooms) {
+                // If current row is full, create a new row
+                if (currentRowBox.getChildren().size() >= MAX_ROOMS_PER_FLOOR) {
+                    currentRowBox = new HBox();
+                    currentRowBox.setSpacing(10);
+                    floorVBox.getChildren().add(currentRowBox);
+                }
+
+                // Create and add room box
+                int bookingID = getBookingIDFromRoomID(room.getRoomID());
+                VBox roomBox = createRoomBox(room, bookingID);
+                currentRowBox.getChildren().add(roomBox);
+            }
+
+            // Add floor box to room container
+            roomContainer.getChildren().add(floorVBox);
+        }
+    }
+
+    private VBox createRoomBox(Room room, int bookingID) {
+        VBox roomBox = new VBox();
+        roomBox.setPrefHeight(150);
+        roomBox.setPrefWidth(223);
+
+        String backgroundColor;
+        switch (room.getStatus()) {
+            case "Occupied":
+                backgroundColor = "red";
+                break;
+            case "Available":
+                backgroundColor = "#41ff1f";
+                break;
+            case "Maintenance":
+                backgroundColor = "yellow";
+                break;
+            default:
+                backgroundColor = "gray";
+                break;
         }
 
+        roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+
+        Label roomNumberLabel = new Label(String.valueOf(room.getRoomNumber()));
+        roomNumberLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        roomNumberLabel.setMaxWidth(Double.MAX_VALUE);
+        roomNumberLabel.setAlignment(javafx.geometry.Pos.CENTER);
+
+        Label priceLabel = new Label("Price: " + room.getPrice());
+        Label capacityLabel = new Label("Capacity: " + room.getCapacity());
+        Label typeLabel = new Label("Type: " + room.getRoomType());
+        Label statusLabel = new Label("Status: " + room.getStatus());
+
+        if (bookingID != -1) {
+            statusLabel.setText(statusLabel.getText() + " (Booking ID: " + bookingID + ")");
+        }
+
+        roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
+        final int finalBookingID = bookingID;
+
+        roomBox.setOnMouseClicked(event -> {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem checkInItem = null;
+            MenuItem checkOutItem = null;
+            MenuItem addServiceItem = null;
+
+            if (room.getStatus().equals("Occupied")) {
+                checkOutItem = new MenuItem("Check-out");
+                contextMenu.getItems().add(checkOutItem);
+            } else if (room.getStatus().equals("Available")) {
+                checkInItem = new MenuItem("Check-in");
+                contextMenu.getItems().add(checkInItem);
+            }
+            if (room.getStatus().equals("Occupied")) {
+                System.out.println("Booking ID: " + finalBookingID);
+                addServiceItem = new MenuItem("Add Service");
+                contextMenu.getItems().add(addServiceItem);
+            }
+
+            if (checkInItem != null) {
+                checkInItem.setOnAction(_ -> handleCheckin(room));
+            }
+            if (checkOutItem != null) {
+                checkOutItem.setOnAction(_ -> handleCheckout(room));
+            }
+            if (addServiceItem != null) {
+                addServiceItem.setOnAction(_ -> handleAddService(finalBookingID));
+            }
+
+            MenuItem settingsItem = new MenuItem("Settings");
+            settingsItem.setOnAction(_ -> handleSettings(room));
+
+            contextMenu.getItems().addAll(settingsItem);
+            contextMenu.show(roomBox, event.getScreenX(), event.getScreenY());
+        });
+
+        return roomBox;
     }
 
     private int getBookingIDFromRoomID(int roomID) {
+//        System.out.println("Checking booking for Room ID: " + roomID);  // Debugging log
         int bookingID = bookingDao.getActiveBookingIDByRoomID(roomID);
-        
+//        System.out.println("Returned booking ID: " + bookingID);  // Debugging log
         return bookingID;
     }
 
@@ -241,8 +267,8 @@ public class RoomManagementController {
             Parent newContent = fxmlLoader.load();
             AddServiceController addServiceController = fxmlLoader.getController();
             addServiceController.setBookingID(bookingID);
+            addServiceController.setParentRoot(this);
             root.getChildren().setAll(newContent);
-
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error", "Error while adding service");
@@ -250,6 +276,20 @@ public class RoomManagementController {
     }
 
     private void handleSettings(Room room) {
+    }
+    private void handleAddRoom() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-room.fxml"));
+
+            // Create the controller with a reference to return to
+            AddRoomController addRoomController = new AddRoomController(this);
+            fxmlLoader.setControllerFactory(param -> addRoomController);
+
+            Parent parent = fxmlLoader.load();
+            root.getChildren().setAll(parent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleCheckout(Room room) {
@@ -260,6 +300,7 @@ public class RoomManagementController {
 
             CheckoutController checkoutController = fxmlLoader.getController();
             checkoutController.setRoomId(room.getRoomID());
+            checkoutController.setRoot(root);
             // check getBookingIDFromRoomID if null then alert error
             int bookingID = getBookingIDFromRoomID(room.getRoomID());
             if (bookingID == -1) {
@@ -283,6 +324,7 @@ public class RoomManagementController {
 
             BookingController bookingController = fxmlLoader.getController();
             bookingController.setRoomId(room.getRoomID());
+            bookingController.setbooking_tai_cho(root);
             bookingController.setCheckIn(true);
 
             root.getChildren().setAll(newContent);

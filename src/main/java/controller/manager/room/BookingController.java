@@ -54,6 +54,10 @@ public class BookingController {
         loadRooms();
     }
 
+    public void setbooking_tai_cho(VBox containID){
+        this.booking_tai_cho = containID;
+    }
+
     public void setCheckIn(Boolean checkin) {
         this.checkin = checkin;
     }

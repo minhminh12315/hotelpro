@@ -10,81 +10,87 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.manager.room.PreOrderPageController">
-    <VBox>
-        <GridPane hgap="10" layoutX="20" layoutY="20" vgap="10">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" />
-                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints valignment="CENTER" />
-                <RowConstraints />
-            </rowConstraints>
 
-            <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="fullNameInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1"
+      fx:controller="controller.manager.room.PreOrderPageController">
+    <children>
+        <!-- Header Section -->
+        <HBox prefHeight="70.0" prefWidth="295.0" style="-fx-background-color: #2c3e50; -fx-alignment: center; -fx-padding: 10 20 10 20;">
+            <children>
+                <Label text="Pre-order Room" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
 
-            <Label text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="phoneInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <!-- Form Section -->
+        <VBox spacing="10.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #F4F4F9; -fx-border-color: #ddd; -fx-border-width: 1;">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" />
+                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints />
+                </rowConstraints>
 
-            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="emailInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <!-- Full Name -->
+                <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="fullNameInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="addressInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <!-- Phone Number -->
+                <Label text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="phoneInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <Label text="ID/Passport:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="idPassportInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <!-- Email -->
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="emailInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <!-- Address -->
+                <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="addressInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-            <Label text="Gender:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <ComboBox fx:id="genderBox" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Male" />
-                        <String fx:value="Female" />
-                        <String fx:value="Other" />
-                    </FXCollections>
-                </items>
-            </ComboBox>
+                <!-- ID/Passport -->
+                <Label text="ID/Passport:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="idPassportInput" promptText="*" styleClass="required-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-            <!-- Room ID -->
-            <Label text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-            <Label fx:id="roomNumberLabel" text="Mã phòng" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <!-- Date of Birth -->
+                <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-            <!-- Room Price -->
-            <Label text="Room Price:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-            <Label fx:id="priceLabel" text="Giá phòng" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <!-- Gender -->
+                <Label text="Gender:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <ComboBox fx:id="genderBox" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Male" />
+                            <String fx:value="Female" />
+                            <String fx:value="Other" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
 
-                        <Label text="Expected Check-in:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                        <DatePicker fx:id="expectedCheckinPicker" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <!-- Room Number -->
+                <Label text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <Label fx:id="roomNumberLabel" text="Mã phòng" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                        <Label text="Expected Check-out:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-                        <DatePicker fx:id="expectedCheckoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                <!-- Room Price -->
+                <Label text="Room Price:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                <Label fx:id="priceLabel" text="Giá phòng" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-<!--                        <Label text="Check-in Date:" GridPane.columnIndex="0" GridPane.rowIndex="12" />-->
-<!--                        <DatePicker fx:id="checkinPicker" GridPane.columnIndex="1" GridPane.rowIndex="12" />-->
+                <!-- Expected Check-in -->
+                <Label text="Expected Check-in:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                <DatePicker fx:id="expectedCheckinPicker" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-<!--                        <Label text="Check-out Date:" GridPane.columnIndex="0" GridPane.rowIndex="13" />-->
-<!--                        <DatePicker fx:id="checkoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="13" />-->
+                <!-- Expected Check-out -->
+                <Label text="Expected Check-out:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                <DatePicker fx:id="expectedCheckoutPicker" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-            <!--            <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="14" />-->
-            <!--            <ComboBox fx:id="statusBox" GridPane.columnIndex="1" GridPane.rowIndex="14">-->
-            <!--                <items>-->
-            <!--                    <FXCollections fx:factory="observableArrayList">-->
-            <!--                        <String fx:value="Pending" />-->
-            <!--                        <String fx:value="CheckIn" />-->
-            <!--                        <String fx:value="Checkout" />-->
-            <!--                    </FXCollections>-->
-            <!--                </items>-->
-            <!--            </ComboBox>-->
-
-
-<!--            <Button text="Quay lại" GridPane.columnIndex="1" GridPane.rowIndex="16" onAction="#handleCancle" />-->
-            <Button fx:id="submitButton" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="15" onAction="#handlePreOrderSubmit"/>
-        </GridPane>
-    </VBox>
+                <!-- Submit Button -->
+                <Button fx:id="submitButton" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="11" onAction="#handlePreOrderSubmit"/>
+            </GridPane>
+        </VBox>
+    </children>
 </VBox>

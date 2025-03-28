@@ -40,6 +40,11 @@ public class AddServiceController {
     private final ServiceDao serviceDao = new ServiceDao();
     private final BookingUsageDao bookingUsageDao = new BookingUsageDao();
 
+    private RoomManagementController parentController;
+    public void setParentRoot(RoomManagementController parentController){
+        this.parentController = parentController;
+    }
+
     public void setBookingID(int bookingId) {
 
         System.out.println("Booking IDDDD: " + bookingId);
@@ -155,7 +160,7 @@ public class AddServiceController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent newContent = fxmlLoader.load();
-            root.getChildren().setAll(newContent);
+            parentController.root.getChildren().setAll(newContent);
         } catch (IOException e) {
             e.printStackTrace();
         }

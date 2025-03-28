@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import model.Employee;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MasterController {
 
@@ -56,10 +57,16 @@ public class MasterController {
         return employeeID;
     }
 
-    public void initialize() {
+    public void initialize() throws SQLException {
         if (userRole == null) {
             userRole = "manager";
             System.out.println("Warning: userRole is null, defaulting to manager.");
+        }
+        if (employeeID != 0) {
+            Employee employee = new Employee().getById(employeeID);
+            if (employee != null) {
+                logoutButton.setText(employee.getFullName());
+            }
         }
 //        if (userRole == null) {
 //            // chuyen trang login

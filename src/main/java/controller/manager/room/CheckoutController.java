@@ -81,6 +81,10 @@ public class CheckoutController {
         roomIdLabel.setText("" + roomId);
     }
 
+    public void setRoot(VBox root){
+        this.root = root;
+    }
+
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
         Booking booking = bookingDao.findById(bookingId);
