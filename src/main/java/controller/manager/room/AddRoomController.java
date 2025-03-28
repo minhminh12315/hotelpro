@@ -35,6 +35,15 @@ public class AddRoomController {
 
     private final RoomDao roomDao = new RoomDao();
 
+    public AddRoomController(){}
+
+    private RoomManagementController parentController;
+
+    public AddRoomController(RoomManagementController parentController) {
+        this.parentController = parentController;
+    }
+
+
     @FXML
     private void handleSave() {
         try {
@@ -69,7 +78,7 @@ public class AddRoomController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent newContent = fxmlLoader.load();
-            root.getChildren().setAll(newContent);
+            parentController.root.getChildren().setAll(newContent);
 
         } catch (IOException e) {
             e.printStackTrace();

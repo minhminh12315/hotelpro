@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class RoomManagementController {
 
     @FXML
-    private VBox root;
+    public VBox root;
 
     @FXML
     HBox buttonContainer;
@@ -267,8 +267,8 @@ public class RoomManagementController {
             Parent newContent = fxmlLoader.load();
             AddServiceController addServiceController = fxmlLoader.getController();
             addServiceController.setBookingID(bookingID);
+            addServiceController.setParentRoot(this);
             root.getChildren().setAll(newContent);
-
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error", "Error while adding service");
@@ -280,14 +280,13 @@ public class RoomManagementController {
     private void handleAddRoom() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/room/add-room.fxml"));
+
+            // Create the controller with a reference to return to
+            AddRoomController addRoomController = new AddRoomController(this);
+            fxmlLoader.setControllerFactory(param -> addRoomController);
+
             Parent parent = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Add New Room");
-
             root.getChildren().setAll(parent);
-
-            stage.setOnHidden(event -> loadRoomData());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
