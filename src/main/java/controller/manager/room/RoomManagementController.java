@@ -230,7 +230,9 @@ public class RoomManagementController {
     }
 
     private int getBookingIDFromRoomID(int roomID) {
-        return bookingDao.getActiveBookingIDByRoomID(roomID); // Truy vấn booking đang active
+        int bookingID = bookingDao.getActiveBookingIDByRoomID(roomID);
+        
+        return bookingID;
     }
 
     private void handleAddService(int bookingID) {

@@ -43,6 +43,7 @@
                     <TableColumn fx:id="productIdColumn" text="ID" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="50.0"/>
                     <TableColumn fx:id="productNameColumn" text="Name" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
                     <TableColumn fx:id="unitPriceColumn" text="Unit Price" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
+                    <TableColumn fx:id="quantityColumn" text="Quantity" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>
                     <TableColumn fx:id="descriptionColumn" text="Description" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="150.0"/>
                     <TableColumn fx:id="unitColumn" text="Unit" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="80.0"/>
                     <TableColumn fx:id="actionColumn" text="Actions" style="-fx-alignment: center; -fx-font-size: 14px;" prefWidth="120.0"/>

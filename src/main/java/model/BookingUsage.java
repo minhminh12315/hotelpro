@@ -1,6 +1,7 @@
 package model;
 import connect.Connect;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,8 @@ public class BookingUsage {
     private int bookingID; // Corresponds to BookingID in the table
     private Integer serviceID; // Corresponds to ServiceID in the table
     private Integer productID; // Corresponds to ProductID in the table
-    private int serviceUsagePrice; // Corresponds to ServiceUsagePrice in the table
+    private String name; // New field to represent either a product or a service
+    private BigDecimal serviceUsagePrice; // Corresponds to ServiceUsagePrice in the table
     private int quantity; // Corresponds to Quantity in the table
     private LocalDate usageDate; // Corresponds to UsageDate in the table
 
@@ -48,7 +50,24 @@ public class BookingUsage {
         this.usageCount = usageCount;
     }
 
+    public BookingUsage(int serviceID, String name, int quantity, BigDecimal serviceUsagePrice) {
+        this.serviceID = serviceID;
+        this.name = name;
+        this.quantity = quantity;
+        this.serviceUsagePrice = serviceUsagePrice;
+    }
+
+
     // Getters and setters...
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getBookingUsageID() {
         return bookingUsageID;
     }
@@ -81,11 +100,11 @@ public class BookingUsage {
         this.productID = productID;
     }
 
-    public int getServiceUsagePrice() {
+    public BigDecimal getServiceUsagePrice() {
         return serviceUsagePrice;
     }
 
-    public void setServiceUsagePrice(int serviceUsagePrice) {
+    public void setServiceUsagePrice(BigDecimal serviceUsagePrice) {
         this.serviceUsagePrice = serviceUsagePrice;
     }
 

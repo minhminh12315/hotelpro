@@ -1,6 +1,7 @@
 package controller.manager.product;
 
 import controller.manager.employee.EmployeeEditController;
+import dao.InventoryDao;
 import dao.ProductDao;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import model.Employee;
+import model.Inventory;
 import model.Product;
 
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class ProductController {
     @FXML
     private TableColumn<Product, Integer> productIdColumn;
     @FXML
+    private TableColumn<Product, Integer> quantityColumn;
+    @FXML
     private TableColumn<Product, String> productNameColumn;
     @FXML
     private TableColumn<Product, BigDecimal> unitPriceColumn;
@@ -56,6 +60,7 @@ public class ProductController {
     private int itemsPerPage = 14;
 
     private ProductDao productDao = new ProductDao();
+    private InventoryDao inventoryDao = new InventoryDao();
     private ObservableList<Product> productList = FXCollections.observableArrayList();
 
     @FXML
@@ -63,6 +68,7 @@ public class ProductController {
         productIdColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.05));
         productNameColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.2));
         unitPriceColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
+        quantityColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
         descriptionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.25));
         unitColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.15));
         actionColumn.prefWidthProperty().bind(Bindings.multiply(productsTable.widthProperty(), 0.194));
@@ -70,6 +76,7 @@ public class ProductController {
         productIdColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
 
@@ -85,7 +92,13 @@ public class ProductController {
 
     }
 
-    private void addActionButton(){
+
+    private void loadProducts() {
+        productList.setAll(productDao.getAll());
+        productsTable.setItems(productList);
+    }
+
+    private void addActionButton() {
         actionColumn.setCellFactory(new Callback<TableColumn<Product, String>, TableCell<Product, String>>() {
             @Override
             public TableCell<Product, String> call(TableColumn<Product, String> param) {
@@ -101,11 +114,7 @@ public class ProductController {
 
                             updateButton.setOnAction(event -> {
                                 Product product = getTableView().getItems().get(getIndex());
-                                try {
-                                    updateProduct(product.getProductID());
-                                } catch (SQLException e) {
-                                    throw new RuntimeException(e);
-                                }
+                                updateProduct(product.getProductID());
                             });
 
                             deleteButton.setOnAction(event -> {
@@ -122,17 +131,13 @@ public class ProductController {
         });
     }
 
-    private void loadProducts() {
-        productList.setAll(productDao.getAll());
-        productsTable.setItems(productList);
-    }
 
     @FXML
     private void searchProduct() {
         String searchText = searchField.getText().toLowerCase();
         productsTable.setItems(FXCollections.observableArrayList());
 
-        if (searchText.isEmpty()){
+        if (searchText.isEmpty()) {
             productsTable.setItems(FXCollections.observableArrayList(productList));
             addActionButton();
         } else {
@@ -159,10 +164,22 @@ public class ProductController {
         loadContent("/com/example/hotelpro/manager/product/product-add.fxml");
     }
 
-    public void updateProduct(int productId) throws SQLException {
-       loadContent("/com/example/hotelpro/manager/product/product-edit.fxml");
-       ProductEditController controller = new ProductEditController();
-       controller.setProductId(productId);
+    public void updateProduct(int productId) {
+        try {
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/hotelpro/manager/product/product-edit.fxml"));
+
+            ProductEditController controller = new ProductEditController(productId, contentArea);
+            fxmlLoader.setControllerFactory(param -> controller);
+
+            Parent newContent = fxmlLoader.load();
+            contentArea.getChildren().setAll(newContent);
+       } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteProduct(int productId) {

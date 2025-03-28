@@ -86,7 +86,7 @@ public class AddServiceController {
             BookingUsage bookingUsage = new BookingUsage();
             bookingUsage.setBookingID(bookingId);
             bookingUsage.setServiceID(selectedService.getServiceID());
-            bookingUsage.setServiceUsagePrice(usagePrice.intValue());
+            bookingUsage.setServiceUsagePrice(usagePrice);
             bookingUsage.setQuantity(quantity);
             bookingUsage.setUsageDate(LocalDate.now());
 
@@ -133,7 +133,7 @@ public class AddServiceController {
             BookingUsage bookingUsage = new BookingUsage();
             bookingUsage.setBookingID(bookingId);
             bookingUsage.setServiceID(selectedService.getServiceID());
-            bookingUsage.setServiceUsagePrice(usagePrice.intValue());
+            bookingUsage.setServiceUsagePrice(usagePrice);
             bookingUsage.setQuantity(quantity);
             bookingUsage.setUsageDate(LocalDate.now());
 

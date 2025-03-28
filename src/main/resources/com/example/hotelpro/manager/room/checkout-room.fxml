@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.manager.room.CheckoutController"
-      alignment="CENTER" spacing="10">
+<VBox fx:id="root"
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml" fx:controller="controller.manager.room.CheckoutController" alignment="CENTER" spacing="10">
     <VBox spacing="10" alignment="CENTER" prefWidth="400" prefHeight="400">
         <Label text="Checkout Room" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
@@ -28,6 +28,12 @@
             <Label text="Total Amount:"/>
             <TextField fx:id="totalAmountField" promptText="Enter total amount"/>
         </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Select Product:" style="-fx-font-size: 14px;"/>
+            <ComboBox fx:id="productComboBox" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            <TextField fx:id="productQuantityField" promptText="Enter quantity" style="-fx-background-color: #EFEFEF;-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            <Button text="Add Product" onAction="#addProductToInvoice" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+        </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Checkin Date:"/>
@@ -39,14 +45,22 @@
             <DatePicker fx:id="checkOutDateField"/>
         </HBox>
 
+        <!-- Booking Usage List -->
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="Booking Usage:"/>
-            <ListView fx:id="bookingUsageListView" prefHeight="100"/>
+            <Label text="Booking Usage:" style="-fx-font-size: 14px;"/>
+            <TableView fx:id="bookingUsageTableView" prefHeight="400.0" prefWidth="540.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;">
+                <columns>
+                    <TableColumn fx:id="quantityColumn" text="Quantity"/>
+                    <TableColumn fx:id="serviceColumn" text="Name"/>
+                    <TableColumn fx:id="priceColumn" text="Price"/>
+                </columns>
+            </TableView>
         </HBox>
 
-        <HBox spacing="10" alignment="CENTER">
-            <Button fx:id="confirmCheckoutButton" text="Confirm Checkout"/>
-            <Button fx:id="cancelButton" text="Cancel"/>
+        <!-- Buttons Section -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="confirmCheckoutButton" text="Confirm Checkout" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+            <Button fx:id="cancelButton" text="Cancel" style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
         </HBox>
     </VBox>
 </VBox>

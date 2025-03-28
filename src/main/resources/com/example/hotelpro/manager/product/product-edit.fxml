@@ -35,6 +35,13 @@
 
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
+                <Label text="Quantity" />
+                <TextField fx:id="quantityField" style="-fx-background-color: #EFEFEF; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
+            </children>
+        </VBox>
+
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
                 <Label text="Description" />
                 <TextField fx:id="descriptionField" style="-fx-background-color: #EFEFEF; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;"/>
             </children>

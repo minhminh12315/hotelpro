@@ -17,7 +17,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
             preparedStatement.setInt(1, bookingUsage.getBookingID());
             preparedStatement.setObject(2, bookingUsage.getServiceID(), Types.INTEGER);
             preparedStatement.setObject(3, bookingUsage.getProductID(), Types.INTEGER);
-            preparedStatement.setInt(4, bookingUsage.getServiceUsagePrice());
+            preparedStatement.setObject(4, bookingUsage.getServiceUsagePrice());
             preparedStatement.setInt(5, bookingUsage.getQuantity());
             preparedStatement.setDate(6, java.sql.Date.valueOf(bookingUsage.getUsageDate()));
             preparedStatement.executeUpdate();
@@ -34,7 +34,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
             preparedStatement.setInt(1, bookingUsage.getBookingID());
             preparedStatement.setObject(2, bookingUsage.getServiceID(), Types.INTEGER);
             preparedStatement.setObject(3, bookingUsage.getProductID(), Types.INTEGER);
-            preparedStatement.setInt(4, bookingUsage.getServiceUsagePrice());
+            preparedStatement.setObject(4, bookingUsage.getServiceUsagePrice());
             preparedStatement.setInt(5, bookingUsage.getQuantity());
             preparedStatement.setDate(6, java.sql.Date.valueOf(bookingUsage.getUsageDate()));
             preparedStatement.setInt(7, bookingUsage.getBookingUsageID());
@@ -69,7 +69,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
                 bookingUsage.setBookingID(resultSet.getInt("BookingID"));
                 bookingUsage.setServiceID((Integer) resultSet.getObject("ServiceID"));
                 bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
-                bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
+                bookingUsage.setServiceUsagePrice(resultSet.getBigDecimal("ServiceUsagePrice"));
                 bookingUsage.setQuantity(resultSet.getInt("Quantity"));
                 bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
                 return bookingUsage;
@@ -93,7 +93,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
                 bookingUsage.setBookingID(resultSet.getInt("BookingID"));
                 bookingUsage.setServiceID((Integer) resultSet.getObject("ServiceID"));
                 bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
-                bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
+                bookingUsage.setServiceUsagePrice(resultSet.getBigDecimal("ServiceUsagePrice"));
                 bookingUsage.setQuantity(resultSet.getInt("Quantity"));
                 bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
                 bookingUsages.add(bookingUsage);
@@ -117,7 +117,7 @@ public class BookingUsageDao implements BaseDao<BookingUsage> {
                 bookingUsage.setBookingID(resultSet.getInt("BookingID"));
                 bookingUsage.setServiceID((Integer) resultSet.getObject("ServiceID"));
                 bookingUsage.setProductID((Integer) resultSet.getObject("ProductID"));
-                bookingUsage.setServiceUsagePrice(resultSet.getInt("ServiceUsagePrice"));
+                bookingUsage.setServiceUsagePrice(resultSet.getBigDecimal("ServiceUsagePrice"));
                 bookingUsage.setQuantity(resultSet.getInt("Quantity"));
                 bookingUsage.setUsageDate(resultSet.getDate("UsageDate").toLocalDate());
                 bookingUsages.add(bookingUsage);

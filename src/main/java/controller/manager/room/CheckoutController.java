@@ -2,6 +2,9 @@ package controller.manager.room;
 
 import controller.manager.MasterController;
 import dao.*;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +49,22 @@ public class CheckoutController {
     private Button cancelButton;
 
     @FXML
-    private ListView<String> bookingUsageListView;
+    private TableView<BookingUsage> bookingUsageTableView;
+    @FXML
+    private TableColumn<BookingUsage, String> serviceColumn;
+    @FXML
+    private TableColumn<BookingUsage, Integer> quantityColumn;
+    @FXML
+    private TableColumn<BookingUsage, BigDecimal> priceColumn;
+
+
+    @FXML
+    private ComboBox<Product> productComboBox;
+    @FXML
+    private TextField productQuantityField;
+
+    private List<Product> selectedProducts = new ArrayList<>();
+
 
     private int roomId;
     private int bookingId;
@@ -66,6 +84,7 @@ public class CheckoutController {
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
         Booking booking = bookingDao.findById(bookingId);
+        
         System.out.println("Booking: " + booking);
         if (booking != null) {
             Customer customer = customerDao.findById(booking.getCustomerID());
@@ -86,9 +105,7 @@ public class CheckoutController {
 
     private void loadBookingUsage(int bookingId) {
         List<BookingUsage> bookingUsages = bookingUsageDao.findByBookingId(bookingId);
-        for (BookingUsage usage : bookingUsages) {
-            bookingUsageListView.getItems().add("Service: " + usage.getServiceID() + ", Quantity: " + usage.getQuantity() + ", Price: " + usage.getServiceUsagePrice());
-        }
+        bookingUsageTableView.getItems().setAll(bookingUsages);
     }
 
     @FXML
@@ -96,6 +113,18 @@ public class CheckoutController {
         confirmCheckoutButton.setOnAction(event -> handleConfirmCheckout());
         cancelButton.setOnAction(event -> handleCancel());
         checkOutDateField.setValue(LocalDate.now());
+
+        // Load products into ComboBox
+        List<Product> products = new ProductDao().getAll();
+        productComboBox.getItems().addAll(products);
+
+        // Initialize table columns
+        serviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getServiceName()));
+
+        quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        priceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getServiceUsagePrice()));
+        // Load booking usage data
+        loadBookingUsage(bookingId);
     }
 
     public BigDecimal calculateTotalAmount(int bookingId) {
@@ -118,7 +147,7 @@ public class CheckoutController {
         BigDecimal totalServiceCharges = BigDecimal.ZERO;
         for (BookingUsage usage : bookingUsages) {
             if (usage.getServiceID() != null) {
-                totalServiceCharges = totalServiceCharges.add(new BigDecimal(usage.getServiceUsagePrice()).multiply(new BigDecimal(usage.getQuantity())));
+                totalServiceCharges = totalServiceCharges.add(usage.getServiceUsagePrice().multiply(new BigDecimal(usage.getQuantity())));
             }
         }
         return totalServiceCharges;
@@ -129,10 +158,35 @@ public class CheckoutController {
         BigDecimal totalProductCharges = BigDecimal.ZERO;
         for (BookingUsage usage : bookingUsages) {
             if (usage.getProductID() != null) {
-                totalProductCharges = totalProductCharges.add(new BigDecimal(usage.getServiceUsagePrice()).multiply(new BigDecimal(usage.getQuantity())));
+                totalProductCharges = totalProductCharges.add(usage.getServiceUsagePrice().multiply(new BigDecimal(usage.getQuantity())));
             }
         }
         return totalProductCharges;
+    }
+
+    @FXML
+    private void addProductToInvoice() {
+        Product selectedProduct = productComboBox.getSelectionModel().getSelectedItem();
+        String quantityText = productQuantityField.getText();
+
+        if (selectedProduct == null || quantityText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a product and enter quantity.");
+            alert.showAndWait();
+            return;
+        }
+
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityText);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Quantity must be a valid number.");
+            alert.showAndWait();
+            return;
+        }
+
+        selectedProduct.setQuantity(quantity);
+        selectedProducts.add(selectedProduct);
+        bookingUsageTableView.getItems().add(new BookingUsage(selectedProduct.getProductID(), selectedProduct.getProductName(), quantity, selectedProduct.getUnitPrice()));
     }
 
     private void handleConfirmCheckout() {
@@ -173,6 +227,18 @@ public class CheckoutController {
                 transaction.setBookingID(bookingId);
                 transaction.setEmployeeID(employeeId);
                 transaction.setQuantity(usage.getQuantity());
+                transaction.setTransactionType("Export");
+                transaction.setTransactionDate(LocalDate.now());
+                transaction.setRemarks("Checkout");
+                inventoryTransactionDao.save(transaction);
+            }
+
+            for (Product product : selectedProducts) {
+                InventoryTransaction transaction = new InventoryTransaction();
+                transaction.setProductID(product.getProductID());
+                transaction.setBookingID(bookingId);
+                transaction.setEmployeeID(employeeId);
+                transaction.setQuantity(product.getQuantity());
                 transaction.setTransactionType("Export");
                 transaction.setTransactionDate(LocalDate.now());
                 transaction.setRemarks("Checkout");
