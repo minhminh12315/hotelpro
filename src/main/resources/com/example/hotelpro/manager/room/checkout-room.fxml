@@ -57,8 +57,8 @@
                 <Label text="Booking Usage:" style="-fx-font-size: 14px;"/>
                 <TableView fx:id="bookingUsageTableView" prefHeight="400.0" prefWidth="540.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #ccc; -fx-border-width: 1; -fx-border-radius: 5;">
                     <columns>
-                        <TableColumn fx:id="quantityColumn" text="Quantity"/>
                         <TableColumn fx:id="serviceColumn" text="Name"/>
+                        <TableColumn fx:id="quantityColumn" text="Quantity"/>
                         <TableColumn fx:id="priceColumn" text="Price"/>
                     </columns>
                 </TableView>

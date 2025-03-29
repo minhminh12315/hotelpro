@@ -2,6 +2,7 @@ package controller.manager.room;
 
 import controller.manager.MasterController;
 import dao.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -66,6 +67,8 @@ public class CheckoutController {
     private int roomId;
     private int bookingId;
 
+    BookingUsage bookingUsage = new BookingUsage();
+
     BookingDao bookingDao = new BookingDao();
     CustomerDao customerDao = new CustomerDao();
     BookingUsageDao bookingUsageDao = new BookingUsageDao();
@@ -86,15 +89,15 @@ public class CheckoutController {
         this.bookingId = bookingId;
         Booking booking = bookingDao.findById(bookingId);
         
-        System.out.println("Booking: " + booking);
+//        System.out.println("Booking: " + booking);
         if (booking != null) {
             Customer customer = customerDao.findById(booking.getCustomerID());
-            System.out.println("Customer: " + customer);
+//            System.out.println("Customer: " + customer);
             checkInDateField.setValue(booking.getCheckInDate());
             if (customer != null) {
                 customerNameField.setText(customer.getFullName());
                 phoneNumberField.setText(customer.getPhoneNumber());
-                System.out.println("Customer name: " + customer.getFullName());
+//                System.out.println("Customer name: " + customer.getFullName());
             }
             loadBookingUsage(bookingId);
 
@@ -110,7 +113,7 @@ public class CheckoutController {
         bookingUsageTableView.setPrefHeight(100);
         bookingUsageTableView.setMinHeight(100);
         bookingUsageTableView.setMaxHeight(100);
-        bookingUsageTableView.setPrefWidth(190);
+        bookingUsageTableView.setMaxWidth(190);
     }
 
     @FXML
@@ -123,14 +126,27 @@ public class CheckoutController {
         productComboBox.getItems().addAll(products);
 
         // Initialize table columns
-        serviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getServiceNameById(bookingId)));
+        serviceColumn.setCellValueFactory(cellData -> {
+            BookingUsage usage = cellData.getValue();
+            // If name is already set, use it, otherwise try to get service name
+            if (usage.getName() != null && !usage.getName().isEmpty()) {
+                return new SimpleStringProperty(usage.getName());
+            } else if (usage.getServiceID() != null) {
+                // Get service name from service ID
+                return new SimpleStringProperty(usage.getServiceNameById());
+            }
+            return new SimpleStringProperty("Unknown");
+        });
 
         quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
         priceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getServiceUsagePrice()));
+
+        serviceColumn.prefWidthProperty().bind(Bindings.multiply(bookingUsageTableView.widthProperty(), 0.5));
+        quantityColumn.prefWidthProperty().bind(Bindings.multiply(bookingUsageTableView.widthProperty(), 0.2));
+        priceColumn.prefWidthProperty().bind(Bindings.multiply(bookingUsageTableView.widthProperty(), 0.2));
         // Load booking usage data
         loadBookingUsage(bookingId);
     }
-
     public BigDecimal calculateTotalAmount(int bookingId) {
         BigDecimal roomCharge = calculateRoomCharge(bookingId);  // Calculate room charge
         BigDecimal serviceCharges = calculateServiceCharges(bookingId);  // Calculate service charges
@@ -188,9 +204,12 @@ public class CheckoutController {
             return;
         }
 
+        BigDecimal totalPrice = selectedProduct.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
+        bookingUsage.setName(selectedProduct.getProductName());
+
         selectedProduct.setQuantity(quantity);
         selectedProducts.add(selectedProduct);
-        bookingUsageTableView.getItems().add(new BookingUsage(selectedProduct.getProductID(), selectedProduct.getProductName(), quantity, selectedProduct.getUnitPrice()));
+        bookingUsageTableView.getItems().add(new BookingUsage(selectedProduct.getProductID(), bookingUsage.getName(), quantity, totalPrice ));
     }
 
     private void handleConfirmCheckout() {

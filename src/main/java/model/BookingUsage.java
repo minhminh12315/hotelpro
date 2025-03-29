@@ -291,17 +291,17 @@ public class BookingUsage {
         return services;
     }
 
+    public String getServiceNameById() {
+        if (this.serviceID == null) return null;
 
-    public String getServiceNameById(Integer id){
         String sql = "SELECT s.servicename " +
                 "FROM service as s " +
-                "JOIN bookingUsage as bu on bu.serviceid = s.serviceid " +
-                "WHERE bu.bookingid = ?";
-        try{
+                "WHERE s.serviceid = ?";
+        try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, this.serviceID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return rs.getString("servicename");
             }
         } catch (SQLException e) {
