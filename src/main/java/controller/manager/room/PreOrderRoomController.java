@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Room;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,27 +32,35 @@ public class PreOrderRoomController {
     private Pagination pagination; // Pagination control
 
     private static final int ITEMS_PER_PAGE = 10; // Number of rooms per page
-    private List<Room> allRooms;
-    private List<Room> filteredRooms;
+    private static final int MAX_ROOMS_PER_FLOOR = 5;
+    RoomDao roomDao = new RoomDao();
+    private List<Room> allRooms = roomDao.getAll();
+    private List<Room> filteredRooms = allRooms;
 
     @FXML
     private void initialize() {
         loadRoomData();
 
-        pagination.setPageCount((int) Math.ceil((double) allRooms.size() / ITEMS_PER_PAGE));
+        // Calculate unique floors in the filtered rooms
+        List<Integer> sortedFloors = filteredRooms.stream()
+                .map(room -> room.getRoomNumber() / 100)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+
+        // Calculate page count (2 floors per page)
+        int pageCount = (int) Math.ceil((double) sortedFloors.size() / 2);
+        pagination.setPageCount(pageCount);
         pagination.setCurrentPageIndex(0);
-        pagination.setMaxPageIndicatorCount(5);
+        pagination.setMaxPageIndicatorCount(Math.min(5, pageCount));
 
-        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> displayRooms(newValue.intValue()));
-
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
+            displayRooms(newValue.intValue());
+        });
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
     }
 
     public void loadRoomData() {
-        RoomDao roomDao = new RoomDao();
-        allRooms = roomDao.getAll();
-        filteredRooms = allRooms;
-
         displayRooms(0); // Display the rooms on page 0 initially
     }
 
@@ -64,74 +73,112 @@ public class PreOrderRoomController {
                         room.getStatus().toLowerCase().contains(query))
                 .collect(Collectors.toList());
 
-        pagination.setPageCount((int) Math.ceil((double) filteredRooms.size() / ITEMS_PER_PAGE));
-        pagination.setCurrentPageIndex(0); // Reset to page 0 after a search
-        displayRooms(0); // Display rooms after filtering
+        initialize();
     }
 
     public void displayRooms(int pageIndex) {
-        // Clear the roomContainer first
         roomContainer.getChildren().clear();
 
-        // Calculate starting index based on current page
-        int startIndex = pageIndex * ITEMS_PER_PAGE;
-        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredRooms.size());
+        // Sort floors and get unique floors
+        List<Integer> sortedFloors = filteredRooms.stream()
+                .map(room -> room.getRoomNumber() / 100)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
 
-        // Organize rooms by floor
-        Map<Integer, HBox> floorMap = new HashMap<>();
-
-        for (int i = startIndex; i < endIndex; i++) {
-            Room room = filteredRooms.get(i);
-            int floor = room.getRoomNumber() / 100;
-
-            if (!floorMap.containsKey(floor)) {
-                HBox floorBox = new HBox();
-                floorBox.setSpacing(10);
-                floorBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
-                Label floorLabel = new Label("Floor " + floor);
-                floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
-                floorBox.getChildren().add(floorLabel);
-                floorMap.put(floor, floorBox);
-            }
-
-            // Create VBox to display each room
-            VBox roomBox = new VBox();
-            roomBox.setPrefHeight(150);
-            roomBox.setPrefWidth(120);
-            String backgroundColor;
-            switch (room.getStatus()) {
-                case "Occupied":
-                    backgroundColor = "red";
-                    break;
-                case "Available":
-                    backgroundColor = "#41ff1f";
-                    break;
-                case "Maintenance":
-                    backgroundColor = "yellow";
-                    break;
-                default:
-                    backgroundColor = "gray";
-                    break;
-            }
-
-            roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
-
-            Label roomNumberLabel = new Label("Room: " + room.getRoomNumber());
-            Label priceLabel = new Label("Price: " + room.getPrice());
-            Label capacityLabel = new Label("Capacity: " + room.getCapacity());
-            Label typeLabel = new Label("Type: " + room.getRoomType());
-            Label statusLabel = new Label("Status: " + room.getStatus());
-
-            roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
-
-            // Gán sự kiện click cho roomBox
-            roomBox.setOnMouseClicked(event -> handlePreOrder(room));
-            floorMap.get(floor).getChildren().add(roomBox);
+        // If pageIndex is out of bounds, reset to 0
+        if (pageIndex >= Math.ceil((double) sortedFloors.size() / 2)) {
+            pageIndex = 0;
         }
-        for (Map.Entry<Integer, HBox> entry : floorMap.entrySet()) {
-            roomContainer.getChildren().add(entry.getValue());
+
+        // Calculate floors for the current page
+        int startFloorIndex = pageIndex * 2;
+        int endFloorIndex = Math.min(startFloorIndex + 2, sortedFloors.size());
+
+        // Display floors for the current page
+        for (int i = startFloorIndex; i < endFloorIndex; i++) {
+            int currentFloor = sortedFloors.get(i);
+
+            // Filter rooms for the current floor
+            List<Room> floorRooms = filteredRooms.stream()
+                    .filter(room -> room.getRoomNumber() / 100 == currentFloor)
+                    .collect(Collectors.toList());
+
+            // Create floor VBox
+            VBox floorVBox = new VBox();
+            floorVBox.setSpacing(10);
+            floorVBox.setStyle("-fx-padding: 10; -fx-border-color: gray; -fx-border-width: 1px; -fx-background-color: #f4f4f4;");
+
+            Label floorLabel = new Label("Floor " + currentFloor);
+            floorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 5;");
+            floorVBox.getChildren().add(floorLabel);
+
+            // Current row for rooms
+            HBox currentRowBox = new HBox();
+            currentRowBox.setSpacing(10);
+            floorVBox.getChildren().add(currentRowBox);
+
+            // Add rooms to the floor
+            for (Room room : floorRooms) {
+                // If current row is full, create a new row
+                if (currentRowBox.getChildren().size() >= MAX_ROOMS_PER_FLOOR) {
+                    currentRowBox = new HBox();
+                    currentRowBox.setSpacing(10);
+                    floorVBox.getChildren().add(currentRowBox);
+                }
+
+                // Create and add room box
+                VBox roomBox = createRoomBox(room);
+                currentRowBox.getChildren().add(roomBox);
+            }
+
+            // Add floor box to room container
+            roomContainer.getChildren().add(floorVBox);
         }
     }
+
+
+    private VBox createRoomBox(Room room) {
+        VBox roomBox = new VBox();
+        roomBox.setPrefHeight(150);
+        roomBox.setPrefWidth(223);
+
+        String backgroundColor;
+        switch (room.getStatus()) {
+            case "Occupied":
+                backgroundColor = "red";
+                break;
+            case "Available":
+                backgroundColor = "#41ff1f";
+                break;
+            case "Maintenance":
+                backgroundColor = "yellow";
+                break;
+            default:
+                backgroundColor = "gray";
+                break;
+        }
+
+        roomBox.setStyle("-fx-background-color: " + backgroundColor + "; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5;");
+
+        Label roomNumberLabel = new Label(String.valueOf(room.getRoomNumber()));
+        roomNumberLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        roomNumberLabel.setMaxWidth(Double.MAX_VALUE);
+        roomNumberLabel.setAlignment(javafx.geometry.Pos.CENTER);
+
+        Label priceLabel = new Label("Price: " + room.getPrice());
+        Label capacityLabel = new Label("Capacity: " + room.getCapacity());
+        Label typeLabel = new Label("Type: " + room.getRoomType());
+        Label statusLabel = new Label("Status: " + room.getStatus());
+
+        roomBox.getChildren().addAll(roomNumberLabel, priceLabel, capacityLabel, typeLabel, statusLabel);
+
+        // Add click handler for pre-ordering
+        roomBox.setOnMouseClicked(event -> handlePreOrder(room));
+
+        return roomBox;
+    }
+
 
     @FXML
     private void handlePreOrder(Room room) {

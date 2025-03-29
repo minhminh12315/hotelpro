@@ -37,9 +37,6 @@ public class CheckoutController {
     private TextField totalAmountField;
 
     @FXML
-    private DatePicker checkOutDateField;
-
-    @FXML
     private DatePicker checkInDateField;
 
     @FXML
@@ -110,20 +107,23 @@ public class CheckoutController {
     private void loadBookingUsage(int bookingId) {
         List<BookingUsage> bookingUsages = bookingUsageDao.findByBookingId(bookingId);
         bookingUsageTableView.getItems().setAll(bookingUsages);
+        bookingUsageTableView.setPrefHeight(100);
+        bookingUsageTableView.setMinHeight(100);
+        bookingUsageTableView.setMaxHeight(100);
+        bookingUsageTableView.setPrefWidth(190);
     }
 
     @FXML
     private void initialize() {
         confirmCheckoutButton.setOnAction(event -> handleConfirmCheckout());
         cancelButton.setOnAction(event -> handleCancel());
-        checkOutDateField.setValue(LocalDate.now());
 
         // Load products into ComboBox
         List<Product> products = new ProductDao().getAll();
         productComboBox.getItems().addAll(products);
 
         // Initialize table columns
-        serviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getServiceName()));
+        serviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getServiceNameById(bookingId)));
 
         quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
         priceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getServiceUsagePrice()));
@@ -196,10 +196,10 @@ public class CheckoutController {
     private void handleConfirmCheckout() {
         String customerName = customerNameField.getText();
         String totalAmount = totalAmountField.getText();
-        LocalDate checkOutDate = checkOutDateField.getValue();
+        LocalDate checkOutDate = LocalDate.now();
         Integer employeeId = MasterController.getEmployeeID();
 
-        if (customerName.isEmpty() || totalAmount.isEmpty() || checkOutDate == null) {
+        if (customerName.isEmpty() || totalAmount.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all required fields.", ButtonType.OK);
             alert.show();
             return;

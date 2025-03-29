@@ -53,7 +53,7 @@ public class BookingController {
     @FXML
     private Pagination pagination;
 
-    private int itemsPerPage = 13;
+    private int itemsPerPage = 17;
 
     private BookingDao bookingDao = new BookingDao();
     private ObservableList<Booking> bookingList = FXCollections.observableArrayList();

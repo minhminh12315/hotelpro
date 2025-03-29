@@ -291,6 +291,25 @@ public class BookingUsage {
         return services;
     }
 
+
+    public String getServiceNameById(Integer id){
+        String sql = "SELECT s.servicename " +
+                "FROM service as s " +
+                "JOIN bookingUsage as bu on bu.serviceid = s.serviceid " +
+                "WHERE bu.bookingid = ?";
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return rs.getString("servicename");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "BookingUsage{" +
