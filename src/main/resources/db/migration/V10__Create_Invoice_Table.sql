@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Invoice (
     InvoiceID SERIAL PRIMARY KEY,
-    BookingID INT NOT NULL,
+    BookingID INT NOT NULL, // bookingId
     IssueDate DATE NOT NULL,
     TotalAmount DECIMAL(15, 2) NOT NULL,
     PaymentMethod VARCHAR(10),
